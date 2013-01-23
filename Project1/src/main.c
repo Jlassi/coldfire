@@ -21,12 +21,15 @@ CF_Word setWord(CF_LONGWord number, int pos, CF_Word value); //Returns the word 
 // Prints a binary representation of a CF_LONGWord
 void printBits(CF_LONGWord *number) {
 	int i = 0;
+	int k = 0;
 	
-	for (i = pow(2, 8*sizeof(CF_LONGWord)-1); i > 0; i >>= 1) {
+	for (i = pow(2, (8*sizeof(CF_LONGWord))-2); i > 0; i >>= 1) {
         printf("%i", (((*number) & i) == i) ? 1 : 0);
+        k++;
     }
 	
 	printf("\n");
+	//printf("Bits: %i\n", k);
 }
 
 // Sets the bit at position pos in CF_LONGWord number
@@ -48,7 +51,9 @@ void setBitVal(CF_LONGWord *number, int pos, bool value) {
 }
 
 // Returns the value of the bit at position pos in CF_LONGWord number. 
-bool getBit(CF_LONGWord number, int pos);
+bool getBit(CF_LONGWord number, int pos) {
+	return number & (1 << pos);
+}
 
 int main(void) {
 	/*printf("CF_LONGWord size: %i\n", sizeof(CF_LONGWord));
@@ -67,8 +72,7 @@ int main(void) {
 	clearBit(&x, 4);
 	printBits(&x);
 	
-	printf("Clearing bit at position 0: ");
-	clearBit(&x, 0);
-	printBits(&x);
+	printf("Bit at position 0: %i\n", (int)getBit(x, 0));
+	printf("Bit at position 1: %i\n", (int)getBit(x, 1));
 	return 0;
 }
