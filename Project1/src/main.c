@@ -12,8 +12,9 @@
 #include <math.h>
 
 typedef int CF_LONGWord; 
+#define LONG_WORD_BITS 8*sizeof(CF_LONGWord)
 typedef unsigned char CF_Byte;
-typedef short CF_Word; 
+typedef short CF_Word;
 
 void printBits(CF_LONGWord *number);
 void setBit(CF_LONGWord *number, int pos);
@@ -32,7 +33,7 @@ void printBits(CF_LONGWord *number) {
 	int i = 0;
 	int k = 0;
 	
-	for (i = pow(2, (8*sizeof(CF_LONGWord))-2); i > 0; i >>= 1) {
+	for (i = pow(2, (LONG_WORD_BITS)-2); i > 0; i >>= 1) {
         printf("%i", (((*number) & i) == i) ? 1 : 0);
         k++;
     }
@@ -69,7 +70,7 @@ CF_LONGWord getBits(CF_LONGWord number, int hpos, int lpos) {
 	CF_LONGWord ret = number;
 	
 	// Clear any bits not within the hpos and lpos range
-	for(int i = sizeof(CF_LONGWord)-1; i >= 0; i--) {
+	for(int i = LONG_WORD_BITS-1; i >= 0; i--) {
 		if(i > hpos || i < lpos)
 			clearBit(&ret, i);
 	}
@@ -80,7 +81,7 @@ CF_LONGWord getBits(CF_LONGWord number, int hpos, int lpos) {
 // Sets the bits from hpos to lpos in integer number to value.
 void setBits(CF_LONGWord *number, int hpos, int lpos, bool value) {
 	// Set all bits within the hpos and lpos range
-	for(int i = sizeof(CF_LONGWord)-1; i >= 0; i--) {
+	for(int i = LONG_WORD_BITS-1; i >= 0; i--) {
 		if((i <= hpos) && (i >= lpos)) {
 			setBitVal(number, i, value);
 		}
@@ -100,7 +101,7 @@ CF_Word getWord(CF_LONGWord number, int pos){
 }
 
 
-// Returns the byte at position pos to value value.
+// Sets the byte at position pos to value.
 void setByte(CF_LONGWord *number, int pos, CF_Byte value){
     for(int i=pos*8; i<(pos+1)*8 && i<32; i++){
         clearBit(number,i);
@@ -108,7 +109,7 @@ void setByte(CF_LONGWord *number, int pos, CF_Byte value){
     *number |= value << pos*8;
 }
 
-//Returns the word at position pos to value value.
+// Sets the word at position pos to value.
 void setWord(CF_LONGWord *number, int pos, CF_Word value){
     for(int i =pos*2; i<(pos+1)*8 && i<4; i++){
         setByte(number,i,0);
@@ -117,17 +118,18 @@ void setWord(CF_LONGWord *number, int pos, CF_Word value){
 }
 
 int main(void) {
-	/*printf("CF_LONGWord size: %i\n", sizeof(CF_LONGWord));
+	printf("CF_LONGWord size: %i\n", sizeof(CF_LONGWord));
 	printf("CF_Word size: %i\n", sizeof(CF_Word));
-	printf("CF_Byte size: %i\n", sizeof(CF_Byte));*/
+	printf("CF_Byte size: %i\n", sizeof(CF_Byte));
+	printf("LONG_WORD_BITS: %i\n", LONG_WORD_BITS);
 
 	CF_LONGWord x = 5;
-	CF_LONGWord y = 0;
+	CF_LONGWord w = 0;
 	printBits(&x);
 	
 	printf("Bits between 3 (high) and 1 (low): ");
-	y = getBits(x, 3, 1);
-	printBits(&y);
+	w = getBits(x, 3, 1);
+	printBits(&w);
 	
 	printf("Set bits between 10 (high) and 7 (low) to 1: ");
 	setBits(&x, 10, 7, true);
@@ -157,7 +159,7 @@ int main(void) {
     printBits(&test2);
     
     setByte(&x,0,0);
-    printf("Setting Bye at position 0 to 0 ");
+    printf("Setting byte at position 0 to 0 ");
     printBits(&x);
     
     setWord(&x,1,0);
