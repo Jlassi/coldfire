@@ -31,7 +31,7 @@ void setWord(CF_LONGWord *number, int pos, CF_Word value); //Returns the word at
 
 // Prints a binary representation of a CF_LONGWord
 void printBits(void *number, int bit_len) {
-	int i = 0, m = 0;
+	int i = 0, m = 0, bc = 0;
 	int *num = number;
 	
 	for (i = bit_len-1; i >= 0; i--) {
@@ -41,10 +41,12 @@ void printBits(void *number, int bit_len) {
 			printf("1");
 		else
 			printf("0");
+			
+		bc++;
 	}
 	
-	
 	printf("\n");
+	printf("Bit count: %i\n", bc);
 }
 
 // Sets the bit at position pos in CF_LONGWord number
