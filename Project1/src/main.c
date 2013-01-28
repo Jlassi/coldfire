@@ -53,7 +53,7 @@ void printBits(void *number, int bit_len) {
 	}
 	
 	printf("\n");
-	printf("Bit count: %i\n", bc);
+	//printf("Bit count: %i\n", bc);
 }
 
 // Sets the bit at position pos in CF_LONGWord number
