@@ -23,11 +23,18 @@ void clearBit(CF_LONGWord *number, int pos);
 void setBitVal(CF_LONGWord *number, int pos, bool value);
 bool getBit(CF_LONGWord number, int pos);
 CF_LONGWord getBits(CF_LONGWord number, int hpos, int lpos);
-void setBits(CF_LONGWord *number, int hpos, int lpos, bool value);
-CF_Byte getByte(CF_LONGWord number, int pos); // Returns the byte at position pos. 
-CF_Word getWord(CF_LONGWord number, int pos); // Returns the word at position pos. 
-void setByte(CF_LONGWord *number, int pos, CF_Byte value); // Returns the byte at position pos to value value.
-void setWord(CF_LONGWord *number, int pos, CF_Word value); //Returns the word at position pos to value value.
+void setBits(CF_LONGWord *number, int hpos, int lpos, CF_LONGWord value);
+CF_Byte getByte_BE(CF_LONGWord number, int pos); // Returns the byte at position pos. 
+CF_Word getWord_BE(CF_LONGWord number, int pos); // Returns the word at position pos. 
+void setByte_BE(CF_LONGWord *number, int pos, CF_Byte value); // Returns the byte at position pos to value value.
+void setWord_BE(CF_LONGWord *number, int pos, CF_Word value); //Returns the word at position pos to value value.
+
+//Little-Endian
+CF_Byte getByte_LE(CF_LONGWord number, int pos); // Returns the byte at position pos.
+CF_Word getWord_LE(CF_LONGWord number, int pos); // Returns the word at position pos.
+void setByte_LE(CF_LONGWord *number, int pos, CF_Byte value); // Returns the byte at position pos to value value.
+void setWord_LE(CF_LONGWord *number, int pos, CF_Word value); //Returns the word at position pos to value value.
+
 
 // Prints a binary representation of a CF_LONGWord
 void printBits(void *number, int bit_len) {
@@ -87,35 +94,79 @@ CF_LONGWord getBits(CF_LONGWord number, int hpos, int lpos) {
 }
 
 // Sets the bits from [lpos, hpos) in integer number to value.
-void setBits(CF_LONGWord *number, int hpos, int lpos, bool value) {
+void setBits(CF_LONGWord *number, int hpos, int lpos, CF_LONGWord value) {
 	// Set all bits within the hpos and lpos range
-	for(int i = LONG_WORD_BITS-1; i >= 0; i--) {
+	
+    for(int i=lpos; i<hpos && i<32; i++){
+        clearBit(number,i);
+    }
+    *number |= value << lpos;
+
+    /*
+    for(int i = LONG_WORD_BITS-1; i >= 0; i--) {
 		if((i < hpos) && (i >= lpos)) {
 			setBitVal(number, i, value);
 		}
 	}
+     */
 }
 
 // Returns the byte at position pos.
-CF_Byte getByte(CF_LONGWord number, int pos){
-    CF_Byte result =0;
+CF_Byte getByte_BE(CF_LONGWord number, int pos){
+    CF_Byte result = 0;
     return result |= number >> pos*8;
 }
 
 // Returns the word at position pos. 
-CF_Word getWord(CF_LONGWord number, int pos){
+CF_Word getWord_BE(CF_LONGWord number, int pos){
     CF_Word result = 0;
     return result |= number >> pos*16;
 }
 
 // Sets the byte at position pos to value.
-void setByte(CF_LONGWord *number, int pos, CF_Byte value) {
-	setBits(number, (pos+1)*8, (pos)*8, value);
+void setByte_BE(CF_LONGWord *number, int pos, CF_Byte value) {
+	/*for(int i=pos*8; i<(pos+1)*8 && i<32; i++){
+        clearBit(number,i);
+    }
+    *number |= value << pos*8;*/
+    setBits(number, (pos+1)*8, (pos)*8, value);
 }
 
 // Sets the word at position pos to value.
-void setWord(CF_LONGWord *number, int pos, CF_Word value){
-	setBits(number, (pos*8)+WORD_BITS, pos*8, value);
+void setWord_BE(CF_LONGWord *number, int pos, CF_Word value){
+/*	setByte(number,pos,value);
+    setByte(number,(pos+1),(value >> 8));
+*/    setBits(number, (pos+1)*16, pos*16, value);
+}
+
+
+//Little-Endian Functions
+// Returns the byte at position pos.
+CF_Byte getByte_LE(CF_LONGWord number, int pos){
+    CF_Byte result =0;
+    return result |= number >> (24-pos*8);
+}
+
+// Returns the word at position pos.
+CF_Word getWord_LE(CF_LONGWord number, int pos){
+    CF_Word result = 0;
+    return result |= number >> (16-pos*16);
+}
+
+
+// Sets the byte at position pos to value.
+void setByte_LE(CF_LONGWord *number, int pos, CF_Byte value){
+/*    for(int i=(31-pos*8); i>(31-(pos+1)*8) && i>-1; i--){
+        clearBit(number,i);
+    }
+    *number |= value << (24-pos*8);
+*/    setBits(number, (32-pos*8), (32-(pos+1)*8), value);
+}
+
+// Sets the word at position pos to value.
+void setWord_LE(CF_LONGWord *number, int pos, CF_Word value){
+    setByte_LE(number, (pos*2)+1, (value >> 8));
+    setByte_LE(number, pos*2, value);
 }
 
 int main(void) {
@@ -132,8 +183,8 @@ int main(void) {
 	w = getBits(x, 3, 1);
 	printBits(&w, LONG_WORD_BITS);
 	
-	printf("Set bits between 10 (high) and 7 (low) to 1: ");
-	setBits(&x, 10, 7, true);
+	printf("Set bits from 10 (high) to 7 (low) to the value 1: ");
+	setBits(&x, 10, 7, 1);
 	printBits(&x, LONG_WORD_BITS);
 	
 	printf("Setting bit at position 4: ");
@@ -147,24 +198,68 @@ int main(void) {
 	printf("Bit at position 0: %i\n", (int)getBit(x, 0));
 	printf("Bit at position 1: %i\n", (int)getBit(x, 1));
     
-    x = 4294967295;
+    x = 302503000;
 	printf("Number (x) set to: ");
 	printBits(&x, LONG_WORD_BITS);
     
-    setByte(&x,0,0);
+    setByte_BE(&x,0,0);
     printf("Setting byte at position 0 to 0: ");
     printBits(&x, LONG_WORD_BITS);
 	
-    CF_Byte y = getByte(x,0);
+    CF_Byte y = getByte_BE(x,0);
     printf("Getting byte at position 0: ");
     printBits(&y, 8);
     
-    CF_Word z = getWord(x,0);
+	y = getByte_BE(x,2);
+    printf("Getting byte at position 2: ");
+    printBits(&y, 8);
+
+    CF_Word z = getWord_BE(x,0);
     printf("Getting Word at position 0: ");
     printBits(&z, WORD_BITS);
     
-    setWord(&x,1,0);
+    z = getWord_BE(x,1);
+    printf("Getting Word at position 1: ");
+    printBits(&z, WORD_BITS);
+    
+    setWord_BE(&x,1,0);
     printf("Setting Word at position 1 to 0: ");
+    printBits(&x, LONG_WORD_BITS);
+
+    setWord_BE(&x,1,6767);
+    printf("Little-Endian_ Setting Word at position 1 to 6767: ");
+    printBits(&x, LONG_WORD_BITS);
+    
+    x = 302503000;
+	printf("Number (x) set to: ");
+	printBits(&x, LONG_WORD_BITS);
+    
+    setByte_LE(&x,0,0);
+    printf("Little-Endian_ Setting byte at position 0 to 0: ");
+    printBits(&x, LONG_WORD_BITS);
+	
+    y = getByte_LE(x,0);
+    printf("Little-Endian_ Getting byte at position 0: ");
+    printBits(&y, 8);
+    
+    y = getByte_LE(x,2);
+    printf("Little-Endian_ Getting byte at position 2: ");
+    printBits(&y, 8);
+
+    z = getWord_LE(x,0);
+    printf("Little-Endian_ Getting Word at position 0: ");
+    printBits(&z, WORD_BITS);
+    
+    z = getWord_LE(x,1);
+    printf("Little-Endian_ Getting Word at position 1: ");
+    printBits(&z, WORD_BITS);
+    
+    setWord_LE(&x,1,0);
+    printf("Little-Endian_ Setting Word at position 1 to 0: ");
+    printBits(&x, LONG_WORD_BITS);
+    
+    setWord_LE(&x,1,6767);
+    printf("Little-Endian_ Setting Word at position 1 to 6767: ");
     printBits(&x, LONG_WORD_BITS);
     
 	return 0;
