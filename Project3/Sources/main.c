@@ -39,7 +39,7 @@ static int dipsw_delay_poll() {
  * Off position or if the program should go back to its original direction because it has been 
  * moved to the On position.
  */
-static void dipsw_onoff_poll(){
+static void dipsw_onoff_poll() {
 	if(uc_dipsw_get_state(2) == 1)
 		reverse = 0;
 	else
@@ -49,10 +49,27 @@ static void dipsw_onoff_poll(){
 /**
  * Flash the LED's in the proper sequence per the project requirements
  */
-static void flash_led_sequence(int p_delay){
-	if(reverse) {
-	} else {
+static void flash_led_sequence(int p_delay) {
+	int i = 0;
+	
+	if(reverse)
+		i = 4;
+	else
+		i = 1;
+	
+	while((i > 0) && (i <= 4)) {
+		uc_led_on(i);
+		dtim0_delay(p_delay);
+		uc_led_off(i);
+		dtim0_delay(p_delay);
 		
+		if(reverse)
+			i--;
+		else
+			i++;
+		
+		// Poll for dipsw status to determine if we are going in reverse order or not
+		dipsw_onoff_poll();
 	}
 }
 
@@ -60,7 +77,7 @@ static void flash_led_sequence(int p_delay){
  * Calls uc_dipsw_init() to initialize the DIP switch, uc_led_init() to initialize the LED's,
  * and dtim0_init() to initialize DTIM0.
  */
-static void init(){
+static void init() 
 	uc_dipsw_init();
 	uc_led_init();
 	dtim0_init();
@@ -69,6 +86,7 @@ static void init(){
 __declspec(noreturn) int main() {
 	// Initialize hardware
 	init();
+	uc_led_all_off();
 	
 	reverse = 1;
 	

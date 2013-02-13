@@ -32,6 +32,7 @@ int gpio_port_tc_get_pin_state(int p_pin) {
  * Configures PTCPAR and DDRTC so port TC is in GPIO function and the pin data direction is output.
  */
 void gpio_port_tc_init() {
+	
 	// Program Port TC Pin Assignment Register (PTCPAR) so pins 0, 1, 2, and 3 are configured for the general-purpose I/O (GPIO) function.
 	MCF_GPIO_PTCPAR = MCF_GPIO_PTCPAR_PTCPAR0(MCF_GPIO_PTCPAR_DTIN0_GPIO)
 					| MCF_GPIO_PTCPAR_PTCPAR1(MCF_GPIO_PTCPAR_DTIN1_GPIO)
