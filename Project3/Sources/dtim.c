@@ -5,9 +5,12 @@
  *      Author: rkant
  */
 
+#include "dtim.h"
 /*
  *Configures the appropriate DTIM0 registers to delay for p_usecs microseconds. 
  */
+
+
 void dtim0_delay(int p_pin){
 	
 }
