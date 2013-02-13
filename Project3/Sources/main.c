@@ -10,6 +10,27 @@
 #include <stdio.h>
 #endif
 
+static int dipsw_delay_poll();
+static void dipsw_onoff_poll();
+static void flash_led_sequence(int p_delay);
+static void init();
+
+
+static int dipsw_delay_poll(){
+	
+}
+
+static void dipsw_onoff_poll(){
+	
+}
+
+static void flash_led_sequence(int p_delay){
+	
+}
+
+static void init(){
+	
+}
 
 int main(void)
 {
