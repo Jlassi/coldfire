@@ -11,7 +11,7 @@
  */
 
 
-void dtim0_delay(int p_pin){
+void dtim0_delay(int p_usecs){
 	
 }
 
@@ -19,5 +19,10 @@ void dtim0_delay(int p_pin){
  * Initializes the DTIM0 timer.
  */
 void ditim0_init(){
-	DTMR0 = IPSBAR+0x0
+	/*
+	 * MCF_GPIO_PTAPAR = MCF_GPIO_PTAPAR_PTAPAR0(MCF_GPIO_PTAPAR_ICOC0_GPIO);
+	 * MCF_GPIO_DDRTA = MCF_GPIO_DDRTA_DDRTA0;
+	 */
+	MCF_DTIM0_DTMR = MCF_DTIM_DTMR_PS(16);
+	
 }

@@ -11,10 +11,6 @@
  */
 int uc_dipsw_get_state(int p_switch){
 	return gpio_port_dd_get_pin_state(p_switch-1);
-<<<<<<< HEAD
-	
-=======
->>>>>>> 320df96b8459e70a3bba30b153f8da284be36578
 }
 /**
  *Calls gpio_port_dd_init() to initialize switches 1, 2, 3, and 4.
