@@ -5,6 +5,8 @@
  *      Author: rkant
  */
 
+#include "dtim.h"
+
 void dtim0_delay(int p_pin){
 	
 }
