@@ -6,8 +6,9 @@ https://github.com/RamseyK/coldfire
 
 Experimental projects to learn the Freescale Coldfire MCF52259 processor
 
-Project 1: Bit manipulation
-Project 2: LED testing
+Project 1: Bit manipulation  
+Project 2: LED testing  
+Project 3: DMA Timer, GPIO  
 
 Prerequisites: CodeWarrior Development Studio v10
 
