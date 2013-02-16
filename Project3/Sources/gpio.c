@@ -6,19 +6,21 @@
  */
 
 #include "gpio.h"
-
+#include <stdio.h>
 /**
  * Accesses the SETDD register and returns the state of pin p_pin (0 or 1).
  */
 int gpio_port_dd_get_pin_state(int p_pin) {
-	return MCF_GPIO_SETDD & (1 << p_pin);
+	return MCF_GPIO_SETDD & (1 << p_pin+4);
 }
 
 /**
  * Configures PDDPAR and DDRDD so pin p_pin of port DD is in GPIO function and the pin data direction is input.
  */
 void gpio_port_dd_init(int p_pin) {
-	MCF_GPIO_SETDD |= (1 << p_pin);
+	printf("PDDPAR = %i, DDRDD = %i\n", (int)(~(0x1 << p_pin+4)), (int)(~(0x1 << p_pin+4)));
+	MCF_GPIO_PDDPAR &= ~(0x1 << p_pin+4);
+	MCF_GPIO_DDRDD &= ~(0x1 << p_pin+4);
 }
 
 /**
@@ -48,5 +50,8 @@ void gpio_port_tc_init() {
  * Accesses the SETTC register to set the state of pin p_pin to p_state.
  */
 void gpio_port_tc_set_pin_state(int p_pin, int p_state) {
-	MCF_GPIO_SETTC |= (p_state << p_pin);
+	if(p_state)
+		MCF_GPIO_SETTC |= (p_state << p_pin);
+	else
+		MCF_GPIO_CLRTC &= ~(1 << (p_pin - 1));
 }

@@ -8,6 +8,8 @@
 #ifndef UC_LED_H_
 #define UC_LED_H_
 
+#include "gpio.h"
+
 void uc_led_all_off();
 void uc_led_all_on();
 void uc_led_all_toggle();

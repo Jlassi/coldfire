@@ -5,6 +5,10 @@
 
 
 #include "support_common.h" /* include peripheral declarations and more */
+#include "uc_dipsw.h"
+#include "uc_led.h"
+#include "dtim.h"
+#include "gpio.h"
 #if (CONSOLE_IO_SUPPORT || ENABLE_UART_SUPPORT)
 /* Standard IO is only possible if Console or UART support is enabled. */
 #include <stdio.h>
@@ -77,7 +81,7 @@ static void flash_led_sequence(int p_delay) {
  * Calls uc_dipsw_init() to initialize the DIP switch, uc_led_init() to initialize the LED's,
  * and dtim0_init() to initialize DTIM0.
  */
-static void init() 
+static void init() { 
 	uc_dipsw_init();
 	uc_led_init();
 	dtim0_init();
