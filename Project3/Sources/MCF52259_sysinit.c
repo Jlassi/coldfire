@@ -2,7 +2,9 @@
  * File:		mcf52259_sysinit.c
  * Purpose:		Reset configuration of the MCF52259
  *
- * Notes:
+ * Lab 3
+ * Ramsey Kant (rkant@asu.edu), Michael Steptoe (msteptoe@asu.edu)
+ * CSE325 Embedded Microprocessor Systems Spring 2013
  */
 #include "support_common.h"
 #include "exceptions.h"
@@ -12,7 +14,7 @@
 void
 pll_init(void)
 {
-//MCF_CLOCK_CCHR =0x05; // The PLL pre divider - 48MHz / 6 = 8MHz 
+	MCF_CLOCK_CCHR =0x05; // The PLL pre divider - 48MHz / 6 = 8MHz 
     /* The PLL pre-divider affects this!!! 
              * Multiply 48Mhz reference crystal /CCHR by 10 to achieve system clock of 80Mhz
              */

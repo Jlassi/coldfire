@@ -1,6 +1,9 @@
 /*
- * main implementation: use this sample to create your own application
- *
+ * main.c
+ * 
+ * Lab 3
+ * Ramsey Kant (rkant@asu.edu), Michael Steptoe (msteptoe@asu.edu)
+ * CSE325 Embedded Microprocessor Systems Spring 2013
  */
 
 
@@ -9,6 +12,8 @@
 #include "uc_led.h"
 #include "dtim.h"
 #include "gpio.h"
+
+
 #if (CONSOLE_IO_SUPPORT || ENABLE_UART_SUPPORT)
 /* Standard IO is only possible if Console or UART support is enabled. */
 #include <stdio.h>
@@ -28,11 +33,11 @@ static int dipsw_delay_poll() {
 	int delay = 250;
 	
 	// Switch 3 in the On position adds 200ms
-	if(uc_dipsw_get_state(3) == 1)
+	if(uc_dipsw_get_state(3) == 0)
 		delay += 200;
 	
 	// Switch 4 in the On position adds 100ms
-	if(uc_dipsw_get_state(4) == 1)
+	if(uc_dipsw_get_state(4) == 0)
 		delay += 100;
 	
 	return delay;
@@ -44,7 +49,7 @@ static int dipsw_delay_poll() {
  * moved to the On position.
  */
 static void dipsw_onoff_poll() {
-	if(uc_dipsw_get_state(2) == 1)
+	if(uc_dipsw_get_state(2))
 		reverse = 0;
 	else
 		reverse = 1;
@@ -75,6 +80,9 @@ static void flash_led_sequence(int p_delay) {
 		// Poll for dipsw status to determine if we are going in reverse order or not
 		dipsw_onoff_poll();
 	}
+	
+	// Print out states of dipswitches
+	//printf("DIP1: %i, DIP2: %i, DIP3: %i, DIP4: %i\n", uc_dipsw_get_state(1), uc_dipsw_get_state(2), uc_dipsw_get_state(3), uc_dipsw_get_state(4));
 }
 
 /**

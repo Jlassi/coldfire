@@ -1,9 +1,11 @@
 /*
  * uc_dipsw.c
  *
- *  Created on: Feb 13, 2013
- *      Author: rkant
+ * Lab 3
+ * Ramsey Kant (rkant@asu.edu), Michael Steptoe (msteptoe@asu.edu)
+ * CSE325 Embedded Microprocessor Systems Spring 2013
  */
+
 #include "uc_dipsw.h"
 
 /**

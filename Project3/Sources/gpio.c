@@ -1,24 +1,24 @@
 /*
  * gpio.c
- *
- *  Created on: Feb 13, 2013
- *      Author: rkant
+ * 
+ * Lab 3
+ * Ramsey Kant (rkant@asu.edu), Michael Steptoe (msteptoe@asu.edu)
+ * CSE325 Embedded Microprocessor Systems Spring 2013
  */
 
 #include "gpio.h"
-#include <stdio.h>
+
 /**
  * Accesses the SETDD register and returns the state of pin p_pin (0 or 1).
  */
 int gpio_port_dd_get_pin_state(int p_pin) {
-	return MCF_GPIO_SETDD & (1 << p_pin+4);
+	return (MCF_GPIO_SETDD & (1 << p_pin+4)) >> (p_pin+4); // Shift right to get 1 or 0
 }
 
 /**
  * Configures PDDPAR and DDRDD so pin p_pin of port DD is in GPIO function and the pin data direction is input.
  */
 void gpio_port_dd_init(int p_pin) {
-	printf("PDDPAR = %i, DDRDD = %i\n", (int)(~(0x1 << p_pin+4)), (int)(~(0x1 << p_pin+4)));
 	MCF_GPIO_PDDPAR &= ~(0x1 << p_pin+4);
 	MCF_GPIO_DDRDD &= ~(0x1 << p_pin+4);
 }
