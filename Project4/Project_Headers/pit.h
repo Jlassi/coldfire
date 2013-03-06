@@ -9,8 +9,6 @@
 #ifndef PIT_H_
 #define PIT_H_
 
-#include <stdio.h>
-
 #include "exceptions.h"
 #include "support_common.h"
 

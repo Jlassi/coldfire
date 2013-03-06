@@ -39,16 +39,6 @@ void gpt_port_ta_init() {
 __declspec(interrupt) void change_tempo(){
 	
 	//Clear the GPT channel 0 interrupt request flag.
-	MCF_GPT_GLTFLG1 |= 0x01;
-	
-	//Clear the enable bit so we can configure the timer
-	MCF_PIT0_PCSR &= ~(MCF_PIT_PCSR_EN);
-	
-	// Write a prescaler of 7 which generates an interrupt every 0.209 seconds
-	MCF_PIT0_PCSR |= MCF_PIT_PCSR_PRE(0x09);
-	
-	// Enable timer
-	MCF_PIT0_PCSR |= MCF_PIT_PCSR_EN;
-		
+	MCF_GPT_GPTFLG1 |= 0x01;
 
 }

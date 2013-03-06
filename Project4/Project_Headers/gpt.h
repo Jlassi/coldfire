@@ -10,6 +10,8 @@
 
 #include "support_common.h"
 
+#include "pit.h"
+
 extern uint32 __VECTOR_RAM[];
 
 void gpt_port_ta_init();

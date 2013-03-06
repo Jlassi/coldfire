@@ -29,6 +29,8 @@
  */
 #include "MCF52259_sysinit.h"
 
+#include <stdio.h>
+
 /********************************************************************/
 
 #endif /* _SUPPORT_COMMON_H_ */
