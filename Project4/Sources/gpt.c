@@ -27,7 +27,7 @@ void gpt_port_ta_init() {
 	MCF_GPT_GPTSCR1 |= MCF_GPT_GPTSCR1_GPTEN;
 	
 	//Configure the INTC module appropriately to recognize interrupts from GPT channel 0
-	__VECTOR_RAM[64+44] = (uint32)&change_tempo;
+	__VECTOR_RAM[64+44] = (uint32)change_tempo;
 	
 	//For interrupt source 44 write the level into ICR44[IL] and the priority to ICR44[IP]
 	MCF_INTC0_ICR44 |= MCF_INTC_ICR_IL(0x01) | MCF_INTC_ICR_IP(0x07);
@@ -38,4 +38,17 @@ void gpt_port_ta_init() {
 
 __declspec(interrupt) void change_tempo(){
 	
+	//Clear the GPT channel 0 interrupt request flag.
+	MCF_GPT_GLTFLG1 |= 0x01;
+	
+	//Clear the enable bit so we can configure the timer
+	MCF_PIT0_PCSR &= ~(MCF_PIT_PCSR_EN);
+	
+	// Write a prescaler of 7 which generates an interrupt every 0.209 seconds
+	MCF_PIT0_PCSR |= MCF_PIT_PCSR_PRE(0x09);
+	
+	// Enable timer
+	MCF_PIT0_PCSR |= MCF_PIT_PCSR_EN;
+		
+
 }
