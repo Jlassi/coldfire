@@ -34,7 +34,7 @@ void dtim0_delay(int p_usecs) {
  * Initializes the DTIM0 timer.
  */
 void dtim0_init() {
-`	// Setup DMA Timer 0.
+	// Setup DMA Timer 0.
 	MCF_DTIM0_DTMR = MCF_DTIM_DTMR_PS(49) // Prescaler = 49 (corresponds to clock of 80Mhz)
 		| MCF_DTIM_DTMR_CE(MCF_DTIM_DTMR_CE_NONE)  // Capture Edge = Neither rising or falling
 		| MCF_DTIM_DTMR_CLK_DIV16 // Divide by 16 (n = 4. 2^4)

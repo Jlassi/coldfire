@@ -10,8 +10,11 @@
 #define PIT_H_
 
 #include "exceptions.h"
+#include "support_common.h"
+
+extern uint32 __VECTOR_RAM[];
 
 void pit_init();
-vectorTableEntryType pit_isr();
+__declspec(interrupt) void pit_isr();
 
 #endif /* PIT_H_ */

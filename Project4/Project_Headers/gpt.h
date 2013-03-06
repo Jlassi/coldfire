@@ -10,7 +10,9 @@
 
 #include "support_common.h"
 
+extern uint32 __VECTOR_RAM[];
+
 void gpt_port_ta_init();
-vectorTableEntryType change_tempo();
+__declspec(interrupt) void change_tempo();
 
 #endif /* GPT_H_ */

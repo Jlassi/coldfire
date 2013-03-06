@@ -36,20 +36,19 @@ void pit_init() {
 	// Interrupt Controller: PIT0 interrupts as level 2 priority 7 (Source 55)
 	MCF_INTC0_ICR55 |= MCF_INTC_ICR_IL(0x02);
 	MCF_INTC0_ICR55 |= MCF_INTC_ICR_IP(0x07);
-	//MCF_INTC0_IMRH &= ~(0x01 << 12); //12 for GPT...not sure what we need here??
+	
+	// Unmask interrupts from the interrupt source
+	MCF_INTC0_IMRH &= ~(1 << (55 - 32));
 	
 	// Write PIT0 ISR address into the exception vector table (at position 64+55)
-	__VECTOR_RAM[64+55] = &pit_isr;
-	
-	// Uninhibit interrupts at all levels by clearing SR[I]
-	
+	__VECTOR_RAM[64+55] = (uint32)&pit_isr;
 	
 	// Enable timer
 	MCF_PIT0_PCSR |= MCF_PIT_PCSR_EN;
 }
 
 // Interrupt service routine for the timer
-vectorTableEntryType pit_isr() {
+__declspec(interrupt) void pit_isr() {
 	
 }
 

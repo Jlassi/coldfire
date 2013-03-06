@@ -5,7 +5,7 @@
  *      Author: michaeltsteptoe
  */
 
-#include gpt.h
+#include "gpt.h"
 
 void gpt_port_ta_init() {
 	// Program Port TA Pin Assignment Register (PTCPAR) so pin 0 is configured for the GPT function.
@@ -27,7 +27,7 @@ void gpt_port_ta_init() {
 	MCF_GPT_GPTSCR1 |= MCF_GPT_GPTSCR1_GPTEN;
 	
 	//Configure the INTC module appropriately to recognize interrupts from GPT channel 0
-	__VECTOR_RAM[64+44] = &change_tempo;
+	__VECTOR_RAM[64+44] = (uint32)&change_tempo;
 	
 	//For interrupt source 44 write the level into ICR44[IL] and the priority to ICR44[IP]
 	MCF_INTC0_ICR44 |= MCF_INTC_ICR_IL(0x01) | MCF_INTC_ICR_IP(0x07);
@@ -35,6 +35,7 @@ void gpt_port_ta_init() {
 	
 	
 }
-vectorTableEntryType change_tempo(){
+
+__declspec(interrupt) void change_tempo(){
 	
 }
