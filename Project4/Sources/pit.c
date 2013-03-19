@@ -9,13 +9,11 @@
 #include "pit.h"
 
 void pit_init() {	
-	tog = 0;
-	
 	// Clear the enable bit so we can configure the timer
 	MCF_PIT0_PCSR &= ~(MCF_PIT_PCSR_EN);
 	
-	// Write a prescaler of 7 which generates an interrupt every 0.209 seconds
-	MCF_PIT0_PCSR |= MCF_PIT_PCSR_PRE(0x07);
+	// Write a prescaler of 7 which generates an interrupt every 0.01 seconds
+	MCF_PIT0_PCSR |= MCF_PIT_PCSR_PRE(0x06);
 	
 	// Timer will stop when execution is halted by the debugger
 	MCF_PIT0_PCSR |= MCF_PIT_PCSR_DBG;
@@ -54,15 +52,52 @@ __declspec(interrupt) void pit_isr() {
 	// Clear the interrupt request
 	MCF_PIT0_PCSR |= MCF_PIT_PCSR_PIF;
 	
-	//printf("Timer!\n");
+	pit_counter++;
 	
+	MCF_PWM_PWMPER7 = 81;
+	MCF_PWM_PWMDTY7 = 65;
+	MCF_PWM_PWMCNT7 = 0;
+	
+	/*switch(tempo_bpm) {
+	case 60:
+		if(!(pit_counter % 20))
+			play_next_note();
+		break;
+	case 70:
+		if(!(pit_counter % 18))
+			play_next_note();
+		break;
+	case 80:
+		if(!(pit_counter % 16))
+			play_next_note();
+		break;
+	case 90:
+		if(!(pit_counter % 15))
+			play_next_note();
+		break;
+	case 100:
+		if(!(pit_counter % 13))
+			play_next_note();
+		break;
+	case 110:
+		if(!(pit_counter % 12))
+			play_next_note();
+		break;
+	case 120:
+		if(!(pit_counter % 10))
+			play_next_note();
+		break;
+	default:
+		break;
+	}
+
 	if(tog == 0) {
 		tog = 1;
 		uc_led_all_on();
 	} else {
 		tog = 0;
 		uc_led_all_off();
-	}
+	}*/
 }
 
 

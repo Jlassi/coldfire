@@ -14,7 +14,7 @@
 
 #include "uc_led.h"
 
-static int tog;
+static uint32 pit_counter;
 
 extern uint32 __VECTOR_RAM[];
 

@@ -55,3 +55,18 @@ void gpio_port_tc_set_pin_state(int p_pin, int p_state) {
 	else
 		MCF_GPIO_CLRTC &= ~(1 << (p_pin - 1));
 }
+
+/*
+ * Setup for GPIO Speaker
+ */
+void gpio_port_ta_init() {
+	
+	// Program Port TA Pin Assignment Register (PTCPAR) so pins 3 are configured for the general-purpose I/O (GPIO) function.
+	//MCF_GPIO_PTAPAR |= MCF_GPIO_PTAPAR_PTAPAR3(MCF_GPIO_PTAPAR_ICOC3_PWM7);
+	MCF_GPIO_PTAPAR |= MCF_GPIO_PTAPAR_ICOC3_PWM7;
+
+	// Program Port TA Data Direction Register (DDRTA) so pin 3 are configured as output pins
+	//MCF_GPIO_DDRTA |= MCF_GPIO_DDRTA_DDRTA3;
+}
+
+

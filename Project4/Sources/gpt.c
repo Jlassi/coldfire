@@ -33,12 +33,54 @@ void gpt_port_ta_init() {
 	MCF_INTC0_ICR44 |= MCF_INTC_ICR_IL(0x01) | MCF_INTC_ICR_IP(0x07);
 	MCF_INTC0_IMRH &= ~(0x01 << 12);
 	
-	
+	tempo_bpm = 60;
 }
 
 __declspec(interrupt) void change_tempo(){
-	
 	//Clear the GPT channel 0 interrupt request flag.
 	MCF_GPT_GPTFLG1 |= 0x01;
+	
+	// Status register level to 1
+	//asm_set_ipl(3);
+	
+	// Mask interrupt so change_tempo isn't called multiple times for one press
+	MCF_INTC0_IMRH &= ~(0x01 << 12);
 
+	printf("Change tempo!\n");
+	if(tempo_bpm < 120)
+		tempo_bpm++;
+	else
+		tempo_bpm = 60;
+	
+	// Unmask interrupt
+	MCF_INTC0_IMRH &= ~(0x01 << 12);
+	
+	// Status register level back down to 0
+	//asm_set_ipl(1);
+}
+
+asm __declspec(register_abi) void asm_set_ipl(int)
+{
+    
+    link    A6,#-8
+    movem.l D6-D7,(SP)
+    
+    move.l  D0,D6 		/*get argument */
+    move.w  SR,D7       /* current sr    */
+    
+    move.l  D7,D0       /* prepare return value  */
+    andi.l  #0x0700,D0  /* mask out IPL  */
+    lsr.l   #8,D0       /* IPL   */
+    
+    andi.l  #0x07,D6        /* least significant three bits  */
+    lsl.l   #8,D6       /* move over to make mask    */
+    
+    andi.l  #0x0000F8FF,D7  /* zero out current IPL  */
+    or.l    D6,D7           /* place new IPL in sr   */
+    move.w  D7,SR
+    
+    movem.l (SP),D6-D7
+    lea     8(SP),SP
+    unlk    A6
+    rts
 }

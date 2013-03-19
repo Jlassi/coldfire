@@ -13,7 +13,9 @@
 #include "pit.h"
 
 extern uint32 __VECTOR_RAM[];
+static uint32 tempo_bpm;
 
+asm __declspec(register_abi) void asm_set_ipl(int);
 void gpt_port_ta_init();
 __declspec(interrupt) void change_tempo();
 
