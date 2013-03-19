@@ -10,6 +10,8 @@
 #include "gpt.h"
 #include "pit.h"
 #include "pwm.h"
+#include "note.h"
+#include "song.h"
 #include "uc_led.h"
 
 
@@ -24,6 +26,8 @@ static void init();
 
 static void init() {
 	asm_set_ipl(0); // Don't mask any levels
+	note_init();
+	song_init();
 	gpt_port_ta_init(); // button init
 	gpio_port_ta_init(); // speaker gpio init
 	pwm_init(); // speaker init

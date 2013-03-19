@@ -6,6 +6,7 @@
  */
 
 #include "gpt.h"
+#include "pit.h"
 
 void gpt_port_ta_init() {
 	// Program Port TA Pin Assignment Register (PTCPAR) so pin 0 is configured for the GPT function.
@@ -32,31 +33,38 @@ void gpt_port_ta_init() {
 	//For interrupt source 44 write the level into ICR44[IL] and the priority to ICR44[IP]
 	MCF_INTC0_ICR44 |= MCF_INTC_ICR_IL(0x01) | MCF_INTC_ICR_IP(0x07);
 	MCF_INTC0_IMRH &= ~(0x01 << 12);
-	
-	tempo_bpm = 60;
 }
 
 __declspec(interrupt) void change_tempo(){
 	//Clear the GPT channel 0 interrupt request flag.
 	MCF_GPT_GPTFLG1 |= 0x01;
 	
-	// Status register level to 1
-	//asm_set_ipl(3);
-	
 	// Mask interrupt so change_tempo isn't called multiple times for one press
 	MCF_INTC0_IMRH &= ~(0x01 << 12);
-
-	printf("Change tempo!\n");
-	if(tempo_bpm < 120)
-		tempo_bpm++;
-	else
-		tempo_bpm = 60;
+	
+	btn_press_count++;
+	
+	if((btn_press_count % 2) == 0) {
+		printf("Change tempo!\n");
+		if(pit_tempo_dir == 1) {
+			if(pit_tempo_bpm < 120) {
+				pit_tempo_bpm += 10;
+			} else {
+				pit_tempo_dir = 0;
+				pit_tempo_bpm -= 10;
+			}
+		} else {
+			if(pit_tempo_bpm > 60) {
+				pit_tempo_bpm -= 10;
+			} else {
+				pit_tempo_dir = 1;
+				pit_tempo_bpm += 10;
+			}
+		}
+	}
 	
 	// Unmask interrupt
 	MCF_INTC0_IMRH &= ~(0x01 << 12);
-	
-	// Status register level back down to 0
-	//asm_set_ipl(1);
 }
 
 asm __declspec(register_abi) void asm_set_ipl(int)

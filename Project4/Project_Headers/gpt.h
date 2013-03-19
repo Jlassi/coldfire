@@ -13,7 +13,7 @@
 #include "pit.h"
 
 extern uint32 __VECTOR_RAM[];
-static uint32 tempo_bpm;
+static uint32 btn_press_count;
 
 asm __declspec(register_abi) void asm_set_ipl(int);
 void gpt_port_ta_init();
