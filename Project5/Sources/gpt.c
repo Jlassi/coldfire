@@ -7,10 +7,10 @@
  */
 
 #include "gpt.h"
-#include "pit.h"
 
 void gpt_port_ta_init() {
-	btn_press_count = 0;
+	//program_mode = MODE_IDLE;
+	//btn_press_count = 0;
 	
 	// Program Port TA Pin Assignment Register (PTCPAR) so pin 0 is configured for the GPT function.
 	MCF_GPIO_PTAPAR = MCF_GPIO_PTAPAR_PTAPAR0(MCF_GPIO_PTAPAR_ICOC0_ICOC0);
@@ -45,7 +45,7 @@ __declspec(interrupt) void gpt_isr(){
 	// Mask interrupt so change_tempo isn't called multiple times for one press
 	MCF_INTC0_IMRH &= ~(0x01 << 12);
 	
-	btn_press_count++;
+	/*btn_press_count++;
 	
 	if((btn_press_count % 2) == 0) {
 		// Switch modes
@@ -65,7 +65,7 @@ __declspec(interrupt) void gpt_isr(){
 			break;
 		}
 		printf("Switched from mode %u to mode %u\n", old_mode, program_mode);
-	}
+	}*/
 	
 	// Unmask interrupt
 	MCF_INTC0_IMRH &= ~(0x01 << 12);
