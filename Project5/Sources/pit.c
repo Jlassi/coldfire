@@ -9,10 +9,11 @@
 #include "pit.h"
 
 // Globals
-uint32_t g_pit_counter;
+uint32_t g_pit0_counter;
+uint32_t g_pit1_counter;
 
-void pit_init() {
-	g_pit_counter = 0;
+void pit0_init() {
+	g_pit0_counter = 0;
 	
 	// Clear the enable bit so we can configure the timer
 	MCF_PIT0_PCSR &= ~(MCF_PIT_PCSR_EN);
@@ -46,31 +47,94 @@ void pit_init() {
 	MCF_INTC0_IMRH &= ~(1 << (55 - 32));
 	
 	// Write PIT0 ISR address into the exception vector table (at position 64+55)
-	__VECTOR_RAM[64+55] = (uint32)pit_isr;
+	__VECTOR_RAM[64+55] = (uint32)pit0_isr;
 	
 	// Enable timer
 	MCF_PIT0_PCSR |= MCF_PIT_PCSR_EN;
 }
 
-void pit_stop() {
+void pit0_stop() {
 	//printf("pit stop. g_pit_counter: %u\n", g_pit_counter);
 	MCF_PIT0_PCSR &= ~(MCF_PIT_PCSR_EN);
 }
 
 // Interrupt service routine for the timer
-__declspec(interrupt) void pit_isr() {
+__declspec(interrupt) void pit0_isr() {
 	// Clear the interrupt request
 	MCF_PIT0_PCSR |= MCF_PIT_PCSR_PIF;
 	
 	// Disable interrupts
 	MCF_PIT0_PCSR &= ~(MCF_PIT_PCSR_PIE);
 	
-	g_pit_counter++;
+	g_pit0_counter++;
 	
 	led_refresh();
 	
+	//printf("timer0!\n");
+	
 	// Enable interrupts
 	MCF_PIT0_PCSR |= MCF_PIT_PCSR_PIE;
+}
+
+void pit1_init() {
+	g_pit1_counter = 0;
+	
+	// Clear the enable bit so we can configure the timer
+	MCF_PIT1_PCSR &= ~(MCF_PIT_PCSR_EN);
+	
+	// Write a prescaler of 1 which generates an interrupt every 1.6s seconds
+	MCF_PIT1_PCSR |= MCF_PIT_PCSR_PRE(10);
+	
+	// Timer will stop when execution is halted by the debugger
+	MCF_PIT1_PCSR |= MCF_PIT_PCSR_DBG;
+	
+	// Allow overwriting over the PIT counter
+	MCF_PIT1_PCSR |= MCF_PIT_PCSR_OVW;
+	
+	// Enable interrupts from PIT1
+	MCF_PIT1_PCSR |= MCF_PIT_PCSR_PIE;
+	
+	// Clear interrupt flag by writing a 1
+	MCF_PIT1_PCSR |= MCF_PIT_PCSR_PIF;
+	
+	// When PCNTR1 reaches 0, it is reloaded
+	MCF_PIT1_PCSR |= MCF_PIT_PCSR_RLD;
+	
+	// Write 0 into PIT Modulus register (which will reset it to 0xFFFF)
+	MCF_PIT1_PMR = MCF_PIT_PMR_PM(0);
+	
+	// Interrupt Controller: PIT0 interrupts as level 2 priority 7 (Source 56)
+	MCF_INTC0_ICR56 |= MCF_INTC_ICR_IL(3);
+	MCF_INTC0_ICR56 |= MCF_INTC_ICR_IP(7);
+	
+	// Unmask interrupts from the interrupt source
+	MCF_INTC0_IMRH &= ~(1 << (55 - 32));
+	
+	// Write PIT1 ISR address into the exception vector table (at position 64+56)
+	__VECTOR_RAM[64+56] = (uint32)pit1_isr;
+	
+	// Enable timer
+	MCF_PIT1_PCSR |= MCF_PIT_PCSR_EN;
+}
+
+void pit1_stop() {
+	MCF_PIT1_PCSR &= ~(MCF_PIT_PCSR_EN);
+}
+
+// Interrupt service routine for the timer
+__declspec(interrupt) void pit1_isr() {
+	// Clear the interrupt request
+	MCF_PIT1_PCSR |= MCF_PIT_PCSR_PIF;
+	
+	// Disable interrupts
+	MCF_PIT1_PCSR &= ~(MCF_PIT_PCSR_PIE);
+	
+	g_pit1_counter++;
+	
+	//printf("timer1!\n");
+	
+	// Enable interrupts
+	MCF_PIT1_PCSR |= MCF_PIT_PCSR_PIE;
 }
 
 

@@ -28,6 +28,8 @@ void led_init() {
 	MCF_GPIO_PTHPAR |= MCF_GPIO_PTHPAR_PTHPAR6(MCF_GPIO_PTHPAR_MB_D6_GPIO); // GPIO TH pin 6 for GPIO function, LEDM_STR
 	MCF_GPIO_PTHPAR |= MCF_GPIO_PTHPAR_PTHPAR7(MCF_GPIO_PTHPAR_MB_D7_GPIO); // GPIO TH pin 7 for GPIO function, LEDM_OE
 	
+	MCF_GPIO_DDRTH = MCF_GPIO_DDRTH_DDRTH6 | MCF_GPIO_DDRTH_DDRTH7;
+	
 	// Bring OE high which disables outputs
 	MCF_GPIO_SETTH |= MCF_GPIO_SETTH_SETTH7;
 	
@@ -41,7 +43,7 @@ void led_display_game() {
 	for(int x = 0; x < 8; x++) {
 		for(int y = 0; y < 8; y++) {
 			if(pattern[x][y] == 1)
-				led_current_pattern[x][y] = GREEN;
+				led_current_pattern[x][y] = ORANGE;
 			else
 				led_current_pattern[x][y] = BLACK;
 		}
@@ -82,7 +84,7 @@ void led_write(uint8_t (*pattern)[8][8]) {
 	g_row = 0;
 	
 	// Every 3 ms, the PIT will trigger the next row to be refreshed
-	pit_init();
+	pit0_init();
 }
 
 // Uses QSPI to transmit 3 bytes to turn on LEDs for current g_row

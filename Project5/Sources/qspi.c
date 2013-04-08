@@ -18,7 +18,8 @@ void qspi_init(int baud, int delay) {
 	MCF_GPIO_PQSPAR |= MCF_GPIO_PQSPAR_PQSPAR1(MCF_GPIO_PQSPAR_QSPI_DIN_DIN); // GPIO QS pin 1 (QSPI_DIN) for QSPI
 	MCF_GPIO_PQSPAR |= MCF_GPIO_PQSPAR_PQSPAR2(MCF_GPIO_PQSPAR_QSPI_CLK_CLK); // GPIO QS pin 2 (QSPI_CLK) for QSPI
 	
-	MCF_GPIO_DDRQS |= MCF_GPIO_DDRQS_DDRQS0;
+	MCF_GPIO_DDRQS = MCF_GPIO_DDRQS_DDRQS0;
+	MCF_GPIO_DDRQS &= ~(MCF_GPIO_DDRQS_DDRQS1);
 	MCF_GPIO_DDRQS |= MCF_GPIO_DDRQS_DDRQS2;
 	
 	// Setup Mode Register
@@ -75,7 +76,7 @@ void qspi_send(uint8_t *data, unsigned short size) {
 	}
 	
 	// Write commands for the transfer to the command queue starting at entry 0
-	for(int i = 0; i < size; i++) {
+	for(unsigned short i = 0; i < size; i++) {
 		MCF_QSPI_QAR = MCF_QSPI_QAR_ADDR(MCF_QSPI_QAR_CMD) + i;
 		MCF_QSPI_QDR = g_cmd;
 	}

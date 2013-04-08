@@ -49,7 +49,7 @@ __declspec(interrupt) void gpt_isr(){
 	// Mask interrupt so change_tempo isn't called multiple times for one press
 	MCF_INTC0_IMRH &= ~(0x01 << 12);
 	
-	btn_press_count++;
+	/*btn_press_count++;
 	
 	if((btn_press_count % 2) == 0) {
 		// Switch modes
@@ -66,7 +66,8 @@ __declspec(interrupt) void gpt_isr(){
 			break;
 		}
 		printf("Switched from mode %u to mode %u\n", old_mode, program_mode);
-	}
+	}*/
+	printf("press!\n");
 	
 	// Unmask interrupt
 	MCF_INTC0_IMRH &= ~(0x01 << 12);

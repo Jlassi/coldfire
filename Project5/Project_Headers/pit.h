@@ -18,10 +18,15 @@
 
 extern uint32 __VECTOR_RAM[];
 
-extern uint32_t g_pit_counter;
+extern uint32_t g_pit0_counter;
+extern uint32_t g_pit1_counter;
 
-void pit_init();
-void pit_stop();
-__declspec(interrupt) void pit_isr();
+void pit0_init();
+void pit0_stop();
+__declspec(interrupt) void pit0_isr();
+
+void pit1_init();
+void pit1_stop();
+__declspec(interrupt) void pit1_isr();
 
 #endif /* PIT_H_ */
