@@ -31,11 +31,10 @@
 
 /********************************************************************/
 
-#define MODE_IDLE 0
-#define MODE_DL 1
-#define MODE_GAME 2
+#include <stdint.h>
 
-extern uint32 program_mode;
+#define MODE_IDLE 0
+#define MODE_GAME 1
 
 asm __declspec(register_abi) void asm_set_ipl(int);
 

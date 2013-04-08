@@ -10,7 +10,8 @@
 #include "support_common.h" /* include peripheral declarations and more */
 
 #include "gpt.h"
-
+#include "led.h"
+#include "pit.h"
 
 #if (CONSOLE_IO_SUPPORT || ENABLE_UART_SUPPORT)
 /* Standard IO is only possible if Console or UART support is enabled. */
@@ -49,7 +50,9 @@ asm __declspec(register_abi) void asm_set_ipl(int)
 
 void init() {
 	asm_set_ipl(0); // Don't mask any levels
-	gpt_port_ta_init(); // button init
+	//gpt_port_ta_init(); // button init
+	led_init();
+	led_write(&led_current_pattern);
 }
 
 __declspec(noreturn) int main(void)
@@ -57,5 +60,7 @@ __declspec(noreturn) int main(void)
 	init();
 	
 	while(1) {
+		/*if(g_pit_counter % 8)
+			led_write(&led_initial_pattern);*/
 	}
 }
