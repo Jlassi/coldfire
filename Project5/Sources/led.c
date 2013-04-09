@@ -53,7 +53,7 @@ void led_display_game() {
 	for(int x = 0; x < 8; x++) {
 		for(int y = 0; y < 8; y++) {
 			if(pattern[x][y] == 1)
-				led_current_pattern[x][y] = GREEN;
+				led_current_pattern[x][y] = ORANGE;
 			else
 				led_current_pattern[x][y] = BLACK;
 		}

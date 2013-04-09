@@ -12,6 +12,7 @@
 #include "support_common.h"
 
 #include "led.h"
+#include "game.h"
 
 extern uint8_t **pattern;
 

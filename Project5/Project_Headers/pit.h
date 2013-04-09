@@ -15,11 +15,9 @@
 #include "support_common.h"
 
 #include "led.h"
+#include "game.h"
 
 extern uint32 __VECTOR_RAM[];
-
-extern uint32_t g_pit0_counter;
-extern uint32_t g_pit1_counter;
 
 void pit0_init();
 void pit0_stop();

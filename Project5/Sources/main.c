@@ -12,6 +12,7 @@
 #include "gpt.h"
 #include "led.h"
 #include "pit.h"
+#include "game.h"
 
 #if (CONSOLE_IO_SUPPORT || ENABLE_UART_SUPPORT)
 /* Standard IO is only possible if Console or UART support is enabled. */
@@ -52,7 +53,7 @@ void init() {
 	asm_set_ipl(0); // Don't mask any levels
 	gpt_port_ta_init(); // button init
 	led_init();
-	led_write(&led_current_pattern);
+	game_init();
 }
 
 __declspec(noreturn) int main(void)

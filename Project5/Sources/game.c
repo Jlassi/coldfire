@@ -34,6 +34,8 @@ void game_init() {
 			pattern[x][y] = init_pattern[x][y];
 		}
 	}
+	
+	pit1_init();
 }
 
 // Checks if a given coordinate pair is in the game bounds
@@ -92,22 +94,38 @@ int game_num_neighbours(int x, int y) {
 // Called by the PIT1 ISR
 void game_next() {
 	int ne = 0; // neighbour count
+	uint8_t new_pattern[8][8];
 	
+	// Copy pattern into new_pattern
+	for(int x = 0; x < 8; x++) {
+		for(int y = 0; y < 8; y++) {
+			new_pattern[x][y] = pattern[x][y];
+		}
+	}
+	
+	// Operate game rules to create a new_pattern
 	for(int x = 0; x < 8; x++) {
 		for(int y = 0; y < 8; y++) {
 			ne = game_num_neighbours(x, y); // get new neighbour count
 			
 			if(game_alive(x, y)) { // Cell is live
 				if(ne < 2) { // Fewer than 2 ne's, dies
-					pattern[x][y] = 0;
+					new_pattern[x][y] = 0;
 				} else if(ne == 2 || ne == 3) { // 2 or 3 ne's, Lives on
-				} else { // More than 3 ne's, dies
-					pattern[x][y] = 0;
+				} else if(ne > 3) { // More than 3 ne's, dies
+					new_pattern[x][y] = 0;
 				}
 			} else { // Dead cell
 				if(ne == 3) // Exactly 3 neighbors, new live
-					pattern[x][y] = 1;
+					new_pattern[x][y] = 1;
 			}
+		}
+	}
+	
+	// Copy new_pattern into pattern
+	for(int x = 0; x < 8; x++) {
+		for(int y = 0; y < 8; y++) {
+			pattern[x][y] = new_pattern[x][y];
 		}
 	}
 	
