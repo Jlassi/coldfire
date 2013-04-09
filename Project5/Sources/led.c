@@ -25,10 +25,10 @@ uint8_t g_row;
 
 // Inits the LED matrix
 void led_init() {
-	MCF_GPIO_PTHPAR |= MCF_GPIO_PTHPAR_PTHPAR6(MCF_GPIO_PTHPAR_MB_D6_GPIO); // GPIO TH pin 6 for GPIO function, LEDM_STR
-	MCF_GPIO_PTHPAR |= MCF_GPIO_PTHPAR_PTHPAR7(MCF_GPIO_PTHPAR_MB_D7_GPIO); // GPIO TH pin 7 for GPIO function, LEDM_OE
+	MCF_GPIO_PTHPAR &= ~MCF_GPIO_PTHPAR_PTHPAR6(3); // GPIO TH pin 6 for GPIO function, LEDM_STR
+	MCF_GPIO_PTHPAR &= ~MCF_GPIO_PTHPAR_PTHPAR7(3); // GPIO TH pin 7 for GPIO function, LEDM_OE
 	
-	MCF_GPIO_DDRTH = MCF_GPIO_DDRTH_DDRTH6 | MCF_GPIO_DDRTH_DDRTH7;
+	MCF_GPIO_DDRTH |= MCF_GPIO_DDRTH_DDRTH6 | MCF_GPIO_DDRTH_DDRTH7;
 	
 	// Bring OE high which disables outputs
 	MCF_GPIO_SETTH |= MCF_GPIO_SETTH_SETTH7;
@@ -90,24 +90,27 @@ void led_write(uint8_t (*pattern)[8][8]) {
 // Uses QSPI to transmit 3 bytes to turn on LEDs for current g_row
 void led_write_row() {
 	uint8_t *data = (uint8_t*)malloc(3 * sizeof(uint8_t));
-	data[0] = g_red[g_row];
+	/*data[0] = g_red[g_row];
 	data[1] = g_green[g_row];
-	data[2] = 0xFF;
-	data[2] &= ~(1 << g_row);
+	data[2] &= ~(1 << g_row);*/
+	data[0] = 1;
+	data[1] = 1;
+	data[2] = ~(1 << g_row);
 	
 	// OE high. Disables outputs
 	MCF_GPIO_SETTH |= MCF_GPIO_SETTH_SETTH7;
-
+	
 	// STR low (must write 0 to clrth)
 	MCF_GPIO_CLRTH &= ~(MCF_GPIO_SETTH_SETTH6);
-	
+
 	qspi_send(data, 3);
-	
+
 	// STR low to high will transfer bits in shift registers to storage registers
 	MCF_GPIO_SETTH |= MCF_GPIO_SETTH_SETTH6;
-
+	
 	// OE low. Enables output
 	MCF_GPIO_CLRTH &= ~(MCF_GPIO_SETTH_SETTH7);
+
 	
 	free(data);
 }

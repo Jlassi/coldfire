@@ -26,7 +26,7 @@ void qspi_init(int baud, int delay) {
 	// Set in master mode
 	MCF_QSPI_QMR |= MCF_QSPI_QMR_MSTR;
 	// Transmit 8 bits at a time
-	MCF_QSPI_QMR |= MCF_QSPI_QMR_BITS(8);
+	MCF_QSPI_QMR |= MCF_QSPI_QMR_BITS(0x8);
 	// Default mode (POL = 0, HA = 0)
 	MCF_QSPI_QMR &= ~(MCF_QSPI_QMR_CPOL);
 	MCF_QSPI_QMR &= ~(MCF_QSPI_QMR_CPHA);
@@ -50,18 +50,18 @@ void qspi_init(int baud, int delay) {
 	MCF_QSPI_QWR &= ~(MCF_QSPI_QWR_WREN);
 	MCF_QSPI_QWR &= ~(MCF_QSPI_QWR_WRTO);
 	MCF_QSPI_QWR &= ~(MCF_QSPI_QWR_CSIV);
-	MCF_QSPI_QWR &= ~(MCF_QSPI_QWR_NEWQP(0xF));
-	MCF_QSPI_QWR &= ~(MCF_QSPI_QWR_CPTQP(0xF));
 	MCF_QSPI_QWR &= ~(MCF_QSPI_QWR_ENDQP(0xF));
+	MCF_QSPI_QWR &= ~(MCF_QSPI_QWR_NEWQP(0xF));
+	//MCF_QSPI_QWR &= ~(MCF_QSPI_QWR_CPTQP(0xF));
 	
 	// Interrupt Register
 	//MCF_QSPI_QIR = 0; // Clear the register first (we want most fields to be 0)
-	MCF_QSPI_QIR &= ~(MCF_QSPI_QIR_SPIFE);
-	MCF_QSPI_QIR &= ~(MCF_QSPI_QIR_ABRTE);
-	MCF_QSPI_QIR &= ~(MCF_QSPI_QIR_WCEFE);
-	MCF_QSPI_QIR &= ~(MCF_QSPI_QIR_ABRTL);
-	MCF_QSPI_QIR &= ~(MCF_QSPI_QIR_ABRTB);
 	MCF_QSPI_QIR &= ~(MCF_QSPI_QIR_WCEFB);
+	MCF_QSPI_QIR &= ~(MCF_QSPI_QIR_ABRTB);
+	MCF_QSPI_QIR &= ~(MCF_QSPI_QIR_ABRTL);
+	MCF_QSPI_QIR &= ~(MCF_QSPI_QIR_WCEFE);
+	MCF_QSPI_QIR &= ~(MCF_QSPI_QIR_ABRTE);
+	MCF_QSPI_QIR &= ~(MCF_QSPI_QIR_SPIFE);
 	MCF_QSPI_QIR |= MCF_QSPI_QIR_WCEF; // Clear write collision error flag
 	MCF_QSPI_QIR |= MCF_QSPI_QIR_ABRT; // Clear abort flag
 	MCF_QSPI_QIR |= MCF_QSPI_QIR_SPIF; // Clear QSPI finished flag
@@ -71,14 +71,17 @@ void qspi_init(int baud, int delay) {
 void qspi_send(uint8_t *data, unsigned short size) {
 	// Write data to be transmitted to the transmit queue starting at entry 0
 	for(unsigned short i = 0; i < size; i++) {
-		MCF_QSPI_QAR = MCF_QSPI_QAR_ADDR(MCF_QSPI_QAR_TRANS) + i; // Write address entry to transmit RAM
-		MCF_QSPI_QDR = data[i]; // Store actual data
+		MCF_QSPI_QAR = (MCF_QSPI_QAR_ADDR(MCF_QSPI_QAR_TRANS + i)); // Write address entry to transmit RAM
+		//MCF_QSPI_QAR |= (MCF_QSPI_QAR_TRANS + i);
+		MCF_QSPI_QDR = (unsigned short)MCF_QSPI_QDR_DATA(data[i]); // Store actual data
 	}
 	
 	// Write commands for the transfer to the command queue starting at entry 0
 	for(unsigned short i = 0; i < size; i++) {
-		MCF_QSPI_QAR = MCF_QSPI_QAR_ADDR(MCF_QSPI_QAR_CMD) + i;
-		MCF_QSPI_QDR = g_cmd;
+		MCF_QSPI_QAR = (MCF_QSPI_QAR_ADDR(MCF_QSPI_QAR_CMD + i));
+		//MCF_QSPI_QAR |= (MCF_QSPI_QAR_CMD + i);
+		//MCF_QSPI_QDR = g_cmd;
+		MCF_QSPI_QDR = 0x4F00;
 	}
 	
 	// Write queue address (0) for the first data element to NEWQP (start of the queue pointer)
