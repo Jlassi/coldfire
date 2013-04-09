@@ -13,8 +13,12 @@
 
 #include "support_common.h"
 
+#include "game.h"
+#include "pit.h"
+
 extern uint32 __VECTOR_RAM[];
 extern uint32_t program_mode;
+extern uint8_t g_paused;
 
 void gpt_port_ta_init();
 __declspec(interrupt) void gpt_isr();

@@ -65,7 +65,8 @@ __declspec(interrupt) void pit0_isr() {
 	
 	led_refresh();
 	
-	g_pit0_counter++;
+	if(!g_paused)
+		g_pit0_counter++;
 	
 	if((g_pit0_counter % 30000) == 0) {
 		g_pit0_counter = 0;

@@ -15,6 +15,7 @@
 #include "game.h"
 
 extern uint8_t **pattern;
+extern uint8_t g_paused;
 
 void game_init();
 void game_start();

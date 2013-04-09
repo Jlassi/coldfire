@@ -52,15 +52,16 @@ __declspec(interrupt) void gpt_isr(){
 	switch(program_mode) {
 	case MODE_IDLE:
 		program_mode = MODE_GAME;
+		g_paused = 0;
 		break;
 	case MODE_GAME:
 		program_mode = MODE_IDLE;
+		g_paused = 1;
 		break;
 	default:
 		program_mode = MODE_IDLE;
 		break;
 	}
-	printf("press!\n");
 	
 	// Unmask interrupt
 	//MCF_INTC0_IMRH &= ~(0x01 << 12);

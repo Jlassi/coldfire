@@ -10,8 +10,11 @@
 
 // Globals
 uint8_t **pattern;
+uint8_t g_paused;
 
 void game_init() {	
+	g_paused = 0;
+	
 	// Allocate memory for pattern
 	pattern = (uint8_t**)malloc(8*sizeof(uint8_t*));
 	for(int i = 0; i < 8; i++)
@@ -19,6 +22,7 @@ void game_init() {
 }
 
 void game_start() {
+	// Initial pattern for the game
 	uint8_t init_pattern[8][8] = {
 	{ 0, 0, 0, 1, 1, 0, 0, 0 },
 	{ 0, 0, 1, 0, 0, 1, 0, 0 },
