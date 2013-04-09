@@ -9,7 +9,7 @@
 #include "led.h"
 
 // Globals
-uint8_t led_current_pattern[8][8] = {
+/*uint8_t led_current_pattern[8][8] = {
 		{ BLACK, BLACK, BLACK, RED, RED, BLACK, BLACK, BLACK }, // -- ...RR...
 		{ BLACK, BLACK, RED, BLACK, BLACK, RED, BLACK, BLACK }, // -- ..R..R..
 		{ BLACK, RED, BLACK, BLACK, BLACK, BLACK, RED, BLACK }, // -- .R....R.
@@ -18,6 +18,16 @@ uint8_t led_current_pattern[8][8] = {
 		{ BLACK, RED, BLACK, BLACK, BLACK, BLACK, RED, BLACK }, // -- .R....R.
 		{ BLACK, BLACK, RED, BLACK, BLACK, RED, BLACK, BLACK }, // -- ..R..R..
 		{ BLACK, BLACK, BLACK, RED, RED, BLACK, BLACK, BLACK }  // -- ...RR...
+		};*/
+uint8_t led_current_pattern[8][8] = {
+		{ GREEN, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK },
+		{ BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK }, 
+		{ BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK }, 
+		{ BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK }, 
+		{ BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK }, 
+		{ BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK }, 
+		{ BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK }, 
+		{ BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK } 
 		};
 uint8_t g_green[8];
 uint8_t g_red[8];
@@ -92,7 +102,7 @@ void led_write_row() {
 	uint8_t *data = (uint8_t*)malloc(3 * sizeof(uint8_t));
 	data[0] = g_red[g_row];
 	data[1] = g_green[g_row];
-	data[2] &= ~(1 << g_row);
+	data[2] = ~(1 << g_row);
 	
 	// OE high. Disables outputs
 	MCF_GPIO_SETTH |= MCF_GPIO_SETTH_SETTH7;
