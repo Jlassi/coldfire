@@ -60,7 +60,5 @@ __declspec(noreturn) int main(void)
 	init();
 	
 	while(1) {
-		/*if(g_pit_counter % 8)
-			led_write(&led_initial_pattern);*/
 	}
 }

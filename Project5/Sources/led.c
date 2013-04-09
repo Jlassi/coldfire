@@ -30,8 +30,8 @@ void led_init() {
 	
 	MCF_GPIO_DDRTH |= MCF_GPIO_DDRTH_DDRTH6 | MCF_GPIO_DDRTH_DDRTH7;
 	
-	// Bring OE high which disables outputs
-	//MCF_GPIO_SETTH |= MCF_GPIO_SETTH_SETTH7;
+	// OE high. Disables outputs
+	MCF_GPIO_SETTH |= MCF_GPIO_SETTH_SETTH7;
 	
 	// Initialize QSPI to transfer at 5000kbps with a delay of 0 (default)
 	qspi_init(5000, 0);

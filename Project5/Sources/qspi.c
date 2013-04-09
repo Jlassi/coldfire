@@ -14,11 +14,11 @@ uint16_t g_cmd;
 void qspi_init(int baud, int delay) {
 	g_cmd = 0;
 	
-	MCF_GPIO_PQSPAR |= MCF_GPIO_PQSPAR_PQSPAR0(MCF_GPIO_PQSPAR_QSPI_DOUT_DOUT); // GPIO QS pin 0 (QSPI_DOUT) for QSPI function (primary function)
-	MCF_GPIO_PQSPAR |= MCF_GPIO_PQSPAR_PQSPAR1(MCF_GPIO_PQSPAR_QSPI_DIN_DIN); // GPIO QS pin 1 (QSPI_DIN) for QSPI
-	MCF_GPIO_PQSPAR |= MCF_GPIO_PQSPAR_PQSPAR2(MCF_GPIO_PQSPAR_QSPI_CLK_CLK); // GPIO QS pin 2 (QSPI_CLK) for QSPI
+	MCF_GPIO_PQSPAR |= MCF_GPIO_PQSPAR_QSPI_DOUT_DOUT; // GPIO QS pin 0 (QSPI_DOUT) for QSPI function (primary function)
+	MCF_GPIO_PQSPAR |= MCF_GPIO_PQSPAR_QSPI_DIN_DIN; // GPIO QS pin 1 (QSPI_DIN) for QSPI
+	MCF_GPIO_PQSPAR |= MCF_GPIO_PQSPAR_QSPI_CLK_CLK; // GPIO QS pin 2 (QSPI_CLK) for QSPI
 	
-	MCF_GPIO_DDRQS = MCF_GPIO_DDRQS_DDRQS0;
+	MCF_GPIO_DDRQS |= MCF_GPIO_DDRQS_DDRQS0;
 	MCF_GPIO_DDRQS &= ~(MCF_GPIO_DDRQS_DDRQS1);
 	MCF_GPIO_DDRQS |= MCF_GPIO_DDRQS_DDRQS2;
 	
@@ -52,7 +52,7 @@ void qspi_init(int baud, int delay) {
 	MCF_QSPI_QWR &= ~(MCF_QSPI_QWR_CSIV);
 	MCF_QSPI_QWR &= ~(MCF_QSPI_QWR_ENDQP(0xF));
 	MCF_QSPI_QWR &= ~(MCF_QSPI_QWR_NEWQP(0xF));
-	//MCF_QSPI_QWR &= ~(MCF_QSPI_QWR_CPTQP(0xF));
+	MCF_QSPI_QWR &= ~(MCF_QSPI_QWR_CPTQP(0xF));
 	
 	// Interrupt Register
 	//MCF_QSPI_QIR = 0; // Clear the register first (we want most fields to be 0)
@@ -67,20 +67,9 @@ void qspi_init(int baud, int delay) {
 	MCF_QSPI_QIR |= MCF_QSPI_QIR_SPIF; // Clear QSPI finished flag
 }
 
-__declspec(interrupt) void qspi_isr() {
-	printf("qspi interrupt!\n");
-}
-
 // Send data over SPI. Size is the number of elements in the data array, each 8 bits wide
 void qspi_send(uint8_t *data, unsigned short size) {
-	for(unsigned short i = 0; i < size; i++) {
-		MCF_QSPI_QAR = i; // Write address entry to transmit RAM
-		MCF_QSPI_QDR = (unsigned short)MCF_QSPI_QDR_DATA(data[i]); // Store actual data
-		MCF_QSPI_QAR = (unsigned short)(MCF_QSPI_QAR_CMD + i);
-		MCF_QSPI_QDR = 0x4F00;
-	}
-	
-	/*// Write data to be transmitted to the transmit queue starting at entry 0
+	// Write data to be transmitted to the transmit queue starting at entry 0
 	for(unsigned short i = 0; i < size; i++) {
 		MCF_QSPI_QAR = i; // Write address entry to transmit RAM
 		MCF_QSPI_QDR = (unsigned short)MCF_QSPI_QDR_DATA(data[i]); // Store actual data
@@ -92,7 +81,7 @@ void qspi_send(uint8_t *data, unsigned short size) {
 		//MCF_QSPI_QAR |= (MCF_QSPI_QAR_CMD + i);
 		//MCF_QSPI_QDR = g_cmd;
 		MCF_QSPI_QDR = 0x4F00;
-	}*/
+	}
 	
 	// Write queue address (0) for the first data element to NEWQP (start of the queue pointer)
 	MCF_QSPI_QWR &= ~(MCF_QSPI_QWR_NEWQP(0xF));
@@ -104,7 +93,7 @@ void qspi_send(uint8_t *data, unsigned short size) {
 	MCF_QSPI_QDLYR |= MCF_QSPI_QDLYR_SPE;
 	
 	// Check for the transfer to be completed by polling the SPIF
-	while(!(MCF_QSPI_QIR & MCF_QSPI_QIR_SPIF)) {
+	while((MCF_QSPI_QIR & MCF_QSPI_QIR_SPIF) != 1) {
 		// Spin till SPIF is set
 	}
 	
