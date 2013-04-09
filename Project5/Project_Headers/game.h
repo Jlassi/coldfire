@@ -17,6 +17,7 @@
 extern uint8_t **pattern;
 
 void game_init();
+void game_start();
 int game_in_bounds(int x, int y);
 int game_alive(int x, int y);
 int game_num_neighbours(int x, int y);

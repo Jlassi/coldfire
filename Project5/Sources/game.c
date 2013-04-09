@@ -11,22 +11,24 @@
 // Globals
 uint8_t **pattern;
 
-void game_init() {
-	uint8_t init_pattern[8][8] = {
-	{ 0, 0, 0, 0, 0, 0, 0, 0 },
-	{ 0, 0, 0, 0, 0, 0, 0, 0 },
-	{ 0, 0, 1, 1, 0, 0, 0, 0 },
-	{ 0, 0, 1, 0, 0, 0, 0, 0 },
-	{ 0, 0, 0, 0, 0, 1, 0, 0 },
-	{ 0, 0, 0, 0, 1, 1, 0, 0 },
-	{ 0, 0, 0, 0, 0, 0, 0, 0 },
-	{ 0, 0, 0, 0, 0, 0, 0, 0 }
-	};
-	
+void game_init() {	
 	// Allocate memory for pattern
 	pattern = (uint8_t**)malloc(8*sizeof(uint8_t*));
 	for(int i = 0; i < 8; i++)
 		pattern[i] = (uint8_t*)malloc(8*sizeof(uint8_t));
+}
+
+void game_start() {
+	uint8_t init_pattern[8][8] = {
+	{ 0, 0, 0, 1, 1, 0, 0, 0 },
+	{ 0, 0, 1, 0, 0, 1, 0, 0 },
+	{ 0, 1, 0, 0, 0, 0, 1, 0 },
+	{ 1, 0, 0, 0, 0, 0, 0, 1 },
+	{ 1, 0, 0, 0, 0, 0, 0, 1 },
+	{ 0, 1, 0, 0, 0, 0, 1, 0 },
+	{ 0, 0, 1, 0, 0, 1, 0, 0 },
+	{ 0, 0, 0, 1, 1, 0, 0, 0 }
+	};
 	
 	// Copy init_pattern into pattern
 	for(int x = 0; x < 8; x++) {
@@ -35,7 +37,7 @@ void game_init() {
 		}
 	}
 	
-	pit1_init();
+	led_display_game();
 }
 
 // Checks if a given coordinate pair is in the game bounds
@@ -95,6 +97,8 @@ int game_num_neighbours(int x, int y) {
 void game_next() {
 	int ne = 0; // neighbour count
 	uint8_t new_pattern[8][8];
+	
+	//printf("Game next\n");
 	
 	// Copy pattern into new_pattern
 	for(int x = 0; x < 8; x++) {

@@ -59,6 +59,7 @@ void init() {
 __declspec(noreturn) int main(void)
 {
 	init();
+	game_start();
 	
 	while(1) {
 	}

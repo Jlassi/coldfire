@@ -36,7 +36,7 @@ void gpt_port_ta_init() {
 	__VECTOR_RAM[64+44] = (uint32)gpt_isr;
 	
 	//For interrupt source 44 write the level into ICR44[IL] and the priority to ICR44[IP]
-	MCF_INTC0_ICR44 |= MCF_INTC_ICR_IL(0x04) | MCF_INTC_ICR_IP(0x07);
+	MCF_INTC0_ICR44 |= MCF_INTC_ICR_IL(0x03) | MCF_INTC_ICR_IP(0x07);
 	MCF_INTC0_IMRH &= ~(0x01 << 12);
 }
 

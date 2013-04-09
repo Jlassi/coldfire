@@ -19,16 +19,7 @@
 		{ BLACK, BLACK, RED, BLACK, BLACK, RED, BLACK, BLACK }, // -- ..R..R..
 		{ BLACK, BLACK, BLACK, RED, RED, BLACK, BLACK, BLACK }  // -- ...RR...
 		};*/
-uint8_t led_current_pattern[8][8] = {
-		{ GREEN, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK },
-		{ BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK }, 
-		{ BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK }, 
-		{ BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK }, 
-		{ BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK }, 
-		{ BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK }, 
-		{ BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK }, 
-		{ BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK } 
-		};
+uint8_t led_current_pattern[8][8];
 uint8_t g_green[8];
 uint8_t g_red[8];
 uint8_t g_row;
@@ -94,6 +85,7 @@ void led_write(uint8_t (*pattern)[8][8]) {
 	g_row = 0;
 	
 	// Every 3 ms, the PIT will trigger the next row to be refreshed
+	pit0_stop();
 	pit0_init();
 }
 
