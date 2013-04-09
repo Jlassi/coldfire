@@ -50,7 +50,7 @@ asm __declspec(register_abi) void asm_set_ipl(int)
 
 void init() {
 	asm_set_ipl(0); // Don't mask any levels
-	//gpt_port_ta_init(); // button init
+	gpt_port_ta_init(); // button init
 	led_init();
 	led_write(&led_current_pattern);
 }

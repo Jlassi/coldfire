@@ -15,7 +15,6 @@
 
 extern uint32 __VECTOR_RAM[];
 extern uint32_t program_mode;
-extern uint32_t btn_press_count;
 
 void gpt_port_ta_init();
 __declspec(interrupt) void gpt_isr();

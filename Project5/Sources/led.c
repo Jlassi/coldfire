@@ -31,7 +31,7 @@ void led_init() {
 	MCF_GPIO_DDRTH |= MCF_GPIO_DDRTH_DDRTH6 | MCF_GPIO_DDRTH_DDRTH7;
 	
 	// Bring OE high which disables outputs
-	MCF_GPIO_SETTH |= MCF_GPIO_SETTH_SETTH7;
+	//MCF_GPIO_SETTH |= MCF_GPIO_SETTH_SETTH7;
 	
 	// Initialize QSPI to transfer at 5000kbps with a delay of 0 (default)
 	qspi_init(5000, 0);
@@ -43,7 +43,7 @@ void led_display_game() {
 	for(int x = 0; x < 8; x++) {
 		for(int y = 0; y < 8; y++) {
 			if(pattern[x][y] == 1)
-				led_current_pattern[x][y] = ORANGE;
+				led_current_pattern[x][y] = GREEN;
 			else
 				led_current_pattern[x][y] = BLACK;
 		}
@@ -90,12 +90,9 @@ void led_write(uint8_t (*pattern)[8][8]) {
 // Uses QSPI to transmit 3 bytes to turn on LEDs for current g_row
 void led_write_row() {
 	uint8_t *data = (uint8_t*)malloc(3 * sizeof(uint8_t));
-	/*data[0] = g_red[g_row];
+	data[0] = g_red[g_row];
 	data[1] = g_green[g_row];
-	data[2] &= ~(1 << g_row);*/
-	data[0] = 1;
-	data[1] = 1;
-	data[2] = ~(1 << g_row);
+	data[2] &= ~(1 << g_row);
 	
 	// OE high. Disables outputs
 	MCF_GPIO_SETTH |= MCF_GPIO_SETTH_SETTH7;

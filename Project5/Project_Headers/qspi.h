@@ -13,10 +13,13 @@
 
 #include "support_common.h"
 
+extern uint32 __VECTOR_RAM[];
+
 extern uint16_t g_cmd;
 
 void qspi_init(int baud, int delay);
 void qspi_send(uint8_t *data, unsigned short size);
 //void qspi_recv(uint8_t *out_data, unsigned short size);
+__declspec(interrupt) void qspi_isr();
 
 #endif /* QSPI_H_ */
