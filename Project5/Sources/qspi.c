@@ -36,7 +36,7 @@ void qspi_init(int baud, int delay) {
 	
 	// Delay Register
 	MCF_QSPI_QDLYR &= ~(MCF_QSPI_QDLYR_SPE); // Clear enable bit for now
-	MCF_QSPI_QDLYR |= MCF_QSPI_QDLYR_QCD(0); // Not using QSPI_CLK transition delay
+	MCF_QSPI_QDLYR &= ~(MCF_QSPI_QDLYR_QCD(0x7F)); // Not using QSPI_CLK transition delay
 	// Delay after transfer (length of delay after serial transfer)
 	if(delay == 0) { // Default delay
 		g_cmd = 0x4000; // DT bit for every command is 0
@@ -50,9 +50,9 @@ void qspi_init(int baud, int delay) {
 	MCF_QSPI_QWR &= ~(MCF_QSPI_QWR_WREN);
 	MCF_QSPI_QWR &= ~(MCF_QSPI_QWR_WRTO);
 	MCF_QSPI_QWR &= ~(MCF_QSPI_QWR_CSIV);
-	MCF_QSPI_QWR |= MCF_QSPI_QWR_NEWQP(0);
-	MCF_QSPI_QWR |= MCF_QSPI_QWR_CPTQP(0);
-	MCF_QSPI_QWR |= MCF_QSPI_QWR_ENDQP(0);
+	MCF_QSPI_QWR &= ~(MCF_QSPI_QWR_NEWQP(0xF));
+	MCF_QSPI_QWR &= ~(MCF_QSPI_QWR_CPTQP(0xF));
+	MCF_QSPI_QWR &= ~(MCF_QSPI_QWR_ENDQP(0xF));
 	
 	// Interrupt Register
 	//MCF_QSPI_QIR = 0; // Clear the register first (we want most fields to be 0)
@@ -82,7 +82,7 @@ void qspi_send(uint8_t *data, unsigned short size) {
 	}
 	
 	// Write queue address (0) for the first data element to NEWQP (start of the queue pointer)
-	MCF_QSPI_QWR |= MCF_QSPI_QWR_NEWQP(0);
+	MCF_QSPI_QWR &= ~(MCF_QSPI_QWR_NEWQP(0xF));
 	// Write address of last data element to ENDQP (end of queue pointer)
 	MCF_QSPI_QWR |= MCF_QSPI_QWR_ENDQP(size-1);
 	
