@@ -42,30 +42,18 @@
 //**************************************************************************************************************
 import gnu.io.*;
 import java.io.*;
-import java.util.*;
 
 //==============================================================================================================
 // CLASS: SleazyTerm
 //==============================================================================================================
 public class SleazyTerm {
+	
+	private OutputStream mSerialOut;
 
     //----------------------------------------------------------------------------------------------------------
-    // The packet identifier for a Download Song Packet.
+    // The packet identifier for a Download Map Packet.
     //----------------------------------------------------------------------------------------------------------
-    public static final byte PACKET_ID_DWNLD = (byte)0x01;
-
-    //----------------------------------------------------------------------------------------------------------
-    // METHOD: main()
-    //
-    // DESCRIPTION:
-    // Execution starts here. Instantiate a SleazyTerm object and call run() on the object.
-    //
-    // NOTE: We do not catch and handle exceptions. If we did, then this code wouldn't be so sleazy, now would
-    // it?
-    //----------------------------------------------------------------------------------------------------------
-    public static void main(String[] args) throws Exception {
-		new SleazyTerm().run();
-    }
+    private static final byte PACKET_ID_DWNLD = (byte)0xFF;
 
     //----------------------------------------------------------------------------------------------------------
     // CTOR: SleazyTerm()
@@ -74,47 +62,39 @@ public class SleazyTerm {
     // Does nothing.
     //----------------------------------------------------------------------------------------------------------
     public SleazyTerm() {
-        System.out.println("SleazyTerm: Version Fri 23 Nov 2012 1540");
     }
 
     //----------------------------------------------------------------------------------------------------------
-    // METHOD: download()
+    // METHOD: send()
     //
     // DESCRIPTION:
-    // Downloads a song to the TWR-MCF5225X microcontroller board.
+    // Downloads an 8x8 map to the TWR-MCF5225X microcontroller board.
     //----------------------------------------------------------------------------------------------------------
-    private void download() {
-        File file;
-        long fileLen;
-        String strFilename;
+    public boolean send(byte[][] map) {
+    	if(map.length != 8 || map[0].length != 8) {
+    		System.out.println("Cannot send a map that isn't 8x8");
+    		return false;
+    	}
+    	
         try {
-            strFilename = getFilename();
-		    if (strFilename.equals("m") || strFilename.equals("M")) return;
-            file = new File(strFilename);
-            while (!file.exists()) {
-                System.out.println("Cannot open " + strFilename + " for reading. It does not seem to exist.\n");
-                strFilename = getFilename();
-			    if (strFilename.equals("m") || strFilename.equals("M")) return;
-                file = new File(strFilename);
-            }
-            fileLen = file.length();
-        } catch (Exception e) {
-            System.out.println("Exception getting file name.");
-            return;
-        }
-        try {
-            txPacketHdr(PACKET_ID_DWNLD, fileLen);
-            FileInputStream fin = new FileInputStream(file);
-            int datum = fin.read();
-            while (datum != -1) {
-                mSerialOut.write(datum);
-                datum = fin.read();
-            }
-            fin.close();
-            System.out.println("Successfully transferred " + (fileLen + 3) + " bytes.\n");
+        	connect();
+        	
+        	// Send packet header
+        	txPacketHdr(PACKET_ID_DWNLD);
+        	
+        	// Send the map row by row
+        	for(int x = 0; x < 8; x++) {
+        		mSerialOut.write(map[x]);
+        	}
+            
+            System.out.println("Successfully transferred " + (64 + 1) + " bytes.\n");
+            mSerialOut.close();
         } catch (Exception e) {
             System.out.println("Transfer failed :(");
+            return false;
         }
+        
+        return true;
     }
 
     //----------------------------------------------------------------------------------------------------------
@@ -144,79 +124,12 @@ public class SleazyTerm {
     }
 
     //----------------------------------------------------------------------------------------------------------
-    // METHOD: getFilename()
-    //
-    // DESCRIPTION:
-    // Prompts for the name of the song file to download.
-    //----------------------------------------------------------------------------------------------------------
-    private String getFilename() throws Exception {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("File to download (enter 'm' to return to menu)? ");
-        return scanner.next();
-    }
-
-    //----------------------------------------------------------------------------------------------------------
-    // METHOD: menu()
-    //
-    // DESCRIPTION:
-    // Displays the main menu.
-    //----------------------------------------------------------------------------------------------------------
-    private char menu() throws Exception {
-        char choice;
-        while (true) {
-            System.out.println("\nSleazy Term\n----------------------");
-            System.out.println("D - Download Song File");
-            System.out.println("Q - Quit");
-            System.out.print("\n? ");
-            Scanner scanner = new Scanner(System.in);
-            choice = scanner.next().charAt(0);
-            if ("DdQq".indexOf(choice) == -1) {
-                System.out.println("No go man, that's not a valid choice.\n");
-            } else {
-                break;
-            }
-        }
-        return choice;
-    }
-
-    //----------------------------------------------------------------------------------------------------------
-    // METHOD: run()
-    //
-    // DESCRIPTION:
-    // The main processing loop.
-    //----------------------------------------------------------------------------------------------------------
-    public void run() throws Exception {
-        boolean quit = false;
-        connect();
-		while (!quit) {
-            char operation = menu();
-            switch (operation) {
-            case 'D':
-            case 'd':
-                download();
-                break;
-            case 'Q':
-            case 'q':
-                quit = true;
-                break;
-            }
-        }
-        mSerialOut.close();
-        System.out.println("Bye.");
-        System.exit(0);
-    }
-
-    //----------------------------------------------------------------------------------------------------------
     // METHOD: txPacketHdr()
     //
     // DESCRIPTION:
     // Transmits the packet header.
     //----------------------------------------------------------------------------------------------------------
-    private void txPacketHdr(byte pPacketId, long pPacketLen) throws Exception {
+    private void txPacketHdr(byte pPacketId) throws Exception {
         mSerialOut.write(pPacketId);
-        mSerialOut.write((byte)(pPacketLen >> 8));
-        mSerialOut.write((byte)(pPacketLen));
     }
-
-    private OutputStream mSerialOut;
 }
