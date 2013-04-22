@@ -1,4 +1,3 @@
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -112,6 +111,9 @@ public class MapTerm extends JFrame {
 		
 		JButton btnSend = new JButton("Send (RS232)");
 		btnSend.addActionListener(new ActionListener() {
+			/*
+			 * Converts the text field grid to a 2d byte array and sends it over the RS232 terminal
+			 */
 			public void actionPerformed(ActionEvent arg0) {
 				if(!checkGrid())
 					return;

@@ -41,7 +41,7 @@ void qspi_init(int baud, int delay) {
 	if(delay == 0) { // Default delay
 		g_cmd = 0x4000; // DT bit for every command is 0
 	} else {
-		MCF_QSPI_QDLYR |= MCF_QSPI_QDLYR_DTL((delay * 80000) / 32);
+		MCF_QSPI_QDLYR |= MCF_QSPI_QDLYR_DTL((delay * 80000000) / 32);
 		g_cmd = 0x6000; // DT bit for every command is set
 	}
 	

@@ -64,7 +64,7 @@ void led_refresh() {
 	/*if((g_row % 8) == 0)
 		g_row = 0;*/
 	if(g_row == 8)
-		pit_stop();
+		pit0_stop();
 }
 
 // Write a specific 8x8 pattern

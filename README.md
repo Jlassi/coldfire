@@ -11,6 +11,7 @@ Project 2: LED testing
 Project 3: DMA Timer, GPIO  
 Project 4: PWM, Sounds  
 Project 5: QSPI, Game of Life on LED  
+Project 6: I2C (Wii Nunchuk), Pacman on LED  
 
 Prerequisites: CodeWarrior Development Studio v10
 

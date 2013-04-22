@@ -65,12 +65,11 @@ __declspec(interrupt) void pit0_isr() {
 	
 	led_refresh();
 	
-	if(!g_paused)
-		g_pit0_counter++;
+	g_pit0_counter++;
 	
 	if((g_pit0_counter % 30000) == 0) {
 		g_pit0_counter = 0;
-		game_next();
+		//game_next();
 	}
 	
 	//printf("timer0!\n");
@@ -83,8 +82,8 @@ void pit1_init() {
 	// Clear the enable bit so we can configure the timer
 	MCF_PIT1_PCSR &= ~(MCF_PIT_PCSR_EN);
 	
-	// Write a prescaler of 10 which generates an interrupt every 1.6s seconds
-	MCF_PIT1_PCSR |= MCF_PIT_PCSR_PRE(10);
+	// Write a prescaler of 10 which generates an interrupt every 200ms seconds
+	MCF_PIT1_PCSR |= MCF_PIT_PCSR_PRE(0x07);
 	
 	// Timer will stop when execution is halted by the debugger
 	MCF_PIT1_PCSR |= MCF_PIT_PCSR_DBG;
@@ -104,7 +103,7 @@ void pit1_init() {
 	// Write 0 into PIT Modulus register (which will reset it to 0xFFFF)
 	MCF_PIT1_PMR = MCF_PIT_PMR_PM(0);
 	
-	// Interrupt Controller: PIT0 interrupts as level 2 priority 7 (Source 56)
+	// Interrupt Controller: PIT1 interrupts as level 4 priority 7 (Source 56)
 	MCF_INTC0_ICR56 |= MCF_INTC_ICR_IL(0x04);
 	MCF_INTC0_ICR56 |= MCF_INTC_ICR_IP(0x07);
 	
@@ -130,9 +129,9 @@ __declspec(interrupt) void pit1_isr() {
 	// Disable interrupts
 	MCF_PIT1_PCSR &= ~(MCF_PIT_PCSR_PIE);
 	
-	//printf("timer 1\n");
+	printf("timer 1\n");
 	
-	//game_next();
+	nunchuk_read();
 	
 	// Enable interrupts
 	MCF_PIT1_PCSR |= MCF_PIT_PCSR_PIE;

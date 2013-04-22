@@ -9,6 +9,8 @@
 #ifndef PACMAN_H_
 #define PACMAN_H_
 
+#include "support_common.h"
+
 // Map tile types
 #define MAP_EMPTY 0
 #define MAP_WALL 1

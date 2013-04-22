@@ -15,7 +15,8 @@
 #include "support_common.h"
 
 #include "led.h"
-#include "game.h"
+#include "pacman.h"
+#include "nunchuk.h"
 
 extern uint32 __VECTOR_RAM[];
 

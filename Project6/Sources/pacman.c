@@ -14,7 +14,7 @@ uint8_t **game_map;
 // Initialize pacman constructs, should only be called once on program startup
 void pacman_init() {
 	// Allocate memory for game_map
-	pattern = (uint8_t**)malloc(8*sizeof(uint8_t*));
+	game_map = (uint8_t**)malloc(8*sizeof(uint8_t*));
 	for(int i = 0; i < 8; i++)
 		game_map[i] = (uint8_t*)malloc(8*sizeof(uint8_t));
 }

@@ -31,6 +31,8 @@
 
 /********************************************************************/
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <stdint.h>
 
 asm __declspec(register_abi) void asm_set_ipl(int);
