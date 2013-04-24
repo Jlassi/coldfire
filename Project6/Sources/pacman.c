@@ -11,6 +11,10 @@
 // Globals
 uint8_t **game_map;
 uint8_t **init_map;
+int playerx;
+int playery;
+int ghostx;
+int ghosty;
 
 // Initialize pacman constructs, should only be called once on program startup
 void pacman_init() {
@@ -33,6 +37,10 @@ void pacman_init() {
 	{ MAP_WALL, MAP_GHOST, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_WALL },
 	{ MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL }
 	};
+	playerx =2;
+	playery =6;
+	ghostx = 6;
+	ghosty = 2;
 	for(int x = 0; x < 8; x++) {
 		for(int y = 0; y < 8; y++) {
 			init_map[x][y] = default_map[x][y];
@@ -59,7 +67,7 @@ void pacman_start() {
 			game_map[x][y] = init_map[x][y];
 		}
 	}
-	
+	nunchuk_set_input_callback(&pacman_input);
 	// Start refresh timer
 	pit0_stop();
 	led_display_game();
@@ -81,4 +89,15 @@ void pacman_next() {
 
 	// Finally, update the LED display pattern
 	led_display_game();
+}
+
+void pacman_input(uint8_t input_cmd){
+	if(input_cmd == NUNCHUK_INPUT_LEFT){
+		game_map[playerx][playery] = MAP_EMPTY;
+		game_map[--playerx][playery] = MAP_PLAYER;
+		printf("Left Bitch");
+	}
+	else if(input_cmd == NUNCHUK_INPUT_RIGHT){
+		printf("Nothing");
+	}
 }

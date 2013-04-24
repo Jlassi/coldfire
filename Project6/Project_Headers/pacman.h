@@ -24,10 +24,16 @@
 extern uint8_t **game_map; // Current state of the map during gameplay
 extern uint8_t **init_map; // Inital map to load on game start
 
+extern int playerx;
+extern int playery;
+extern int ghostx;
+extern int ghosty;
+
 void pacman_init();
 void pacman_set_init_map(uint8_t** new_map);
 void pacman_start();
 void pacman_stop();
 void pacman_next();
+void pacman_input(uint8_t input_cmd);
 
 #endif /* PACMAN_H_ */

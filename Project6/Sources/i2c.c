@@ -162,7 +162,7 @@ void i2c_tx_addr(uint8_t addr, uint8_t rw, int delay_us) {
  * @param delay_us Microseconds to delay after the send
  */
 void i2c_tx_byte(uint8_t data, int delay_us) {
-	asm_set_ipl(7); // Mask all interrupt levels !!! necessary?
+	//asm_set_ipl(7); // Mask all interrupt levels !!! necessary?
 	
 	// Write data
 	MCF_I2C0_I2DR = data;
@@ -172,7 +172,7 @@ void i2c_tx_byte(uint8_t data, int delay_us) {
 	}
 	MCF_I2C0_I2SR &= ~(MCF_I2C_I2SR_IIF); // Clear interrupt request flag
 	
-	asm_set_ipl(0); // Unmask all interrupt levels !!! necessary?
+	//asm_set_ipl(0); // Unmask all interrupt levels !!! necessary?
 	
 	// Delay for delay_us following the transfer
 	dtim0_delay_us(delay_us);
