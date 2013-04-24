@@ -63,14 +63,14 @@ __declspec(interrupt) void pit0_isr() {
 	// Disable interrupts
 	MCF_PIT0_PCSR &= ~(MCF_PIT_PCSR_PIE);
 	
-	led_refresh();
-	
 	g_pit0_counter++;
 	
-	if((g_pit0_counter % 30000) == 0) {
+	if((g_pit0_counter % 3000) == 0) {
 		g_pit0_counter = 0;
-		//game_next();
+		pacman_next();
 	}
+	
+	led_refresh();
 	
 	//printf("timer0!\n");
 	
@@ -82,8 +82,8 @@ void pit1_init() {
 	// Clear the enable bit so we can configure the timer
 	MCF_PIT1_PCSR &= ~(MCF_PIT_PCSR_EN);
 	
-	// Write a prescaler of 10 which generates an interrupt every 200ms seconds
-	MCF_PIT1_PCSR |= MCF_PIT_PCSR_PRE(0x07);
+	// Write a prescaler of 10 which generates an interrupt every 400ms seconds
+	MCF_PIT1_PCSR |= MCF_PIT_PCSR_PRE(0x08);
 	
 	// Timer will stop when execution is halted by the debugger
 	MCF_PIT1_PCSR |= MCF_PIT_PCSR_DBG;
@@ -129,7 +129,7 @@ __declspec(interrupt) void pit1_isr() {
 	// Disable interrupts
 	MCF_PIT1_PCSR &= ~(MCF_PIT_PCSR_PIE);
 	
-	printf("timer 1\n");
+	//printf("timer 1\n");
 	
 	nunchuk_read();
 	

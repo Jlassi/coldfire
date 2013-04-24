@@ -9,16 +9,6 @@
 #include "led.h"
 
 // Globals
-/*uint8_t led_current_pattern[8][8] = {
-		{ BLACK, BLACK, BLACK, RED, RED, BLACK, BLACK, BLACK }, // -- ...RR...
-		{ BLACK, BLACK, RED, BLACK, BLACK, RED, BLACK, BLACK }, // -- ..R..R..
-		{ BLACK, RED, BLACK, BLACK, BLACK, BLACK, RED, BLACK }, // -- .R....R.
-		{ RED, BLACK, BLACK, GREEN, GREEN, BLACK, BLACK, RED }, // -- R..GG..R
-		{ RED, BLACK, BLACK, GREEN, GREEN, BLACK, BLACK, RED }, // -- R..GG..R
-		{ BLACK, RED, BLACK, BLACK, BLACK, BLACK, RED, BLACK }, // -- .R....R.
-		{ BLACK, BLACK, RED, BLACK, BLACK, RED, BLACK, BLACK }, // -- ..R..R..
-		{ BLACK, BLACK, BLACK, RED, RED, BLACK, BLACK, BLACK }  // -- ...RR...
-		};*/
 uint8_t led_current_pattern[8][8];
 uint8_t g_green[8];
 uint8_t g_red[8];
@@ -61,10 +51,8 @@ void led_display_game() {
 void led_refresh() {
 	led_write_row(); // writes the next row
 	g_row++;
-	/*if((g_row % 8) == 0)
-		g_row = 0;*/
-	if(g_row == 8)
-		pit0_stop();
+	if((g_row % 8) == 0)
+		g_row = 0;
 }
 
 // Write a specific 8x8 pattern
@@ -87,10 +75,6 @@ void led_write(uint8_t (*pattern)[8][8]) {
 		}
 	}
 	g_row = 0;
-	
-	// Every 3 ms, the PIT will trigger the next row to be refreshed
-	pit0_stop();
-	pit0_init();
 }
 
 // Uses QSPI to transmit 3 bytes to turn on LEDs for current g_row

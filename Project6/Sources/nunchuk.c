@@ -21,7 +21,8 @@ void nunchuk_default_callback(uint8_t input_cmd) {
 }
 
 /*
- * 
+ * Set a callback function for when a unique Nunchuk input is read
+ * @param Function pointer that accepts a uint8_t representing the Nunchuk input command
  */
 void nunchuk_set_input_callback(void (*cback)(uint8_t)) {
 	g_callback_input = cback;
@@ -34,39 +35,55 @@ void nunchuk_read() {
 	// Transmit initialization commands for unencrypted mode
 	nunchuk_xmit_cmd(0xF0, 0x55);
 	nunchuk_xmit_cmd(0xFB, 0x00);
-	nunchuk_xmit_cmd(0x00, 0x00);
+	//nunchuk_xmit_cmd(0x00, 0x00);
 	
 	// Read controller state (6 bytes)
 	uint8_t *state = (uint8_t*)malloc(6);
 	i2c_rx(NUNCHUK_I2C_ADDR, 6, state, NUNCHUK_I2C_DELAY_US);
 	
+	printf("state: ");
+	for(int i = 0; i < 6; i++)
+		printf("%02x ", state[i]);
+	printf("\n");
+	return;
+	
 	// Send the individual inputs to the callback function
-	if(g_callback_input == NULL)
+	if(g_callback_input == NULL) {
+		printf("nunchuk g_callback_input is null\n");
 		return;
+	}
 	
 	// Left / Right joystick movement
 	if(state[0] < 30) {
-		g_callback_input(NUNCHUK_INPUT_LEFT);
+		//g_callback_input(NUNCHUK_INPUT_LEFT);
+		printf("Input LEFT %i\n", state[0]);
 	} else if(state[0] > 225) {
-		g_callback_input(NUNCHUK_INPUT_RIGHT);
+		//g_callback_input(NUNCHUK_INPUT_RIGHT);
+		printf("Input RIGHT %i\n", state[0]);
 	}
 	
 	// Up / Down joystick movement
 	if(state[1] < 30) {
-		g_callback_input(NUNCHUK_INPUT_DOWN);
+		//g_callback_input(NUNCHUK_INPUT_DOWN);
+		printf("Input DOWN %i\n", state[1]);
 	} else if(state[1] > 208) {
-		g_callback_input(NUNCHUK_INPUT_UP);
+		//g_callback_input(NUNCHUK_INPUT_UP);
+		printf("Input UP %i\n", state[1]);
 	}
 	
 	// C button
 	if((state[5] & (1 << 1)) == 0) {
-		g_callback_input(NUNCHUK_INPUT_C);
+		//g_callback_input(NUNCHUK_INPUT_C);
+		printf("C button\n");
 	}
 	
 	// Z button
 	if((state[5] & (1 << 0)) == 0) {
-		g_callback_input(NUNCHUK_INPUT_C);
+		//g_callback_input(NUNCHUK_INPUT_C);
+		printf("Z button\n");
 	}
+	
+	free(state);
 }
 
 /*
@@ -78,7 +95,7 @@ void nunchuk_read() {
 void nunchuk_xmit_cmd(uint8_t reg, uint8_t cmd) {
 	uint8_t *data;
 	unsigned long size = 0;
-	if(reg == 0x00) { // Command not sent to a nunchuk register
+	if(reg != 0x00) { // Reg and command sent to nunchuck register
 		size = 2;
 		data = (uint8_t*)malloc(size);
 		data[0] = reg;
@@ -89,7 +106,9 @@ void nunchuk_xmit_cmd(uint8_t reg, uint8_t cmd) {
 		data[0] = cmd;
 	}
 	
-	i2c_tx(NUNCHUK_I2C_ADDR, (int)size, data, NUNCHUK_I2C_DELAY_US);
+	i2c_tx(NUNCHUK_I2C_ADDR, size, data, NUNCHUK_I2C_DELAY_US);
 	
-	dtim3_delay(2 * NUNCHUK_I2C_DELAY_US);
+	dtim3_delay_us(2 * NUNCHUK_I2C_DELAY_US);
+	free(data);
+	//printf("nunchuk xmit_cmd\n");
 }

@@ -11,9 +11,9 @@
 
 #include "support_common.h"
 
-void dtim0_delay(int p_usecs);
+void dtim0_delay_us(int p_usecs);
 void dtim0_init();
-void dtim3_delay(int p_usecs);
+void dtim3_delay_us(int p_usecs);
 void dtim3_init();
 
 #endif /* DTIM_H_ */

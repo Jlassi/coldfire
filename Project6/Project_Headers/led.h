@@ -12,8 +12,8 @@
 #include <stdlib.h>
 
 #include "support_common.h"
-#include "pit.h"
 #include "qspi.h"
+#include "pacman.h"
 
 #define BLACK 0x00
 #define GREEN 0x01
