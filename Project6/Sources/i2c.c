@@ -12,6 +12,10 @@ void i2c_init() {
 	MCF_GPIO_PASPAR |= MCF_GPIO_PASPAR_SCL0_SCL0;
 	MCF_GPIO_PASPAR |= MCF_GPIO_PASPAR_SDA0_SDA0;
 	
+	// Do we need data direction as output?
+	/*MCF_GPIO_DDRAS |= MCF_GPIO_DDRAS_DDRAS0;
+	MCF_GPIO_DDRAS |= MCF_GPIO_DDRAS_DDRAS1;*/
+	
 	// Write the I2C board address
 	MCF_I2C0_I2ADR |= MCF_I2C_I2ADR_ADR(I2C_ADDR);
 	
@@ -100,7 +104,6 @@ uint8_t i2c_rx_byte(int delay_us) {
 	
 	// Delay for delay_us following the transfer
 	dtim0_delay_us(delay_us);
-	printf("i2c rxbyte complete. read: %02x\n", ret);
 	return ret;
 }
 
@@ -163,7 +166,6 @@ void i2c_tx_byte(uint8_t data, int delay_us) {
 	
 	// Write data
 	MCF_I2C0_I2DR = data;
-	printf("sent: %02x\n", data);
 	
 	// Wait for data to finish transmitting
 	while(!i2c_tx_complete()) {

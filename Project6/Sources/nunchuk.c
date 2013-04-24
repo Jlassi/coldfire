@@ -36,16 +36,17 @@ void nunchuk_read() {
 	nunchuk_xmit_cmd(0xF0, 0x55);
 	nunchuk_xmit_cmd(0xFB, 0x00);
 	nunchuk_xmit_cmd(0x00, 0x00);
+	//nunchuk_xmit_cmd(0x40, 0x00);
 	
 	// Read controller state (6 bytes)
 	uint8_t *state = (uint8_t*)malloc(6);
 	i2c_rx(NUNCHUK_I2C_ADDR, 6, state, NUNCHUK_I2C_DELAY_US);
 	
-	printf("state: ");
+	/*printf("state: ");
 	for(int i = 0; i < 6; i++)
 		printf("%02x ", state[i]);
 	printf("\n");
-	return;
+	return;*/
 	
 	// Send the individual inputs to the callback function
 	if(g_callback_input == NULL) {
@@ -108,6 +109,7 @@ void nunchuk_xmit_cmd(uint8_t reg, uint8_t cmd) {
 	
 	i2c_tx(NUNCHUK_I2C_ADDR, size, data, NUNCHUK_I2C_DELAY_US);
 	
+	// maybe try increasing this delay?
 	dtim3_delay_us(2 * NUNCHUK_I2C_DELAY_US);
 	free(data);
 	//printf("nunchuk xmit_cmd\n");
