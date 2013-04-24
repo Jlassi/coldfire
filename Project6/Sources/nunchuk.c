@@ -35,7 +35,7 @@ void nunchuk_read() {
 	// Transmit initialization commands for unencrypted mode
 	nunchuk_xmit_cmd(0xF0, 0x55);
 	nunchuk_xmit_cmd(0xFB, 0x00);
-	//nunchuk_xmit_cmd(0x00, 0x00);
+	nunchuk_xmit_cmd(0x00, 0x00);
 	
 	// Read controller state (6 bytes)
 	uint8_t *state = (uint8_t*)malloc(6);

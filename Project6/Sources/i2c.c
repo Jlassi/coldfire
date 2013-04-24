@@ -38,11 +38,9 @@ void i2c_init() {
  * Spins until the I2C bus becomes idle
  */
 void i2c_acquire_bus() {
-	//printf("i2c acquired bus\n");
 	// Loop until I2C bus busy (IBB) becomes 0
 	while(MCF_I2C0_I2SR & MCF_I2C_I2SR_IBB) {
 	}
-	//printf("i2c acquired bus complete\n");
 }
 
 /*
@@ -55,7 +53,6 @@ void i2c_reset() {
 	MCF_I2C0_I2CR &= ~(MCF_I2C_I2CR_MTX); // Make board a receiver
 	MCF_I2C0_I2CR &= ~(MCF_I2C_I2CR_TXAK); // Automatically ACK recv'd bytes
 	MCF_I2C0_I2CR &= ~(MCF_I2C_I2CR_RSTA); // Don't generate repeated start bits
-	//printf("i2c reset complete\n");
 }
 
 /*
@@ -66,7 +63,6 @@ void i2c_reset() {
  * @param delay_us Busy waits for delay_us microseconds following each transferred byte
  */
 void i2c_rx(uint8_t addr, int size, uint8_t *data, int delay_us) {
-	//printf("i2c rx\n");
 	i2c_acquire_bus(); // Wait for bus to become idle
 	i2c_tx_addr(addr, I2C_READ, delay_us); // Send start bit, slave address, and read bit
 
@@ -78,7 +74,7 @@ void i2c_rx(uint8_t addr, int size, uint8_t *data, int delay_us) {
 	
 	// Master-receivers must generate clock pulses on SCL to recv 8 data bytes from slave
 	// Read and ACK up until the last byte (size-2)
-	for(int i = 0; i <= size-2; i++)
+	for(int i = 0; i <= (size-2); i++)
 		data[i] = i2c_rx_byte(delay_us);
 	
 	// NACK to stop transmission and read the last byte
@@ -87,7 +83,6 @@ void i2c_rx(uint8_t addr, int size, uint8_t *data, int delay_us) {
 	
 	// Terminate communication
 	i2c_rxtx_end();
-	//printf("i2c rx complete\n");
 }
 
 /*
@@ -96,7 +91,6 @@ void i2c_rx(uint8_t addr, int size, uint8_t *data, int delay_us) {
  * @return Byte read from the line
  */
 uint8_t i2c_rx_byte(int delay_us) {
-	//printf("i2c rx byte\n");
 	uint8_t ret = MCF_I2C0_I2DR; // Read, which generates SCL for the slave to transmit
 	
 	// Wait for transfer to finish
@@ -127,17 +121,15 @@ void i2c_rxtx_end() {
  * @param delay_us Microseconds to delay between each send
  */
 void i2c_tx(uint8_t addr, int size, uint8_t *data, int delay_us) {
-	//printf("i2c tx\n");
 	i2c_acquire_bus(); // Waits for bus to become idle
 	i2c_tx_addr(addr, I2C_WRITE, delay_us); // Transmit start bit, slave address, and write bit
 	
 	// Send each byte in data
-	for(int i = 0; i <= size-1; i++)
+	for(int i = 0; i < size; i++)
 		i2c_tx_byte(data[i], delay_us);
 	
 	// Terminate communication with slave
 	i2c_rxtx_end();
-	//printf("i2c tx complete\n");
 }
 
 /*
@@ -150,7 +142,6 @@ void i2c_tx(uint8_t addr, int size, uint8_t *data, int delay_us) {
  * @param delay_us Microseconds to delay between each send
  */
 void i2c_tx_addr(uint8_t addr, uint8_t rw, int delay_us) {
-	//printf("i2c tx addr\n");
 	MCF_I2C0_I2CR |= MCF_I2C_I2CR_MTX; // Make board a transmitter
 	MCF_I2C0_I2CR |= MCF_I2C_I2CR_MSTA; // Make board a master (which sends the start bit)
 	
@@ -159,7 +150,6 @@ void i2c_tx_addr(uint8_t addr, uint8_t rw, int delay_us) {
 	hello |= addr << 1;
 	hello |= rw << 0;
 	i2c_tx_byte(hello, delay_us);
-	//printf("i2c txaddr complete\n");
 }
 
 /*
@@ -169,7 +159,6 @@ void i2c_tx_addr(uint8_t addr, uint8_t rw, int delay_us) {
  * @param delay_us Microseconds to delay after the send
  */
 void i2c_tx_byte(uint8_t data, int delay_us) {
-	//printf("i2c txbyte\n");
 	asm_set_ipl(7); // Mask all interrupt levels !!! necessary?
 	
 	// Write data
@@ -177,18 +166,14 @@ void i2c_tx_byte(uint8_t data, int delay_us) {
 	printf("sent: %02x\n", data);
 	
 	// Wait for data to finish transmitting
-	//printf("i2c txbyte wait for tx complete.. \n");
 	while(!i2c_tx_complete()) {
-		////printf("i2sr: %X, status: %X\n", MCF_I2C0_I2SR, (MCF_I2C0_I2SR & MCF_I2C_I2SR_IIF));
 	}
-	//printf("i2c txbyte tx completed!\n");
 	MCF_I2C0_I2SR &= ~(MCF_I2C_I2SR_IIF); // Clear interrupt request flag
 	
 	asm_set_ipl(0); // Unmask all interrupt levels !!! necessary?
 	
 	// Delay for delay_us following the transfer
 	dtim0_delay_us(delay_us);
-	//printf("i2c txbyte complete\n");
 }
 
 /*
