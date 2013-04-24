@@ -50,20 +50,20 @@ void nunchuk_read() {
 	
 	// Left / Right joystick movement
 	if(state[0] < 30) {
-		g_callback_input(NUNCHUK_INPUT_LEFT);
-		//printf("Input LEFT %i\n", state[0]);
+		//g_callback_input(NUNCHUK_INPUT_LEFT);
+		printf("Input LEFT %i\n", state[0]);
 	} else if(state[0] > 225) {
-		g_callback_input(NUNCHUK_INPUT_RIGHT);
-		//printf("Input RIGHT %i\n", state[0]);
+		//g_callback_input(NUNCHUK_INPUT_RIGHT);
+		printf("Input RIGHT %i\n", state[0]);
 	}
 	
 	// Up / Down joystick movement
 	if(state[1] < 30) {
-		g_callback_input(NUNCHUK_INPUT_DOWN);
-		//printf("Input DOWN %i\n", state[1]);
+		//g_callback_input(NUNCHUK_INPUT_DOWN);
+		printf("Input DOWN %i\n", state[1]);
 	} else if(state[1] > 208) {
-		g_callback_input(NUNCHUK_INPUT_UP);
-		//printf("Input UP %i\n", state[1]);
+		//g_callback_input(NUNCHUK_INPUT_UP);
+		printf("Input UP %i\n", state[1]);
 	}
 	
 	// C button
