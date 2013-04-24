@@ -42,12 +42,6 @@ void nunchuk_read() {
 	uint8_t *state = (uint8_t*)malloc(6);
 	i2c_rx(NUNCHUK_I2C_ADDR, 6, state, NUNCHUK_I2C_DELAY_US);
 	
-	/*printf("state: ");
-	for(int i = 0; i < 6; i++)
-		printf("%02x ", state[i]);
-	printf("\n");
-	return;*/
-	
 	// Send the individual inputs to the callback function
 	if(g_callback_input == NULL) {
 		printf("nunchuk g_callback_input is null\n");
@@ -56,20 +50,20 @@ void nunchuk_read() {
 	
 	// Left / Right joystick movement
 	if(state[0] < 30) {
-		//g_callback_input(NUNCHUK_INPUT_LEFT);
-		printf("Input LEFT %i\n", state[0]);
+		g_callback_input(NUNCHUK_INPUT_LEFT);
+		//printf("Input LEFT %i\n", state[0]);
 	} else if(state[0] > 225) {
-		//g_callback_input(NUNCHUK_INPUT_RIGHT);
-		printf("Input RIGHT %i\n", state[0]);
+		g_callback_input(NUNCHUK_INPUT_RIGHT);
+		//printf("Input RIGHT %i\n", state[0]);
 	}
 	
 	// Up / Down joystick movement
 	if(state[1] < 30) {
-		//g_callback_input(NUNCHUK_INPUT_DOWN);
-		printf("Input DOWN %i\n", state[1]);
+		g_callback_input(NUNCHUK_INPUT_DOWN);
+		//printf("Input DOWN %i\n", state[1]);
 	} else if(state[1] > 208) {
-		//g_callback_input(NUNCHUK_INPUT_UP);
-		printf("Input UP %i\n", state[1]);
+		g_callback_input(NUNCHUK_INPUT_UP);
+		//printf("Input UP %i\n", state[1]);
 	}
 	
 	// C button

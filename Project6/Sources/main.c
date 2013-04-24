@@ -28,9 +28,6 @@
 
 extern uint32 __VECTOR_RAM[];
 
-extern uint8_t **init_map;
-extern uint8_t **game_map;
-
 void init();
 
 asm __declspec(register_abi) void asm_set_ipl(int)

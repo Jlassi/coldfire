@@ -16,7 +16,7 @@ void pit0_init() {
 	MCF_PIT0_PCSR &= ~(MCF_PIT_PCSR_EN);
 	
 	// Write a prescaler of 1 which generates an interrupt every 3ms seconds
-	MCF_PIT0_PCSR |= MCF_PIT_PCSR_PRE(0x01);
+	MCF_PIT0_PCSR |= MCF_PIT_PCSR_PRE(0x02);
 	
 	// Timer will stop when execution is halted by the debugger
 	MCF_PIT0_PCSR |= MCF_PIT_PCSR_DBG;
@@ -37,8 +37,8 @@ void pit0_init() {
 	MCF_PIT0_PMR = MCF_PIT_PMR_PM(0);
 	
 	// Interrupt Controller: PIT0 interrupts as level 2 priority 7 (Source 55)
-	MCF_INTC0_ICR55 |= MCF_INTC_ICR_IL(2);
-	MCF_INTC0_ICR55 |= MCF_INTC_ICR_IP(7);
+	MCF_INTC0_ICR55 |= MCF_INTC_ICR_IL(0x02);
+	MCF_INTC0_ICR55 |= MCF_INTC_ICR_IP(0x07);
 	
 	// Unmask interrupts from the interrupt source
 	MCF_INTC0_IMRH &= ~(1 << (55 - 32));
@@ -67,7 +67,7 @@ __declspec(interrupt) void pit0_isr() {
 	
 	if((g_pit0_counter % 3000) == 0) {
 		g_pit0_counter = 0;
-		//pacman_next();
+		pacman_next();
 	}
 	
 	led_refresh();
@@ -82,8 +82,8 @@ void pit1_init() {
 	// Clear the enable bit so we can configure the timer
 	MCF_PIT1_PCSR &= ~(MCF_PIT_PCSR_EN);
 	
-	// Write a prescaler of 10 which generates an interrupt every 400ms seconds
-	MCF_PIT1_PCSR |= MCF_PIT_PCSR_PRE(0x08);
+	// Write a prescaler of 10 which generates an interrupt every 200ms seconds
+	MCF_PIT1_PCSR |= MCF_PIT_PCSR_PRE(0x07);
 	
 	// Timer will stop when execution is halted by the debugger
 	MCF_PIT1_PCSR |= MCF_PIT_PCSR_DBG;

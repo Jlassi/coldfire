@@ -52,8 +52,9 @@ void led_display_game() {
 void led_refresh() {
 	led_write_row(); // writes the next row
 	g_row++;
-	if((g_row % 8) == 0)
+	if((g_row % 8) == 0) {
 		g_row = 0;
+	}
 }
 
 // Write a specific 8x8 pattern

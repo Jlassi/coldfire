@@ -78,8 +78,7 @@ void pacman_stop() {
  * Calculates the next state of the game and prepares the game_map that will be transmitted to the LED
  */
 void pacman_next() {
-	printf("pacman_next\n");
-	
+
 	// Finally, update the LED display pattern
 	led_display_game();
 }
