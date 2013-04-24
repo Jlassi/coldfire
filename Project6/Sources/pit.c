@@ -67,7 +67,7 @@ __declspec(interrupt) void pit0_isr() {
 	
 	if((g_pit0_counter % 3000) == 0) {
 		g_pit0_counter = 0;
-		pacman_next();
+		//pacman_next();
 	}
 	
 	led_refresh();

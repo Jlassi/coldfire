@@ -61,12 +61,13 @@ void init() {
 	gpt_port_ta_init(); // button init
 	pacman_init();
 	nunchuk_init();
-	//led_init();
+	led_init();
 }
 
 __declspec(noreturn) int main(void)
 {
 	init();
+	pacman_start();
 	
 	while(1) {
 	}
