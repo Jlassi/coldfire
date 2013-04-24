@@ -20,7 +20,7 @@
 #define RED 0x02
 #define ORANGE 0x03
 
-extern uint8_t **pattern;
+extern uint8_t **game_map;
 
 extern uint8_t led_current_pattern[8][8];
 extern uint8_t g_green[8];

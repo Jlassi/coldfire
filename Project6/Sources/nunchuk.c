@@ -54,8 +54,6 @@ void nunchuk_read() {
 		return;
 	}
 	
-	return;
-	
 	// Left / Right joystick movement
 	if(state[0] < 30) {
 		//g_callback_input(NUNCHUK_INPUT_LEFT);

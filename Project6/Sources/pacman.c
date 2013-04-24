@@ -16,6 +16,7 @@ uint8_t **init_map;
 void pacman_init() {
 	// Allocate memory for game_map and init_map
 	game_map = (uint8_t**)malloc(8*sizeof(uint8_t*));
+	init_map = (uint8_t**)malloc(8*sizeof(uint8_t*));
 	for(int i = 0; i < 8; i++) {
 		init_map[i] = (uint8_t*)malloc(8*sizeof(uint8_t));
 		game_map[i] = (uint8_t*)malloc(8*sizeof(uint8_t));

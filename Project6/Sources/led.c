@@ -39,8 +39,9 @@ void led_display_game() {
 				led_current_pattern[x][y] = ORANGE;
 			else if(game_map[x][y] == MAP_GHOST)
 				led_current_pattern[x][y] = RED;
-			else
+			else {
 				led_current_pattern[x][y] = BLACK; // MAP_EMPTY
+			}
 		}
 	}
 	
