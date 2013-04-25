@@ -65,9 +65,8 @@
 <stringAttribute key="com.freescale.cdt.debug.cw.core.settings.DebuggerCommonData.Connection Type CW Panel" value=""/>
 <stringAttribute key="com.freescale.cdt.debug.cw.core.settings.DebuggerCommonData.Processor Attr Name" value="com.freescale.cdt.debug.cw.CW_SHADOWED_PREF.CF Debugger.processor"/>
 <stringAttribute key="com.freescale.cdt.debug.cw.core.settings.GdiConnection.Common.PhysicalConnectionAttributeBase" value="com.pemicro.mcu.debug.connections.pne.cfv234."/>
-<stringAttribute key="com.freescale.cdt.debug.cw.core.settings.GdiConnection.Common.SimulatorConnectionAttributeBase" value=""/>
 <booleanAttribute key="com.freescale.cdt.debug.cw.core.settings.GdiConnection.Common.logData" value="false"/>
-<stringAttribute key="com.freescale.cdt.debug.cw.core.settings.rseSystemId" value="com.freescale.cdt.debug.cw.core.ui.rse.systemtype.bareboard.hardware.130412000611-0700"/>
+<stringAttribute key="com.freescale.cdt.debug.cw.core.settings.rseSystemId" value="com.freescale.cdt.debug.cw.core.ui.rse.systemtype.bareboard.hardware.130425130543-0700.1"/>
 <stringAttribute key="com.freescale.cdt.debug.cw.core.settings.wizardSystemNameHint" value="PnE U-MultiLink"/>
 <stringAttribute key="com.freescale.cdt.debug.cw.debuggerAddress" value="127.0.0.1"/>
 <booleanAttribute key="com.freescale.cdt.debug.cw.disableIO" value="false"/>
@@ -107,32 +106,12 @@
 <booleanAttribute key="com.freescale.cdt.debug.cw.useSerialTransferIO" value="false"/>
 <booleanAttribute key="com.freescale.cdt.debug.cw.useStopTransferIO" value="true"/>
 <booleanAttribute key="com.freescale.cdt.debug.cw.useUDPPort" value="false"/>
-<stringAttribute key="com.pemicro.mcu.debug.connections.pne.cfv234.CommandLineArgs" value=""/>
-<stringAttribute key="com.pemicro.mcu.debug.connections.pne.cfv234.ConfigFile" value=""/>
 <stringAttribute key="com.pemicro.mcu.debug.connections.pne.cfv234.Library" value="cf_pne_gdi"/>
 <stringAttribute key="com.pemicro.mcu.debug.connections.pne.cfv234.RESET_DELAY" value="0"/>
-<stringAttribute key="com.pemicro.mcu.debug.connections.pne.cfv234.STARTUP_FREQ_CYCLONE" value="3"/>
-<stringAttribute key="com.pemicro.mcu.debug.connections.pne.cfv234.STARTUP_FREQ_FX" value="4"/>
-<stringAttribute key="com.pemicro.mcu.debug.connections.pne.cfv234.STARTUP_FREQ_NORMAL" value="0"/>
-<stringAttribute key="com.pemicro.mcu.debug.connections.pne.cfv234.STARTUP_FREQ_OSJTAG" value="0"/>
-<stringAttribute key="com.pemicro.mcu.debug.connections.pne.cfv234.STARTUP_FREQ_TRACELINK" value="3"/>
 <stringAttribute key="com.pemicro.mcu.debug.connections.pne.cfv234.STARTUP_PCI_DELAY" value="0"/>
 <stringAttribute key="com.pemicro.mcu.debug.connections.pne.cfv234.STARTUP_PORT" value="1"/>
-<stringAttribute key="com.pemicro.mcu.debug.connections.pne.cfv234.STARTUP_RESET_DELAY" value="0"/>
-<stringAttribute key="com.pemicro.mcu.debug.connections.pne.cfv234.STARTUP_SPECIFY_IP" value="127.0.0.1"/>
-<stringAttribute key="com.pemicro.mcu.debug.connections.pne.cfv234.STARTUP_SPECIFY_IP_ENABLED" value="0"/>
-<stringAttribute key="com.pemicro.mcu.debug.connections.pne.cfv234.STARTUP_SPECIFY_NETWORKCARD" value="127.0.0.1"/>
-<stringAttribute key="com.pemicro.mcu.debug.connections.pne.cfv234.STARTUP_SPECIFY_NETWORKCARD_ENABLED" value="0"/>
-<stringAttribute key="com.pemicro.mcu.debug.connections.pne.cfv234.STARTUP_TraceLink_MaxBufferSize" value="1"/>
-<stringAttribute key="com.pemicro.mcu.debug.connections.pne.cfv234.STARTUP_TraceLink_PowerDownDelay" value="250"/>
-<stringAttribute key="com.pemicro.mcu.debug.connections.pne.cfv234.STARTUP_TraceLink_PowerUpDelay" value="250"/>
-<stringAttribute key="com.pemicro.mcu.debug.connections.pne.cfv234.STARTUP_TraceLink_currentvoltage" value="255"/>
-<stringAttribute key="com.pemicro.mcu.debug.connections.pne.cfv234.STARTUP_TraceLink_poweroffonexit" value="1"/>
-<stringAttribute key="com.pemicro.mcu.debug.connections.pne.cfv234.STARTUP_USE_BDM_INTERFACE_FOR_FREEZE_DETECTION" value="false"/>
-<stringAttribute key="com.pemicro.mcu.debug.connections.pne.cfv234.STARTUP_USE_TRACELINK_RELAYS" value="1"/>
 <stringAttribute key="com.pemicro.mcu.debug.connections.pne.cfv234.STARTUP_interface_selection" value="3"/>
-<stringAttribute key="com.pemicro.mcu.debug.connections.pne.cfv234.USE_BDM_INTERFACE_FOR_FREEZE_DETECTION" value="false"/>
-<stringAttribute key="com.pemicro.mcu.debug.connections.pne.cfv234.UUID" value="16ab0820-dfaf-4966-93e7-2aaba0399e12"/>
+<booleanAttribute key="com.pemicro.mcu.debug.connections.pne.cfv234.USE_BDM_INTERFACE_FOR_FREEZE_DETECTION" value="false"/>
 <stringAttribute key="org.eclipse.cdt.launch.DEBUGGER_ID" value="com.freescale.cdt.debug.cw.coldfire.ColdFireDebugger"/>
 <stringAttribute key="org.eclipse.cdt.launch.DEBUGGER_REGISTER_GROUPS" value=""/>
 <stringAttribute key="org.eclipse.cdt.launch.FORMAT" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&lt;contentList/&gt;"/>
@@ -140,7 +119,7 @@
 <stringAttribute key="org.eclipse.cdt.launch.MEMORY_BLOCKS" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#13;&#10;&lt;memoryBlockExpressionList/&gt;&#13;&#10;"/>
 <stringAttribute key="org.eclipse.cdt.launch.PROGRAM_NAME" value="Console_RAM/Project6.elf"/>
 <stringAttribute key="org.eclipse.cdt.launch.PROJECT_ATTR" value="Project6"/>
-<stringAttribute key="org.eclipse.cdt.launch.PROJECT_BUILD_CONFIG_ID_ATTR" value="com.freescale.coldfire.toolchain.configuration.855612764"/>
+<stringAttribute key="org.eclipse.cdt.launch.PROJECT_BUILD_CONFIG_ID_ATTR" value="com.freescale.coldfire.toolchain.configuration.1109930256"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
 <listEntry value="/Project6"/>
 </listAttribute>

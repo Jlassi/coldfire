@@ -46,6 +46,8 @@ void pit0_init() {
 	// Write PIT0 ISR address into the exception vector table (at position 64+55)
 	__VECTOR_RAM[64+55] = (uint32)pit0_isr;
 	
+	g_pit0_counter = 0;
+	
 	// Enable timer
 	MCF_PIT0_PCSR |= MCF_PIT_PCSR_EN;
 }
@@ -64,17 +66,16 @@ __declspec(interrupt) void pit0_isr() {
 	MCF_PIT0_PCSR &= ~(MCF_PIT_PCSR_PIE);
 	
 	// Only make it possible for the game state to progress in PLAY mode
-	if(g_program_mode == MODE_PLAY)
+	if(g_program_mode == MODE_PLAY) {
 		g_pit0_counter++;
+	}
 	
-	if((g_pit0_counter % 30000) == 0) {
+	if((g_pit0_counter % 50) == 0) {
 		g_pit0_counter = 0;
 		pacman_next();
 	}
 	
 	led_refresh();
-	
-	//printf("timer0!\n");
 	
 	// Enable interrupts
 	MCF_PIT0_PCSR |= MCF_PIT_PCSR_PIE;

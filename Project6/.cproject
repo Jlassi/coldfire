@@ -3,8 +3,8 @@
 
 <cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
 	<storageModule moduleId="org.eclipse.cdt.core.settings">
-		<cconfiguration id="com.freescale.coldfire.toolchain.configuration.773552094">
-			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.freescale.coldfire.toolchain.configuration.773552094" moduleId="org.eclipse.cdt.core.settings" name="RAM">
+		<cconfiguration id="com.freescale.coldfire.toolchain.configuration.830008904">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.freescale.coldfire.toolchain.configuration.830008904" moduleId="org.eclipse.cdt.core.settings" name="RAM">
 				<externalSettings/>
 				<extensions>
 					<extension id="org.eclipse.cdt.managedbuilder.core.ManagedBuildManager" point="org.eclipse.cdt.core.ScannerInfoProvider"/>
@@ -24,74 +24,64 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="elf" artifactName="Project6" buildProperties="" cleanCommand="&quot;${system:ECLIPSE_HOME}/../gnu/bin/rm&quot; -f" description="" errorParsers="org.eclipse.cdt.core.MakeErrorParser;com.freescale.core.ide.cdt.errorParsers.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser;com.freescale.core.ide.cdt.errorParsers.LnkErrorParser;com.freescale.core.ide.cdt.errorParsers.AsmErrorParser;com.freescale.core.ide.cdt.errorParsers.CobjErrorParser;com.freescale.core.ide.cdt.errorParsers.IcodeErrorParser;com.freescale.core.ide.cdt.errorParsers.LltErrorParser;com.freescale.core.ide.cdt.errorParsers.MwfeErrorParser;com.freescale.core.ide.cdt.errorParsers.MwErrorParser;com.freescale.core.ide.cdt.errorParsers.MPWErrorParser" id="com.freescale.coldfire.toolchain.configuration.773552094" isPrebuildInvalidatingBuild="false" name="RAM" parent="com.freescale.coldfire.toolchain.configuration">
-					<folderInfo id="com.freescale.coldfire.toolchain.configuration.773552094." name="/" resourcePath="">
-						<toolChain id="com.freescale.coldfire.toolchain.toolchain.project.385483502" name="ColdFire Toolchain" superClass="com.freescale.coldfire.toolchain.toolchain.project">
-							<option id="com.freescale.coldfire.toolchain.sharedoption.processor.1713629394" name="Processor Family (-proc)" superClass="com.freescale.coldfire.toolchain.sharedoption.processor" value="com.freescale.coldfire.toolchain.sharedoption.processor.52259" valueType="enumerated"/>
-							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="com.freescale.coldfire.toolchain.platform.1199715750" name="ColdFire Target Platform" superClass="com.freescale.coldfire.toolchain.platform"/>
-							<builder buildPath="${ProjDirPath}/RAM" id="com.freescale.coldfire.toolchain.builder.1931041051" keepEnvironmentInBuildfile="false" name="GNU Make Builder" parallelBuildWorkspaceOn="true" parallelizationNumber="-1" superClass="com.freescale.coldfire.toolchain.builder"/>
-							<tool id="coldfire.toolchain.burner.544522488" name="Burner" superClass="coldfire.toolchain.burner"/>
-							<tool id="com.freescale.coldfire.toolchain.linker.debug.370647163" name="ColdFire Linker" superClass="com.freescale.coldfire.toolchain.linker.debug">
-								<option id="com.freescale.coldfire.toolchain.linker.base.generateLinkMap.1947256543" name="Generate Link Map" superClass="com.freescale.coldfire.toolchain.linker.base.generateLinkMap" value="true" valueType="boolean"/>
-								<option id="com.freescale.coldfire.toolchain.linker.base.input.lpath.2025635165" name="Library Search Paths (-L+path)" superClass="com.freescale.coldfire.toolchain.linker.base.input.lpath" valueType="includePath">
+				<configuration artifactExtension="elf" artifactName="Project6" buildProperties="" cleanCommand="&quot;${system:ECLIPSE_HOME}/../gnu/bin/rm&quot; -f" description="" errorParsers="org.eclipse.cdt.core.MakeErrorParser;com.freescale.core.ide.cdt.errorParsers.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser;com.freescale.core.ide.cdt.errorParsers.LnkErrorParser;com.freescale.core.ide.cdt.errorParsers.AsmErrorParser;com.freescale.core.ide.cdt.errorParsers.CobjErrorParser;com.freescale.core.ide.cdt.errorParsers.IcodeErrorParser;com.freescale.core.ide.cdt.errorParsers.LltErrorParser;com.freescale.core.ide.cdt.errorParsers.MwfeErrorParser;com.freescale.core.ide.cdt.errorParsers.MwErrorParser;com.freescale.core.ide.cdt.errorParsers.MPWErrorParser" id="com.freescale.coldfire.toolchain.configuration.830008904" isPrebuildInvalidatingBuild="false" name="RAM" parent="com.freescale.coldfire.toolchain.configuration">
+					<folderInfo id="com.freescale.coldfire.toolchain.configuration.830008904." name="/" resourcePath="">
+						<toolChain id="com.freescale.coldfire.toolchain.toolchain.project.1893343164" name="ColdFire Toolchain" superClass="com.freescale.coldfire.toolchain.toolchain.project">
+							<option id="com.freescale.coldfire.toolchain.sharedoption.processor.136535478" name="Processor Family (-proc)" superClass="com.freescale.coldfire.toolchain.sharedoption.processor" value="com.freescale.coldfire.toolchain.sharedoption.processor.52259" valueType="enumerated"/>
+							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="com.freescale.coldfire.toolchain.platform.1851336374" name="ColdFire Target Platform" superClass="com.freescale.coldfire.toolchain.platform"/>
+							<builder buildPath="${ProjDirPath}/RAM" id="com.freescale.coldfire.toolchain.builder.355469898" keepEnvironmentInBuildfile="false" name="GNU Make Builder" superClass="com.freescale.coldfire.toolchain.builder"/>
+							<tool id="coldfire.toolchain.burner.101254904" name="Burner" superClass="coldfire.toolchain.burner"/>
+							<tool id="com.freescale.coldfire.toolchain.linker.debug.6920763" name="ColdFire Linker" superClass="com.freescale.coldfire.toolchain.linker.debug">
+								<option id="com.freescale.coldfire.toolchain.linker.base.generateLinkMap.1707591198" name="Generate Link Map" superClass="com.freescale.coldfire.toolchain.linker.base.generateLinkMap" value="true" valueType="boolean"/>
+								<option id="com.freescale.coldfire.toolchain.linker.base.input.lpath.547293019" name="Library Search Paths (-L+path)" superClass="com.freescale.coldfire.toolchain.linker.base.input.lpath" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${MCUToolsBaseDir}/ColdFire_Support/ewl/lib&quot;"/>
 								</option>
-								<option id="com.freescale.coldfire.toolchain.linker.base.input.force.active.1511013305" name="Force Active Symbols:" superClass="com.freescale.coldfire.toolchain.linker.base.input.force.active" valueType="stringList">
+								<option id="com.freescale.coldfire.toolchain.linker.base.input.force.active.1892457783" name="Force Active Symbols:" superClass="com.freescale.coldfire.toolchain.linker.base.input.force.active" valueType="stringList">
 									<listOptionValue builtIn="false" value="__vect"/>
 								</option>
-								<option id="com.freescale.coldfire.toolchain.linker.base.input.lcf_file.1952216557" name="Link Command File (.lcf)" superClass="com.freescale.coldfire.toolchain.linker.base.input.lcf_file" value="${ProjDirPath}/Project_Settings/Linker_Files/MCF52259_Internal_RAM.lcf" valueType="string"/>
-								<inputType id="com.freescale.coldfire.toolchain.linker.base.input.1786058577" name="Linker Input" superClass="com.freescale.coldfire.toolchain.linker.base.input">
+								<option id="com.freescale.coldfire.toolchain.linker.base.input.lcf_file.999627076" name="Link Command File (.lcf)" superClass="com.freescale.coldfire.toolchain.linker.base.input.lcf_file" value="${ProjDirPath}/Project_Settings/Linker_Files/MCF52259_Internal_RAM.lcf" valueType="string"/>
+								<inputType id="com.freescale.coldfire.toolchain.linker.base.input.1756162096" name="Linker Input" superClass="com.freescale.coldfire.toolchain.linker.base.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
 								</inputType>
 							</tool>
-							<tool id="com.freescale.coldfire.toolchain.compiler.debug.1840119230" name="ColdFire Compiler" superClass="com.freescale.coldfire.toolchain.compiler.debug">
-								<option id="com.freescale.coldfire.toolchain.compiler.base.input.include.24124923" name="User Path (-i)" superClass="com.freescale.coldfire.toolchain.compiler.base.input.include" valueType="includePath">
+							<tool id="com.freescale.coldfire.toolchain.compiler.debug.1601906275" name="ColdFire Compiler" superClass="com.freescale.coldfire.toolchain.compiler.debug">
+								<option id="com.freescale.coldfire.toolchain.compiler.base.input.include.59908884" name="User Path (-i)" superClass="com.freescale.coldfire.toolchain.compiler.base.input.include" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Project_Headers&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Project_Settings/Startup_Code&quot;"/>
 								</option>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.input.include.system.196149989" name="System Path (-I- -I)" superClass="com.freescale.coldfire.toolchain.compiler.base.input.include.system" valueType="includePath">
+								<option id="com.freescale.coldfire.toolchain.compiler.base.input.include.system.637580747" name="System Path (-I- -I)" superClass="com.freescale.coldfire.toolchain.compiler.base.input.include.system" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${MCUToolsBaseDir}/ColdFire_Support/ewl/EWL_C/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${MCUToolsBaseDir}/ColdFire_Support/ewl/EWL_C/include/sys&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${MCUToolsBaseDir}/ColdFire_Support/ewl/EWL_Runtime/Runtime_ColdFire/Source&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${MCUToolsBaseDir}/ColdFire_Support/(headers)/MCF52259&quot;"/>
 								</option>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.optionCategory.processor.a6.1572149403" name="A6 Stack Frames (-a6)" superClass="com.freescale.coldfire.toolchain.compiler.base.optionCategory.processor.a6" value="true" valueType="boolean"/>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.general.wchar.off.1695680207" name="Enable wchar_t Support" superClass="com.freescale.coldfire.toolchain.compiler.base.general.wchar.off" value="false" valueType="boolean"/>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.warnings.impl_int2float.46316762" name="Implicit Integer To Float Conversions" superClass="com.freescale.coldfire.toolchain.compiler.base.warnings.impl_int2float" value="true" valueType="boolean"/>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.warnings.impl_float2int.552009849" name="Implicit Float To Integer conversions" superClass="com.freescale.coldfire.toolchain.compiler.base.warnings.impl_float2int" value="true" valueType="boolean"/>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.warnings.impl_signedunsigned.2092737661" name="Implicit Signed/Unsigned Conversions" superClass="com.freescale.coldfire.toolchain.compiler.base.warnings.impl_signedunsigned" value="true" valueType="boolean"/>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.warnings.ptrintconv.976959147" name="Pointer/Integral Conversions" superClass="com.freescale.coldfire.toolchain.compiler.base.warnings.ptrintconv" value="true" valueType="boolean"/>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.warnings.missingreturn.1408504223" name="Missing 'return' Statement" superClass="com.freescale.coldfire.toolchain.compiler.base.warnings.missingreturn" value="true" valueType="boolean"/>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.warnings.unusedexpr.1877893388" name="Expression Has No Side Effect" superClass="com.freescale.coldfire.toolchain.compiler.base.warnings.unusedexpr" value="true" valueType="boolean"/>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.warnings.filecaps.897048643" name="Include File Capitalization" superClass="com.freescale.coldfire.toolchain.compiler.base.warnings.filecaps" value="true" valueType="boolean"/>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.warnings.sysfilecaps.281772836" name="Check System Includes" superClass="com.freescale.coldfire.toolchain.compiler.base.warnings.sysfilecaps" value="true" valueType="boolean"/>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.general.enableC99.2134974269" name="Enable C99 Extensions (-lang c99)" superClass="com.freescale.coldfire.toolchain.compiler.base.general.enableC99" value="true" valueType="boolean"/>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.general.unsignedchar.537491220" name="Use Unsigned Chars" superClass="com.freescale.coldfire.toolchain.compiler.base.general.unsignedchar" value="false" valueType="boolean"/>
-								<inputType id="com.freescale.coldfire.toolchain.compiler.base.input.586429364" name="C Source File" superClass="com.freescale.coldfire.toolchain.compiler.base.input"/>
-								<inputType id="com.freescale.coldfire.toolchain.compiler.base.input.c++.843761121" name="C++ Source File" superClass="com.freescale.coldfire.toolchain.compiler.base.input.c++"/>
+								<option id="com.freescale.coldfire.toolchain.compiler.base.optionCategory.processor.a6.487718772" name="A6 Stack Frames (-a6)" superClass="com.freescale.coldfire.toolchain.compiler.base.optionCategory.processor.a6" value="true" valueType="boolean"/>
+								<option id="com.freescale.coldfire.toolchain.compiler.base.general.wchar.off.1057904010" name="Enable wchar_t Support" superClass="com.freescale.coldfire.toolchain.compiler.base.general.wchar.off" value="true" valueType="boolean"/>
+								<inputType id="com.freescale.coldfire.toolchain.compiler.base.input.1308306987" name="C Source File" superClass="com.freescale.coldfire.toolchain.compiler.base.input"/>
+								<inputType id="com.freescale.coldfire.toolchain.compiler.base.input.c++.1722541678" name="C++ Source File" superClass="com.freescale.coldfire.toolchain.compiler.base.input.c++"/>
 							</tool>
-							<tool id="com.freescale.coldfire.toolchain.assembler.debug.2121025992" name="ColdFire Assembler" superClass="com.freescale.coldfire.toolchain.assembler.debug">
-								<inputType id="com.freescale.coldfire.toolchain.assembler.base.input.908100764" name="ColdFire Assembler Input" superClass="com.freescale.coldfire.toolchain.assembler.base.input"/>
+							<tool id="com.freescale.coldfire.toolchain.assembler.debug.1053902620" name="ColdFire Assembler" superClass="com.freescale.coldfire.toolchain.assembler.debug">
+								<inputType id="com.freescale.coldfire.toolchain.assembler.base.input.1360797123" name="ColdFire Assembler Input" superClass="com.freescale.coldfire.toolchain.assembler.base.input"/>
 							</tool>
-							<tool id="com.freescale.coldfire.toolchain.preprocessor.debug.736503477" name="ColdFire Preprocessor" superClass="com.freescale.coldfire.toolchain.preprocessor.debug"/>
-							<tool id="com.freescale.coldfire.toolchain.disassembler.debug.553468025" name="ColdFire Disassembler" superClass="com.freescale.coldfire.toolchain.disassembler.debug"/>
+							<tool id="com.freescale.coldfire.toolchain.preprocessor.debug.1922370506" name="ColdFire Preprocessor" superClass="com.freescale.coldfire.toolchain.preprocessor.debug"/>
+							<tool id="com.freescale.coldfire.toolchain.disassembler.debug.751359047" name="ColdFire Disassembler" superClass="com.freescale.coldfire.toolchain.disassembler.debug"/>
 						</toolChain>
 					</folderInfo>
-					<fileInfo id="com.freescale.coldfire.toolchain.configuration.773552094.Project_Settings/Linker_Files/MCF52259_Internal_Flash.lcf" name="MCF52259_Internal_Flash.lcf" rcbsApplicability="disable" resourcePath="Project_Settings/Linker_Files/MCF52259_Internal_Flash.lcf" toolsToInvoke=""/>
-					<fileInfo id="com.freescale.coldfire.toolchain.configuration.773552094.Project_Settings/Linker_Files/MCF52259_Console_Internal_RAM.lcf" name="MCF52259_Console_Internal_RAM.lcf" rcbsApplicability="disable" resourcePath="Project_Settings/Linker_Files/MCF52259_Console_Internal_RAM.lcf" toolsToInvoke=""/>
-					<fileInfo id="com.freescale.coldfire.toolchain.configuration.773552094.Project_Settings/Debugger/MCF52259.mem" name="MCF52259.mem" rcbsApplicability="disable" resourcePath="Project_Settings/Debugger/MCF52259.mem" toolsToInvoke=""/>
-					<fileInfo id="com.freescale.coldfire.toolchain.configuration.773552094.Project_Settings/Debugger/MCF52259.cfg" name="MCF52259.cfg" rcbsApplicability="disable" resourcePath="Project_Settings/Debugger/MCF52259.cfg" toolsToInvoke=""/>
-					<fileInfo id="com.freescale.coldfire.toolchain.configuration.773552094.Sources/console_io_cf.c" name="console_io_cf.c" rcbsApplicability="disable" resourcePath="Sources/console_io_cf.c" toolsToInvoke="com.freescale.coldfire.toolchain.compiler.debug.1840119230.1025089098">
-						<tool id="com.freescale.coldfire.toolchain.compiler.debug.1840119230.1025089098" name="ColdFire Compiler" superClass="com.freescale.coldfire.toolchain.compiler.debug.1840119230">
-							<inputType id="com.freescale.coldfire.toolchain.compiler.base.input.364176953" name="C Source File" superClass="com.freescale.coldfire.toolchain.compiler.base.input"/>
-							<inputType id="com.freescale.coldfire.toolchain.compiler.base.input.c++.1274676875" name="C++ Source File" superClass="com.freescale.coldfire.toolchain.compiler.base.input.c++"/>
+					<fileInfo id="com.freescale.coldfire.toolchain.configuration.830008904.Project_Settings/Linker_Files/MCF52259_Internal_Flash.lcf" name="MCF52259_Internal_Flash.lcf" rcbsApplicability="disable" resourcePath="Project_Settings/Linker_Files/MCF52259_Internal_Flash.lcf" toolsToInvoke=""/>
+					<fileInfo id="com.freescale.coldfire.toolchain.configuration.830008904.Project_Settings/Linker_Files/MCF52259_Console_Internal_RAM.lcf" name="MCF52259_Console_Internal_RAM.lcf" rcbsApplicability="disable" resourcePath="Project_Settings/Linker_Files/MCF52259_Console_Internal_RAM.lcf" toolsToInvoke=""/>
+					<fileInfo id="com.freescale.coldfire.toolchain.configuration.830008904.Project_Settings/Debugger/MCF52259.mem" name="MCF52259.mem" rcbsApplicability="disable" resourcePath="Project_Settings/Debugger/MCF52259.mem" toolsToInvoke=""/>
+					<fileInfo id="com.freescale.coldfire.toolchain.configuration.830008904.Project_Settings/Debugger/MCF52259.cfg" name="MCF52259.cfg" rcbsApplicability="disable" resourcePath="Project_Settings/Debugger/MCF52259.cfg" toolsToInvoke=""/>
+					<fileInfo id="com.freescale.coldfire.toolchain.configuration.830008904.Sources/console_io_cf.c" name="console_io_cf.c" rcbsApplicability="disable" resourcePath="Sources/console_io_cf.c" toolsToInvoke="com.freescale.coldfire.toolchain.compiler.debug.1601906275.983517491">
+						<tool id="com.freescale.coldfire.toolchain.compiler.debug.1601906275.983517491" name="ColdFire Compiler" superClass="com.freescale.coldfire.toolchain.compiler.debug.1601906275">
+							<inputType id="com.freescale.coldfire.toolchain.compiler.base.input.1447759314" name="C Source File" superClass="com.freescale.coldfire.toolchain.compiler.base.input"/>
+							<inputType id="com.freescale.coldfire.toolchain.compiler.base.input.c++.1414277065" name="C++ Source File" superClass="com.freescale.coldfire.toolchain.compiler.base.input.c++"/>
 						</tool>
 					</fileInfo>
-					<fileInfo id="com.freescale.coldfire.toolchain.configuration.773552094.Sources/cfm.c" name="cfm.c" rcbsApplicability="disable" resourcePath="Sources/cfm.c" toolsToInvoke="com.freescale.coldfire.toolchain.compiler.debug.1840119230.1951783475">
-						<tool id="com.freescale.coldfire.toolchain.compiler.debug.1840119230.1951783475" name="ColdFire Compiler" superClass="com.freescale.coldfire.toolchain.compiler.debug.1840119230">
-							<inputType id="com.freescale.coldfire.toolchain.compiler.base.input.782670406" name="C Source File" superClass="com.freescale.coldfire.toolchain.compiler.base.input"/>
-							<inputType id="com.freescale.coldfire.toolchain.compiler.base.input.c++.790627804" name="C++ Source File" superClass="com.freescale.coldfire.toolchain.compiler.base.input.c++"/>
+					<fileInfo id="com.freescale.coldfire.toolchain.configuration.830008904.Sources/cfm.c" name="cfm.c" rcbsApplicability="disable" resourcePath="Sources/cfm.c" toolsToInvoke="com.freescale.coldfire.toolchain.compiler.debug.1601906275.890061413">
+						<tool id="com.freescale.coldfire.toolchain.compiler.debug.1601906275.890061413" name="ColdFire Compiler" superClass="com.freescale.coldfire.toolchain.compiler.debug.1601906275">
+							<inputType id="com.freescale.coldfire.toolchain.compiler.base.input.560494955" name="C Source File" superClass="com.freescale.coldfire.toolchain.compiler.base.input"/>
+							<inputType id="com.freescale.coldfire.toolchain.compiler.base.input.c++.865951545" name="C++ Source File" superClass="com.freescale.coldfire.toolchain.compiler.base.input.c++"/>
 						</tool>
 					</fileInfo>
 					<sourceEntries>
@@ -101,8 +91,8 @@
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
 		</cconfiguration>
-		<cconfiguration id="com.freescale.coldfire.toolchain.configuration.855612764">
-			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.freescale.coldfire.toolchain.configuration.855612764" moduleId="org.eclipse.cdt.core.settings" name="Console_RAM">
+		<cconfiguration id="com.freescale.coldfire.toolchain.configuration.1109930256">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.freescale.coldfire.toolchain.configuration.1109930256" moduleId="org.eclipse.cdt.core.settings" name="Console_RAM">
 				<externalSettings/>
 				<extensions>
 					<extension id="org.eclipse.cdt.managedbuilder.core.ManagedBuildManager" point="org.eclipse.cdt.core.ScannerInfoProvider"/>
@@ -122,69 +112,70 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="elf" artifactName="Project6" buildProperties="" cleanCommand="&quot;${system:ECLIPSE_HOME}/../gnu/bin/rm&quot; -f" description="" errorParsers="org.eclipse.cdt.core.MakeErrorParser;com.freescale.core.ide.cdt.errorParsers.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser;com.freescale.core.ide.cdt.errorParsers.LnkErrorParser;com.freescale.core.ide.cdt.errorParsers.AsmErrorParser;com.freescale.core.ide.cdt.errorParsers.CobjErrorParser;com.freescale.core.ide.cdt.errorParsers.IcodeErrorParser;com.freescale.core.ide.cdt.errorParsers.LltErrorParser;com.freescale.core.ide.cdt.errorParsers.MwfeErrorParser;com.freescale.core.ide.cdt.errorParsers.MwErrorParser;com.freescale.core.ide.cdt.errorParsers.MPWErrorParser" id="com.freescale.coldfire.toolchain.configuration.855612764" isPrebuildInvalidatingBuild="false" name="Console_RAM" parent="com.freescale.coldfire.toolchain.configuration">
-					<folderInfo id="com.freescale.coldfire.toolchain.configuration.855612764." name="/" resourcePath="">
-						<toolChain id="com.freescale.coldfire.toolchain.toolchain.project.485474521" name="ColdFire Toolchain" superClass="com.freescale.coldfire.toolchain.toolchain.project">
-							<option id="com.freescale.coldfire.toolchain.sharedoption.processor.122972869" name="Processor Family (-proc)" superClass="com.freescale.coldfire.toolchain.sharedoption.processor" value="com.freescale.coldfire.toolchain.sharedoption.processor.52259" valueType="enumerated"/>
-							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="com.freescale.coldfire.toolchain.platform.1218456195" name="ColdFire Target Platform" superClass="com.freescale.coldfire.toolchain.platform"/>
-							<builder buildPath="${ProjDirPath}/Console_RAM" id="com.freescale.coldfire.toolchain.builder.868174283" keepEnvironmentInBuildfile="false" name="GNU Make Builder" parallelBuildWorkspaceOn="true" parallelizationNumber="-1" superClass="com.freescale.coldfire.toolchain.builder"/>
-							<tool id="coldfire.toolchain.burner.1235371224" name="Burner" superClass="coldfire.toolchain.burner"/>
-							<tool id="com.freescale.coldfire.toolchain.linker.debug.728682824" name="ColdFire Linker" superClass="com.freescale.coldfire.toolchain.linker.debug">
-								<option id="com.freescale.coldfire.toolchain.linker.base.generateLinkMap.326558978" name="Generate Link Map" superClass="com.freescale.coldfire.toolchain.linker.base.generateLinkMap" value="true" valueType="boolean"/>
-								<option id="com.freescale.coldfire.toolchain.linker.base.input.lpath.915475698" name="Library Search Paths (-L+path)" superClass="com.freescale.coldfire.toolchain.linker.base.input.lpath" valueType="includePath">
+				<configuration artifactExtension="elf" artifactName="Project6" buildProperties="" cleanCommand="&quot;${system:ECLIPSE_HOME}/../gnu/bin/rm&quot; -f" description="" errorParsers="org.eclipse.cdt.core.MakeErrorParser;com.freescale.core.ide.cdt.errorParsers.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser;com.freescale.core.ide.cdt.errorParsers.LnkErrorParser;com.freescale.core.ide.cdt.errorParsers.AsmErrorParser;com.freescale.core.ide.cdt.errorParsers.CobjErrorParser;com.freescale.core.ide.cdt.errorParsers.IcodeErrorParser;com.freescale.core.ide.cdt.errorParsers.LltErrorParser;com.freescale.core.ide.cdt.errorParsers.MwfeErrorParser;com.freescale.core.ide.cdt.errorParsers.MwErrorParser;com.freescale.core.ide.cdt.errorParsers.MPWErrorParser" id="com.freescale.coldfire.toolchain.configuration.1109930256" isPrebuildInvalidatingBuild="false" name="Console_RAM" parent="com.freescale.coldfire.toolchain.configuration">
+					<folderInfo id="com.freescale.coldfire.toolchain.configuration.1109930256." name="/" resourcePath="">
+						<toolChain id="com.freescale.coldfire.toolchain.toolchain.project.1039099742" name="ColdFire Toolchain" superClass="com.freescale.coldfire.toolchain.toolchain.project">
+							<option id="com.freescale.coldfire.toolchain.sharedoption.processor.1298198882" name="Processor Family (-proc)" superClass="com.freescale.coldfire.toolchain.sharedoption.processor" value="com.freescale.coldfire.toolchain.sharedoption.processor.52259" valueType="enumerated"/>
+							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="com.freescale.coldfire.toolchain.platform.1533840246" name="ColdFire Target Platform" superClass="com.freescale.coldfire.toolchain.platform"/>
+							<builder buildPath="${ProjDirPath}/Console_RAM" id="com.freescale.coldfire.toolchain.builder.1755036044" keepEnvironmentInBuildfile="false" name="GNU Make Builder" superClass="com.freescale.coldfire.toolchain.builder"/>
+							<tool id="coldfire.toolchain.burner.492906095" name="Burner" superClass="coldfire.toolchain.burner"/>
+							<tool id="com.freescale.coldfire.toolchain.linker.debug.1589791166" name="ColdFire Linker" superClass="com.freescale.coldfire.toolchain.linker.debug">
+								<option id="com.freescale.coldfire.toolchain.linker.base.generateLinkMap.1395384339" name="Generate Link Map" superClass="com.freescale.coldfire.toolchain.linker.base.generateLinkMap" value="true" valueType="boolean"/>
+								<option id="com.freescale.coldfire.toolchain.linker.base.input.lpath.1821243530" name="Library Search Paths (-L+path)" superClass="com.freescale.coldfire.toolchain.linker.base.input.lpath" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${MCUToolsBaseDir}/ColdFire_Support/ewl/lib&quot;"/>
 								</option>
-								<option id="com.freescale.coldfire.toolchain.linker.base.input.force.active.655010206" name="Force Active Symbols:" superClass="com.freescale.coldfire.toolchain.linker.base.input.force.active" valueType="stringList">
+								<option id="com.freescale.coldfire.toolchain.linker.base.input.force.active.1546194412" name="Force Active Symbols:" superClass="com.freescale.coldfire.toolchain.linker.base.input.force.active" valueType="stringList">
 									<listOptionValue builtIn="false" value="__vect"/>
 								</option>
-								<option id="com.freescale.coldfire.toolchain.linker.base.input.lcf_file.1807262138" name="Link Command File (.lcf)" superClass="com.freescale.coldfire.toolchain.linker.base.input.lcf_file" value="${ProjDirPath}/Project_Settings/Linker_Files/MCF52259_Console_Internal_RAM.lcf" valueType="string"/>
-								<inputType id="com.freescale.coldfire.toolchain.linker.base.input.1176774479" name="Linker Input" superClass="com.freescale.coldfire.toolchain.linker.base.input">
+								<option id="com.freescale.coldfire.toolchain.linker.base.input.lcf_file.1222926078" name="Link Command File (.lcf)" superClass="com.freescale.coldfire.toolchain.linker.base.input.lcf_file" value="${ProjDirPath}/Project_Settings/Linker_Files/MCF52259_Console_Internal_RAM.lcf" valueType="string"/>
+								<inputType id="com.freescale.coldfire.toolchain.linker.base.input.1056749797" name="Linker Input" superClass="com.freescale.coldfire.toolchain.linker.base.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
 								</inputType>
 							</tool>
-							<tool id="com.freescale.coldfire.toolchain.compiler.debug.1402039381" name="ColdFire Compiler" superClass="com.freescale.coldfire.toolchain.compiler.debug">
-								<option id="com.freescale.coldfire.toolchain.compiler.base.input.include.1019192580" name="User Path (-i)" superClass="com.freescale.coldfire.toolchain.compiler.base.input.include" valueType="includePath">
+							<tool id="com.freescale.coldfire.toolchain.compiler.debug.931699510" name="ColdFire Compiler" superClass="com.freescale.coldfire.toolchain.compiler.debug">
+								<option id="com.freescale.coldfire.toolchain.compiler.base.input.include.1013187153" name="User Path (-i)" superClass="com.freescale.coldfire.toolchain.compiler.base.input.include" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Project_Headers&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Project_Settings/Startup_Code&quot;"/>
 								</option>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.input.include.system.302334977" name="System Path (-I- -I)" superClass="com.freescale.coldfire.toolchain.compiler.base.input.include.system" valueType="includePath">
+								<option id="com.freescale.coldfire.toolchain.compiler.base.input.include.system.1632171930" name="System Path (-I- -I)" superClass="com.freescale.coldfire.toolchain.compiler.base.input.include.system" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${MCUToolsBaseDir}/ColdFire_Support/ewl/EWL_C/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${MCUToolsBaseDir}/ColdFire_Support/ewl/EWL_C/include/sys&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${MCUToolsBaseDir}/ColdFire_Support/ewl/EWL_Runtime/Runtime_ColdFire/Source&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${MCUToolsBaseDir}/ColdFire_Support/(headers)/MCF52259&quot;"/>
 								</option>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.optionCategory.processor.a6.410225059" name="A6 Stack Frames (-a6)" superClass="com.freescale.coldfire.toolchain.compiler.base.optionCategory.processor.a6" value="true" valueType="boolean"/>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.general.wchar.off.1518928923" name="Enable wchar_t Support" superClass="com.freescale.coldfire.toolchain.compiler.base.general.wchar.off" value="false" valueType="boolean"/>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.general.otherflags.1803732042" name="Other flags" superClass="com.freescale.coldfire.toolchain.compiler.base.general.otherflags" value="-define CONSOLE_IO_SUPPORT=1" valueType="string"/>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.warnings.impl_int2float.123394003" name="Implicit Integer To Float Conversions" superClass="com.freescale.coldfire.toolchain.compiler.base.warnings.impl_int2float" value="true" valueType="boolean"/>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.warnings.impl_float2int.1437439899" name="Implicit Float To Integer conversions" superClass="com.freescale.coldfire.toolchain.compiler.base.warnings.impl_float2int" value="true" valueType="boolean"/>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.warnings.impl_signedunsigned.1166668907" name="Implicit Signed/Unsigned Conversions" superClass="com.freescale.coldfire.toolchain.compiler.base.warnings.impl_signedunsigned" value="true" valueType="boolean"/>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.warnings.ptrintconv.1305760087" name="Pointer/Integral Conversions" superClass="com.freescale.coldfire.toolchain.compiler.base.warnings.ptrintconv" value="true" valueType="boolean"/>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.warnings.missingreturn.978203054" name="Missing 'return' Statement" superClass="com.freescale.coldfire.toolchain.compiler.base.warnings.missingreturn" value="true" valueType="boolean"/>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.warnings.unusedexpr.2065017770" name="Expression Has No Side Effect" superClass="com.freescale.coldfire.toolchain.compiler.base.warnings.unusedexpr" value="true" valueType="boolean"/>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.warnings.filecaps.777258475" name="Include File Capitalization" superClass="com.freescale.coldfire.toolchain.compiler.base.warnings.filecaps" value="true" valueType="boolean"/>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.general.enableC99.812212967" name="Enable C99 Extensions (-lang c99)" superClass="com.freescale.coldfire.toolchain.compiler.base.general.enableC99" value="true" valueType="boolean"/>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.general.unsignedchar.232805789" name="Use Unsigned Chars" superClass="com.freescale.coldfire.toolchain.compiler.base.general.unsignedchar" value="false" valueType="boolean"/>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.warnings.sysfilecaps.1924596099" superClass="com.freescale.coldfire.toolchain.compiler.base.warnings.sysfilecaps" value="true" valueType="boolean"/>
-								<inputType id="com.freescale.coldfire.toolchain.compiler.base.input.229782580" name="C Source File" superClass="com.freescale.coldfire.toolchain.compiler.base.input"/>
-								<inputType id="com.freescale.coldfire.toolchain.compiler.base.input.c++.248833083" name="C++ Source File" superClass="com.freescale.coldfire.toolchain.compiler.base.input.c++"/>
+								<option id="com.freescale.coldfire.toolchain.compiler.base.optionCategory.processor.a6.1242086972" name="A6 Stack Frames (-a6)" superClass="com.freescale.coldfire.toolchain.compiler.base.optionCategory.processor.a6" value="true" valueType="boolean"/>
+								<option id="com.freescale.coldfire.toolchain.compiler.base.general.wchar.off.2064045216" name="Enable wchar_t Support" superClass="com.freescale.coldfire.toolchain.compiler.base.general.wchar.off" value="false" valueType="boolean"/>
+								<option id="com.freescale.coldfire.toolchain.compiler.base.general.otherflags.1407307749" name="Other flags" superClass="com.freescale.coldfire.toolchain.compiler.base.general.otherflags" value="-define CONSOLE_IO_SUPPORT=1" valueType="string"/>
+								<option id="com.freescale.coldfire.toolchain.compiler.base.warnings.impl_int2float.1811353228" superClass="com.freescale.coldfire.toolchain.compiler.base.warnings.impl_int2float" value="true" valueType="boolean"/>
+								<option id="com.freescale.coldfire.toolchain.compiler.base.warnings.impl_float2int.930240414" superClass="com.freescale.coldfire.toolchain.compiler.base.warnings.impl_float2int" value="true" valueType="boolean"/>
+								<option id="com.freescale.coldfire.toolchain.compiler.base.warnings.impl_signedunsigned.1793676768" superClass="com.freescale.coldfire.toolchain.compiler.base.warnings.impl_signedunsigned" value="true" valueType="boolean"/>
+								<option id="com.freescale.coldfire.toolchain.compiler.base.warnings.ptrintconv.403634594" superClass="com.freescale.coldfire.toolchain.compiler.base.warnings.ptrintconv" value="true" valueType="boolean"/>
+								<option id="com.freescale.coldfire.toolchain.compiler.base.warnings.unusedresult.1985942113" superClass="com.freescale.coldfire.toolchain.compiler.base.warnings.unusedresult" value="false" valueType="boolean"/>
+								<option id="com.freescale.coldfire.toolchain.compiler.base.warnings.missingreturn.1341569460" superClass="com.freescale.coldfire.toolchain.compiler.base.warnings.missingreturn" value="true" valueType="boolean"/>
+								<option id="com.freescale.coldfire.toolchain.compiler.base.warnings.unusedexpr.776328988" superClass="com.freescale.coldfire.toolchain.compiler.base.warnings.unusedexpr" value="true" valueType="boolean"/>
+								<option id="com.freescale.coldfire.toolchain.compiler.base.warnings.filecaps.978019347" superClass="com.freescale.coldfire.toolchain.compiler.base.warnings.filecaps" value="true" valueType="boolean"/>
+								<option id="com.freescale.coldfire.toolchain.compiler.base.warnings.sysfilecaps.931003504" superClass="com.freescale.coldfire.toolchain.compiler.base.warnings.sysfilecaps" value="true" valueType="boolean"/>
+								<option id="com.freescale.coldfire.toolchain.compiler.base.general.unsignedchar.1161461971" superClass="com.freescale.coldfire.toolchain.compiler.base.general.unsignedchar" value="false" valueType="boolean"/>
+								<option id="com.freescale.coldfire.toolchain.compiler.base.general.enableC99.270470821" superClass="com.freescale.coldfire.toolchain.compiler.base.general.enableC99" value="true" valueType="boolean"/>
+								<inputType id="com.freescale.coldfire.toolchain.compiler.base.input.1159977309" name="C Source File" superClass="com.freescale.coldfire.toolchain.compiler.base.input"/>
+								<inputType id="com.freescale.coldfire.toolchain.compiler.base.input.c++.1897668192" name="C++ Source File" superClass="com.freescale.coldfire.toolchain.compiler.base.input.c++"/>
 							</tool>
-							<tool id="com.freescale.coldfire.toolchain.assembler.debug.1395198208" name="ColdFire Assembler" superClass="com.freescale.coldfire.toolchain.assembler.debug">
-								<inputType id="com.freescale.coldfire.toolchain.assembler.base.input.1767826011" name="ColdFire Assembler Input" superClass="com.freescale.coldfire.toolchain.assembler.base.input"/>
+							<tool id="com.freescale.coldfire.toolchain.assembler.debug.1803299668" name="ColdFire Assembler" superClass="com.freescale.coldfire.toolchain.assembler.debug">
+								<inputType id="com.freescale.coldfire.toolchain.assembler.base.input.1718068083" name="ColdFire Assembler Input" superClass="com.freescale.coldfire.toolchain.assembler.base.input"/>
 							</tool>
-							<tool id="com.freescale.coldfire.toolchain.preprocessor.debug.340660118" name="ColdFire Preprocessor" superClass="com.freescale.coldfire.toolchain.preprocessor.debug"/>
-							<tool id="com.freescale.coldfire.toolchain.disassembler.debug.1118958819" name="ColdFire Disassembler" superClass="com.freescale.coldfire.toolchain.disassembler.debug"/>
+							<tool id="com.freescale.coldfire.toolchain.preprocessor.debug.317788846" name="ColdFire Preprocessor" superClass="com.freescale.coldfire.toolchain.preprocessor.debug"/>
+							<tool id="com.freescale.coldfire.toolchain.disassembler.debug.740359471" name="ColdFire Disassembler" superClass="com.freescale.coldfire.toolchain.disassembler.debug"/>
 						</toolChain>
 					</folderInfo>
-					<fileInfo id="com.freescale.coldfire.toolchain.configuration.855612764.Project_Settings/Linker_Files/MCF52259_Internal_Flash.lcf" name="MCF52259_Internal_Flash.lcf" rcbsApplicability="disable" resourcePath="Project_Settings/Linker_Files/MCF52259_Internal_Flash.lcf" toolsToInvoke=""/>
-					<fileInfo id="com.freescale.coldfire.toolchain.configuration.855612764.Project_Settings/Linker_Files/MCF52259_Internal_RAM.lcf" name="MCF52259_Internal_RAM.lcf" rcbsApplicability="disable" resourcePath="Project_Settings/Linker_Files/MCF52259_Internal_RAM.lcf" toolsToInvoke=""/>
-					<fileInfo id="com.freescale.coldfire.toolchain.configuration.855612764.Project_Settings/Debugger/MCF52259.mem" name="MCF52259.mem" rcbsApplicability="disable" resourcePath="Project_Settings/Debugger/MCF52259.mem" toolsToInvoke=""/>
-					<fileInfo id="com.freescale.coldfire.toolchain.configuration.855612764.Project_Settings/Debugger/MCF52259.cfg" name="MCF52259.cfg" rcbsApplicability="disable" resourcePath="Project_Settings/Debugger/MCF52259.cfg" toolsToInvoke=""/>
-					<fileInfo id="com.freescale.coldfire.toolchain.configuration.855612764.Sources/cfm.c" name="cfm.c" rcbsApplicability="disable" resourcePath="Sources/cfm.c" toolsToInvoke="com.freescale.coldfire.toolchain.compiler.debug.1402039381.1034097770">
-						<tool id="com.freescale.coldfire.toolchain.compiler.debug.1402039381.1034097770" name="ColdFire Compiler" superClass="com.freescale.coldfire.toolchain.compiler.debug.1402039381">
-							<inputType id="com.freescale.coldfire.toolchain.compiler.base.input.356028069" name="C Source File" superClass="com.freescale.coldfire.toolchain.compiler.base.input"/>
-							<inputType id="com.freescale.coldfire.toolchain.compiler.base.input.c++.979316925" name="C++ Source File" superClass="com.freescale.coldfire.toolchain.compiler.base.input.c++"/>
+					<fileInfo id="com.freescale.coldfire.toolchain.configuration.1109930256.Project_Settings/Linker_Files/MCF52259_Internal_Flash.lcf" name="MCF52259_Internal_Flash.lcf" rcbsApplicability="disable" resourcePath="Project_Settings/Linker_Files/MCF52259_Internal_Flash.lcf" toolsToInvoke=""/>
+					<fileInfo id="com.freescale.coldfire.toolchain.configuration.1109930256.Project_Settings/Linker_Files/MCF52259_Internal_RAM.lcf" name="MCF52259_Internal_RAM.lcf" rcbsApplicability="disable" resourcePath="Project_Settings/Linker_Files/MCF52259_Internal_RAM.lcf" toolsToInvoke=""/>
+					<fileInfo id="com.freescale.coldfire.toolchain.configuration.1109930256.Project_Settings/Debugger/MCF52259.mem" name="MCF52259.mem" rcbsApplicability="disable" resourcePath="Project_Settings/Debugger/MCF52259.mem" toolsToInvoke=""/>
+					<fileInfo id="com.freescale.coldfire.toolchain.configuration.1109930256.Project_Settings/Debugger/MCF52259.cfg" name="MCF52259.cfg" rcbsApplicability="disable" resourcePath="Project_Settings/Debugger/MCF52259.cfg" toolsToInvoke=""/>
+					<fileInfo id="com.freescale.coldfire.toolchain.configuration.1109930256.Sources/cfm.c" name="cfm.c" rcbsApplicability="disable" resourcePath="Sources/cfm.c" toolsToInvoke="com.freescale.coldfire.toolchain.compiler.debug.931699510.356492651">
+						<tool id="com.freescale.coldfire.toolchain.compiler.debug.931699510.356492651" name="ColdFire Compiler" superClass="com.freescale.coldfire.toolchain.compiler.debug.931699510">
+							<inputType id="com.freescale.coldfire.toolchain.compiler.base.input.1035640406" name="C Source File" superClass="com.freescale.coldfire.toolchain.compiler.base.input"/>
+							<inputType id="com.freescale.coldfire.toolchain.compiler.base.input.c++.692192180" name="C++ Source File" superClass="com.freescale.coldfire.toolchain.compiler.base.input.c++"/>
 						</tool>
 					</fileInfo>
 					<sourceEntries>
@@ -194,8 +185,8 @@
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
 		</cconfiguration>
-		<cconfiguration id="com.freescale.coldfire.toolchain.configuration.1118103122">
-			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.freescale.coldfire.toolchain.configuration.1118103122" moduleId="org.eclipse.cdt.core.settings" name="FLASH">
+		<cconfiguration id="com.freescale.coldfire.toolchain.configuration.235748834">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.freescale.coldfire.toolchain.configuration.235748834" moduleId="org.eclipse.cdt.core.settings" name="FLASH">
 				<externalSettings/>
 				<extensions>
 					<extension id="org.eclipse.cdt.managedbuilder.core.ManagedBuildManager" point="org.eclipse.cdt.core.ScannerInfoProvider"/>
@@ -215,59 +206,59 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="elf" artifactName="Project6" buildProperties="" cleanCommand="&quot;${system:ECLIPSE_HOME}/../gnu/bin/rm&quot; -f" description="" errorParsers="org.eclipse.cdt.core.MakeErrorParser;com.freescale.core.ide.cdt.errorParsers.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser;com.freescale.core.ide.cdt.errorParsers.LnkErrorParser;com.freescale.core.ide.cdt.errorParsers.AsmErrorParser;com.freescale.core.ide.cdt.errorParsers.CobjErrorParser;com.freescale.core.ide.cdt.errorParsers.IcodeErrorParser;com.freescale.core.ide.cdt.errorParsers.LltErrorParser;com.freescale.core.ide.cdt.errorParsers.MwfeErrorParser;com.freescale.core.ide.cdt.errorParsers.MwErrorParser;com.freescale.core.ide.cdt.errorParsers.MPWErrorParser" id="com.freescale.coldfire.toolchain.configuration.1118103122" isPrebuildInvalidatingBuild="false" name="FLASH" parent="com.freescale.coldfire.toolchain.configuration">
-					<folderInfo id="com.freescale.coldfire.toolchain.configuration.1118103122." name="/" resourcePath="">
-						<toolChain id="com.freescale.coldfire.toolchain.toolchain.project.2323179" name="ColdFire Toolchain" superClass="com.freescale.coldfire.toolchain.toolchain.project">
-							<option id="com.freescale.coldfire.toolchain.sharedoption.processor.1369311319" name="Processor Family (-proc)" superClass="com.freescale.coldfire.toolchain.sharedoption.processor" value="com.freescale.coldfire.toolchain.sharedoption.processor.52259" valueType="enumerated"/>
-							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="com.freescale.coldfire.toolchain.platform.559802125" name="ColdFire Target Platform" superClass="com.freescale.coldfire.toolchain.platform"/>
-							<builder buildPath="${ProjDirPath}/FLASH" id="com.freescale.coldfire.toolchain.builder.144215600" keepEnvironmentInBuildfile="false" name="GNU Make Builder" parallelBuildWorkspaceOn="true" superClass="com.freescale.coldfire.toolchain.builder"/>
-							<tool id="coldfire.toolchain.burner.287298337" name="Burner" superClass="coldfire.toolchain.burner"/>
-							<tool id="com.freescale.coldfire.toolchain.linker.debug.45346266" name="ColdFire Linker" superClass="com.freescale.coldfire.toolchain.linker.debug">
-								<option id="com.freescale.coldfire.toolchain.linker.base.generateLinkMap.1672894248" name="Generate Link Map" superClass="com.freescale.coldfire.toolchain.linker.base.generateLinkMap" value="true" valueType="boolean"/>
-								<option id="com.freescale.coldfire.toolchain.linker.base.input.lpath.820126066" name="Library Search Paths (-L+path)" superClass="com.freescale.coldfire.toolchain.linker.base.input.lpath" valueType="includePath">
+				<configuration artifactExtension="elf" artifactName="Project6" buildProperties="" cleanCommand="&quot;${system:ECLIPSE_HOME}/../gnu/bin/rm&quot; -f" description="" errorParsers="org.eclipse.cdt.core.MakeErrorParser;com.freescale.core.ide.cdt.errorParsers.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser;com.freescale.core.ide.cdt.errorParsers.LnkErrorParser;com.freescale.core.ide.cdt.errorParsers.AsmErrorParser;com.freescale.core.ide.cdt.errorParsers.CobjErrorParser;com.freescale.core.ide.cdt.errorParsers.IcodeErrorParser;com.freescale.core.ide.cdt.errorParsers.LltErrorParser;com.freescale.core.ide.cdt.errorParsers.MwfeErrorParser;com.freescale.core.ide.cdt.errorParsers.MwErrorParser;com.freescale.core.ide.cdt.errorParsers.MPWErrorParser" id="com.freescale.coldfire.toolchain.configuration.235748834" isPrebuildInvalidatingBuild="false" name="FLASH" parent="com.freescale.coldfire.toolchain.configuration">
+					<folderInfo id="com.freescale.coldfire.toolchain.configuration.235748834." name="/" resourcePath="">
+						<toolChain id="com.freescale.coldfire.toolchain.toolchain.project.1996728418" name="ColdFire Toolchain" superClass="com.freescale.coldfire.toolchain.toolchain.project">
+							<option id="com.freescale.coldfire.toolchain.sharedoption.processor.1134809907" name="Processor Family (-proc)" superClass="com.freescale.coldfire.toolchain.sharedoption.processor" value="com.freescale.coldfire.toolchain.sharedoption.processor.52259" valueType="enumerated"/>
+							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="com.freescale.coldfire.toolchain.platform.1549914944" name="ColdFire Target Platform" superClass="com.freescale.coldfire.toolchain.platform"/>
+							<builder buildPath="${ProjDirPath}/FLASH" id="com.freescale.coldfire.toolchain.builder.1131325731" keepEnvironmentInBuildfile="false" name="GNU Make Builder" superClass="com.freescale.coldfire.toolchain.builder"/>
+							<tool id="coldfire.toolchain.burner.1507550618" name="Burner" superClass="coldfire.toolchain.burner"/>
+							<tool id="com.freescale.coldfire.toolchain.linker.debug.512816005" name="ColdFire Linker" superClass="com.freescale.coldfire.toolchain.linker.debug">
+								<option id="com.freescale.coldfire.toolchain.linker.base.generateLinkMap.111707722" name="Generate Link Map" superClass="com.freescale.coldfire.toolchain.linker.base.generateLinkMap" value="true" valueType="boolean"/>
+								<option id="com.freescale.coldfire.toolchain.linker.base.input.lpath.1140016564" name="Library Search Paths (-L+path)" superClass="com.freescale.coldfire.toolchain.linker.base.input.lpath" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${MCUToolsBaseDir}/ColdFire_Support/ewl/lib&quot;"/>
 								</option>
-								<option id="com.freescale.coldfire.toolchain.linker.base.input.force.active.636001805" name="Force Active Symbols:" superClass="com.freescale.coldfire.toolchain.linker.base.input.force.active" valueType="stringList">
+								<option id="com.freescale.coldfire.toolchain.linker.base.input.force.active.420261297" name="Force Active Symbols:" superClass="com.freescale.coldfire.toolchain.linker.base.input.force.active" valueType="stringList">
 									<listOptionValue builtIn="false" value="__vect"/>
 									<listOptionValue builtIn="false" value="__cfm"/>
 								</option>
-								<option id="com.freescale.coldfire.toolchain.linker.base.input.lcf_file.1724772726" name="Link Command File (.lcf)" superClass="com.freescale.coldfire.toolchain.linker.base.input.lcf_file" value="${ProjDirPath}/Project_Settings/Linker_Files/MCF52259_Internal_Flash.lcf" valueType="string"/>
-								<inputType id="com.freescale.coldfire.toolchain.linker.base.input.7143037" name="Linker Input" superClass="com.freescale.coldfire.toolchain.linker.base.input">
+								<option id="com.freescale.coldfire.toolchain.linker.base.input.lcf_file.1559654143" name="Link Command File (.lcf)" superClass="com.freescale.coldfire.toolchain.linker.base.input.lcf_file" value="${ProjDirPath}/Project_Settings/Linker_Files/MCF52259_Internal_Flash.lcf" valueType="string"/>
+								<inputType id="com.freescale.coldfire.toolchain.linker.base.input.37746296" name="Linker Input" superClass="com.freescale.coldfire.toolchain.linker.base.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
 								</inputType>
 							</tool>
-							<tool id="com.freescale.coldfire.toolchain.compiler.debug.305598252" name="ColdFire Compiler" superClass="com.freescale.coldfire.toolchain.compiler.debug">
-								<option id="com.freescale.coldfire.toolchain.compiler.base.input.include.692056388" name="User Path (-i)" superClass="com.freescale.coldfire.toolchain.compiler.base.input.include" valueType="includePath">
+							<tool id="com.freescale.coldfire.toolchain.compiler.debug.1314472848" name="ColdFire Compiler" superClass="com.freescale.coldfire.toolchain.compiler.debug">
+								<option id="com.freescale.coldfire.toolchain.compiler.base.input.include.532111480" name="User Path (-i)" superClass="com.freescale.coldfire.toolchain.compiler.base.input.include" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Project_Headers&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Project_Settings/Startup_Code&quot;"/>
 								</option>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.input.include.system.1246745107" name="System Path (-I- -I)" superClass="com.freescale.coldfire.toolchain.compiler.base.input.include.system" valueType="includePath">
+								<option id="com.freescale.coldfire.toolchain.compiler.base.input.include.system.2119604390" name="System Path (-I- -I)" superClass="com.freescale.coldfire.toolchain.compiler.base.input.include.system" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${MCUToolsBaseDir}/ColdFire_Support/ewl/EWL_C/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${MCUToolsBaseDir}/ColdFire_Support/ewl/EWL_C/include/sys&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${MCUToolsBaseDir}/ColdFire_Support/ewl/EWL_Runtime/Runtime_ColdFire/Source&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${MCUToolsBaseDir}/ColdFire_Support/(headers)/MCF52259&quot;"/>
 								</option>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.optionCategory.processor.a6.1422308462" name="A6 Stack Frames (-a6)" superClass="com.freescale.coldfire.toolchain.compiler.base.optionCategory.processor.a6" value="true" valueType="boolean"/>
-								<option id="com.freescale.coldfire.toolchain.compiler.base.general.wchar.off.1859343122" name="Enable wchar_t Support" superClass="com.freescale.coldfire.toolchain.compiler.base.general.wchar.off" value="true" valueType="boolean"/>
-								<inputType id="com.freescale.coldfire.toolchain.compiler.base.input.1182385316" name="C Source File" superClass="com.freescale.coldfire.toolchain.compiler.base.input"/>
-								<inputType id="com.freescale.coldfire.toolchain.compiler.base.input.c++.1269497541" name="C++ Source File" superClass="com.freescale.coldfire.toolchain.compiler.base.input.c++"/>
+								<option id="com.freescale.coldfire.toolchain.compiler.base.optionCategory.processor.a6.1388805734" name="A6 Stack Frames (-a6)" superClass="com.freescale.coldfire.toolchain.compiler.base.optionCategory.processor.a6" value="true" valueType="boolean"/>
+								<option id="com.freescale.coldfire.toolchain.compiler.base.general.wchar.off.592288761" name="Enable wchar_t Support" superClass="com.freescale.coldfire.toolchain.compiler.base.general.wchar.off" value="true" valueType="boolean"/>
+								<inputType id="com.freescale.coldfire.toolchain.compiler.base.input.983283469" name="C Source File" superClass="com.freescale.coldfire.toolchain.compiler.base.input"/>
+								<inputType id="com.freescale.coldfire.toolchain.compiler.base.input.c++.1580560191" name="C++ Source File" superClass="com.freescale.coldfire.toolchain.compiler.base.input.c++"/>
 							</tool>
-							<tool id="com.freescale.coldfire.toolchain.assembler.debug.786824357" name="ColdFire Assembler" superClass="com.freescale.coldfire.toolchain.assembler.debug">
-								<inputType id="com.freescale.coldfire.toolchain.assembler.base.input.278328606" name="ColdFire Assembler Input" superClass="com.freescale.coldfire.toolchain.assembler.base.input"/>
+							<tool id="com.freescale.coldfire.toolchain.assembler.debug.713994969" name="ColdFire Assembler" superClass="com.freescale.coldfire.toolchain.assembler.debug">
+								<inputType id="com.freescale.coldfire.toolchain.assembler.base.input.943515547" name="ColdFire Assembler Input" superClass="com.freescale.coldfire.toolchain.assembler.base.input"/>
 							</tool>
-							<tool id="com.freescale.coldfire.toolchain.preprocessor.debug.1113313778" name="ColdFire Preprocessor" superClass="com.freescale.coldfire.toolchain.preprocessor.debug"/>
-							<tool id="com.freescale.coldfire.toolchain.disassembler.debug.1064327764" name="ColdFire Disassembler" superClass="com.freescale.coldfire.toolchain.disassembler.debug"/>
+							<tool id="com.freescale.coldfire.toolchain.preprocessor.debug.273596119" name="ColdFire Preprocessor" superClass="com.freescale.coldfire.toolchain.preprocessor.debug"/>
+							<tool id="com.freescale.coldfire.toolchain.disassembler.debug.912155844" name="ColdFire Disassembler" superClass="com.freescale.coldfire.toolchain.disassembler.debug"/>
 						</toolChain>
 					</folderInfo>
-					<fileInfo id="com.freescale.coldfire.toolchain.configuration.1118103122.Project_Settings/Linker_Files/MCF52259_Console_Internal_RAM.lcf" name="MCF52259_Console_Internal_RAM.lcf" rcbsApplicability="disable" resourcePath="Project_Settings/Linker_Files/MCF52259_Console_Internal_RAM.lcf" toolsToInvoke=""/>
-					<fileInfo id="com.freescale.coldfire.toolchain.configuration.1118103122.Project_Settings/Linker_Files/MCF52259_Internal_RAM.lcf" name="MCF52259_Internal_RAM.lcf" rcbsApplicability="disable" resourcePath="Project_Settings/Linker_Files/MCF52259_Internal_RAM.lcf" toolsToInvoke=""/>
-					<fileInfo id="com.freescale.coldfire.toolchain.configuration.1118103122.Project_Settings/Debugger/MCF52259.mem" name="MCF52259.mem" rcbsApplicability="disable" resourcePath="Project_Settings/Debugger/MCF52259.mem" toolsToInvoke=""/>
-					<fileInfo id="com.freescale.coldfire.toolchain.configuration.1118103122.Project_Settings/Debugger/MCF52259.cfg" name="MCF52259.cfg" rcbsApplicability="disable" resourcePath="Project_Settings/Debugger/MCF52259.cfg" toolsToInvoke=""/>
-					<fileInfo id="com.freescale.coldfire.toolchain.configuration.1118103122.Sources/console_io_cf.c" name="console_io_cf.c" rcbsApplicability="disable" resourcePath="Sources/console_io_cf.c" toolsToInvoke="com.freescale.coldfire.toolchain.compiler.debug.305598252.1237570303">
-						<tool id="com.freescale.coldfire.toolchain.compiler.debug.305598252.1237570303" name="ColdFire Compiler" superClass="com.freescale.coldfire.toolchain.compiler.debug.305598252">
-							<inputType id="com.freescale.coldfire.toolchain.compiler.base.input.1377614558" name="C Source File" superClass="com.freescale.coldfire.toolchain.compiler.base.input"/>
-							<inputType id="com.freescale.coldfire.toolchain.compiler.base.input.c++.1035012005" name="C++ Source File" superClass="com.freescale.coldfire.toolchain.compiler.base.input.c++"/>
+					<fileInfo id="com.freescale.coldfire.toolchain.configuration.235748834.Project_Settings/Linker_Files/MCF52259_Console_Internal_RAM.lcf" name="MCF52259_Console_Internal_RAM.lcf" rcbsApplicability="disable" resourcePath="Project_Settings/Linker_Files/MCF52259_Console_Internal_RAM.lcf" toolsToInvoke=""/>
+					<fileInfo id="com.freescale.coldfire.toolchain.configuration.235748834.Project_Settings/Linker_Files/MCF52259_Internal_RAM.lcf" name="MCF52259_Internal_RAM.lcf" rcbsApplicability="disable" resourcePath="Project_Settings/Linker_Files/MCF52259_Internal_RAM.lcf" toolsToInvoke=""/>
+					<fileInfo id="com.freescale.coldfire.toolchain.configuration.235748834.Project_Settings/Debugger/MCF52259.mem" name="MCF52259.mem" rcbsApplicability="disable" resourcePath="Project_Settings/Debugger/MCF52259.mem" toolsToInvoke=""/>
+					<fileInfo id="com.freescale.coldfire.toolchain.configuration.235748834.Project_Settings/Debugger/MCF52259.cfg" name="MCF52259.cfg" rcbsApplicability="disable" resourcePath="Project_Settings/Debugger/MCF52259.cfg" toolsToInvoke=""/>
+					<fileInfo id="com.freescale.coldfire.toolchain.configuration.235748834.Sources/console_io_cf.c" name="console_io_cf.c" rcbsApplicability="disable" resourcePath="Sources/console_io_cf.c" toolsToInvoke="com.freescale.coldfire.toolchain.compiler.debug.1314472848.744111987">
+						<tool id="com.freescale.coldfire.toolchain.compiler.debug.1314472848.744111987" name="ColdFire Compiler" superClass="com.freescale.coldfire.toolchain.compiler.debug.1314472848">
+							<inputType id="com.freescale.coldfire.toolchain.compiler.base.input.1376932605" name="C Source File" superClass="com.freescale.coldfire.toolchain.compiler.base.input"/>
+							<inputType id="com.freescale.coldfire.toolchain.compiler.base.input.c++.1004254612" name="C++ Source File" superClass="com.freescale.coldfire.toolchain.compiler.base.input.c++"/>
 						</tool>
 					</fileInfo>
 					<sourceEntries>
@@ -279,27 +270,27 @@
 		</cconfiguration>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-		<project id="Project6.com.freescale.coldfire.toolchain.projecttype.2130085780" name="Freescale Coldfire" projectType="com.freescale.coldfire.toolchain.projecttype"/>
+		<project id="Project6.com.freescale.coldfire.toolchain.projecttype.1585409704" name="Freescale Coldfire" projectType="com.freescale.coldfire.toolchain.projecttype"/>
 	</storageModule>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		<scannerConfigBuildInfo instanceId="com.freescale.coldfire.toolchain.configuration.773552094;com.freescale.coldfire.toolchain.configuration.773552094.;com.freescale.coldfire.toolchain.compiler.debug.1840119230;com.freescale.coldfire.toolchain.compiler.base.input.c++.843761121">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.freescale.coldfire.cdt.cpp.symbols.toolchain.discoveryProfile"/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="com.freescale.coldfire.toolchain.configuration.855612764;com.freescale.coldfire.toolchain.configuration.855612764.;com.freescale.coldfire.toolchain.compiler.debug.1402039381;com.freescale.coldfire.toolchain.compiler.base.input.c++.248833083">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.freescale.coldfire.cdt.cpp.symbols.toolchain.discoveryProfile"/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="com.freescale.coldfire.toolchain.configuration.855612764;com.freescale.coldfire.toolchain.configuration.855612764.;com.freescale.coldfire.toolchain.compiler.debug.1402039381;com.freescale.coldfire.toolchain.compiler.base.input.229782580">
+		<scannerConfigBuildInfo instanceId="com.freescale.coldfire.toolchain.configuration.830008904;com.freescale.coldfire.toolchain.configuration.830008904.;com.freescale.coldfire.toolchain.compiler.debug.1601906275;com.freescale.coldfire.toolchain.compiler.base.input.1308306987">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.freescale.coldfire.cdt.c.symbols.toolchain.discoveryProfile"/>
 		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="com.freescale.coldfire.toolchain.configuration.1118103122;com.freescale.coldfire.toolchain.configuration.1118103122.;com.freescale.coldfire.toolchain.compiler.debug.305598252;com.freescale.coldfire.toolchain.compiler.base.input.c++.1269497541">
+		<scannerConfigBuildInfo instanceId="com.freescale.coldfire.toolchain.configuration.235748834;com.freescale.coldfire.toolchain.configuration.235748834.;com.freescale.coldfire.toolchain.compiler.debug.1314472848;com.freescale.coldfire.toolchain.compiler.base.input.c++.1580560191">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.freescale.coldfire.cdt.cpp.symbols.toolchain.discoveryProfile"/>
 		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="com.freescale.coldfire.toolchain.configuration.773552094;com.freescale.coldfire.toolchain.configuration.773552094.;com.freescale.coldfire.toolchain.compiler.debug.1840119230;com.freescale.coldfire.toolchain.compiler.base.input.586429364">
+		<scannerConfigBuildInfo instanceId="com.freescale.coldfire.toolchain.configuration.830008904;com.freescale.coldfire.toolchain.configuration.830008904.;com.freescale.coldfire.toolchain.compiler.debug.1601906275;com.freescale.coldfire.toolchain.compiler.base.input.c++.1722541678">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.freescale.coldfire.cdt.cpp.symbols.toolchain.discoveryProfile"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.freescale.coldfire.toolchain.configuration.1109930256;com.freescale.coldfire.toolchain.configuration.1109930256.;com.freescale.coldfire.toolchain.compiler.debug.931699510;com.freescale.coldfire.toolchain.compiler.base.input.1159977309">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.freescale.coldfire.cdt.c.symbols.toolchain.discoveryProfile"/>
 		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="com.freescale.coldfire.toolchain.configuration.1118103122;com.freescale.coldfire.toolchain.configuration.1118103122.;com.freescale.coldfire.toolchain.compiler.debug.305598252;com.freescale.coldfire.toolchain.compiler.base.input.1182385316">
+		<scannerConfigBuildInfo instanceId="com.freescale.coldfire.toolchain.configuration.235748834;com.freescale.coldfire.toolchain.configuration.235748834.;com.freescale.coldfire.toolchain.compiler.debug.1314472848;com.freescale.coldfire.toolchain.compiler.base.input.983283469">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.freescale.coldfire.cdt.c.symbols.toolchain.discoveryProfile"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.freescale.coldfire.toolchain.configuration.1109930256;com.freescale.coldfire.toolchain.configuration.1109930256.;com.freescale.coldfire.toolchain.compiler.debug.931699510;com.freescale.coldfire.toolchain.compiler.base.input.c++.1897668192">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.freescale.coldfire.cdt.cpp.symbols.toolchain.discoveryProfile"/>
 		</scannerConfigBuildInfo>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.pathentry"/>

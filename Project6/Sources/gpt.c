@@ -49,7 +49,7 @@ __declspec(interrupt) void gpt_isr(){
 	//MCF_INTC0_IMRH &= ~(0x01 << 12);
 	
 	// Switch modes
-	switch(g_program_mode) {
+	/*switch(g_program_mode) {
 	case MODE_PAUSE:
 		g_program_mode = MODE_PLAY;
 		break;
@@ -58,7 +58,7 @@ __declspec(interrupt) void gpt_isr(){
 		break;
 	default:
 		break;
-	}
+	}*/
 	
 	// Unmask interrupt
 	//MCF_INTC0_IMRH &= ~(0x01 << 12);

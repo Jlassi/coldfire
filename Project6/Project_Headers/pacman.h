@@ -37,6 +37,7 @@ extern int ghost_x;
 extern int ghost_y;
 extern int ghost_dir;
 extern int ghost_move_tick;
+extern int ghost_move_tick_reset;
 
 void pacman_init();
 void pacman_set_init_map(uint8_t** new_map);

@@ -45,7 +45,7 @@ void nunchuk_read() {
 	
 	// Send the individual inputs to the callback function
 	if(g_callback_input == NULL) {
-		printf("nunchuk g_callback_input is null\n");
+		//printf("nunchuk g_callback_input is null\n");
 		return;
 	}
 	

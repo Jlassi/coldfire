@@ -18,6 +18,7 @@ int ghost_x;
 int ghost_y;
 int ghost_dir;
 int ghost_move_tick;
+int ghost_move_tick_reset;
 
 // Initialize pacman constructs, should only be called once on program startup
 void pacman_init() {
@@ -46,6 +47,8 @@ void pacman_init() {
 			init_map[x][y] = default_map[x][y];
 		}
 	}
+	
+	//srand(time(NULL));
 }
 
 /*
@@ -80,6 +83,7 @@ void pacman_start() {
 	player_dir = DIR_LEFT;
 	ghost_dir = DIR_RIGHT;
 	ghost_move_tick = 0;
+	ghost_move_tick_reset = 4;
 	
 	// Set input callback function
 	nunchuk_set_input_callback(&pacman_input);
@@ -101,7 +105,6 @@ void pacman_stop() {
  * Calculates the next state of the game and prepares the game_map that will be transmitted to the LED
  */
 void pacman_next() {
-	
 	// Move player
 	pacman_next_player_move();
 	if(pacman_is_game_over()) {
@@ -111,12 +114,12 @@ void pacman_next() {
 	}
 	
 	// Move ghost
-	/*pacman_next_ghost_move();
+	pacman_next_ghost_move();
 	if(pacman_is_game_over()) {
 		pacman_stop();
 		pacman_start();
 		return;
-	}*/
+	}
 
 	// Finally, update the LED display pattern
 	led_display_game();
@@ -199,8 +202,8 @@ void pacman_next_ghost_move() {
 		break;
 	}
 	
-	if((ghost_move_tick < 5) && pacman_is_valid_move_loc(ghost_x+ghost_off_x, ghost_y+ghost_off_y)) {
-		// Move the ghost if the next position isn't a wall AND less than 5 ticks have passed
+	if((ghost_move_tick < ghost_move_tick_reset) && pacman_is_valid_move_loc(ghost_x+ghost_off_x, ghost_y+ghost_off_y)) {
+		// Move the ghost if the next position isn't a wall AND less than the tick reset have passed
 		game_map[ghost_x][ghost_y] = MAP_EMPTY;
 		ghost_x += ghost_off_x;
 		ghost_y += ghost_off_y;
@@ -210,6 +213,8 @@ void pacman_next_ghost_move() {
 	} else {
 		// Change the ghosts direction (randomly)
 		ghost_dir = rand() % 4;
+		ghost_move_tick = 0;
+		ghost_move_tick_reset = (rand() % 6 + 2);
 	}
 }
 
