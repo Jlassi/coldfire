@@ -29,7 +29,6 @@
 extern void (*g_callback_input)(uint8_t);
 
 void nunchuk_init();
-void nunchuk_default_callback(uint8_t input_cmd);
 void nunchuk_set_input_callback(void (*cback)(uint8_t));
 void nunchuk_read();
 void nunchuk_xmit_cmd(uint8_t reg, uint8_t cmd);

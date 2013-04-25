@@ -7,17 +7,10 @@ void (*g_callback_input)(uint8_t);
  * Initializes nunchuk facilities and starts reading input from the controller
  */
 void nunchuk_init() {
-	g_callback_input = &nunchuk_default_callback;
+	g_callback_input = NULL;
 	dtim3_init();
 	i2c_init();
 	pit1_init(); // 250ms period, calls nunchuk_read() on interrupt
-}
-
-/*
- * Default callback for the nunchuk if none is provided
- */
-void nunchuk_default_callback(uint8_t input_cmd) {
-	printf("Nunchuk cmd: %02x\n", input_cmd);
 }
 
 /*
@@ -36,7 +29,7 @@ void nunchuk_read() {
 	nunchuk_xmit_cmd(0xF0, 0x55);
 	nunchuk_xmit_cmd(0xFB, 0x00);
 	nunchuk_xmit_cmd(0x00, 0x00);
-	//nunchuk_xmit_cmd(0x40, 0x00);
+	//nunchuk_xmit_cmd(0x40, 0x00); // Authentic nintendo only
 	
 	// Read controller state (6 bytes)
 	uint8_t *state = (uint8_t*)malloc(6);
@@ -70,13 +63,13 @@ void nunchuk_read() {
 	// C button
 	if((state[5] & (1 << 1)) == 0) {
 		//g_callback_input(NUNCHUK_INPUT_C);
-		printf("C button\n");
+		//printf("C button\n");
 	}
 	
 	// Z button
 	if((state[5] & (1 << 0)) == 0) {
 		//g_callback_input(NUNCHUK_INPUT_C);
-		printf("Z button\n");
+		//printf("Z button\n");
 	}
 	
 	free(state);
@@ -104,8 +97,6 @@ void nunchuk_xmit_cmd(uint8_t reg, uint8_t cmd) {
 	
 	i2c_tx(NUNCHUK_I2C_ADDR, size, data, NUNCHUK_I2C_DELAY_US);
 	
-	// maybe try increasing this delay?
 	dtim3_delay_us(2 * NUNCHUK_I2C_DELAY_US);
 	free(data);
-	//printf("nunchuk xmit_cmd\n");
 }

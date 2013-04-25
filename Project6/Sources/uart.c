@@ -31,7 +31,6 @@ void uart1_init() {
 	
 	// Clear recv interrupt select so interrupts will be generated when a character is recv'd
 	MCF_UART1_UMR1 &= ~(MCF_UART_UMR_RXIRQ);
-	MCF_UART1_UMR1 &= ~(MCF_UART_UMR_RXIRQ);
 	
 	// Clear UMR1[ERR]
 	MCF_UART1_UMR1 &= ~(MCF_UART_UMR_ERR);
@@ -56,8 +55,8 @@ void uart1_init() {
 	
 	// Configure baud divider. divider = f_sys / (32 * baud_rate)
 	uint64_t divider = 80000000 / (32 * 9600); // ~260
-	MCF_UART1_UBG1 |= MCF_UART_UBG1_Divider_MSB(1);
-	MCF_UART1_UBG2 |= MCF_UART_UBG2_Divider_LSB(4);
+	MCF_UART1_UBG1 |= MCF_UART_UBG1_Divider_MSB(0x01);
+	MCF_UART1_UBG2 |= MCF_UART_UBG2_Divider_LSB(0x04);
 	
 	// Unmask RXRDY and TXRDY interrupts
 	MCF_UART1_UIMR &= ~(MCF_UART_UIMR_TXRDY);

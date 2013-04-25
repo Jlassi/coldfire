@@ -11,10 +11,11 @@
 // Globals
 uint8_t **game_map;
 uint8_t **init_map;
-int playerx;
-int playery;
-int ghostx;
-int ghosty;
+int player_x;
+int player_y;
+int player_dir;
+int ghost_x;
+int ghost_y;
 
 // Initialize pacman constructs, should only be called once on program startup
 void pacman_init() {
@@ -37,10 +38,7 @@ void pacman_init() {
 	{ MAP_WALL, MAP_GHOST, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_WALL },
 	{ MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL }
 	};
-	playerx =2;
-	playery =6;
-	ghostx = 6;
-	ghosty = 2;
+
 	for(int x = 0; x < 8; x++) {
 		for(int y = 0; y < 8; y++) {
 			init_map[x][y] = default_map[x][y];
@@ -61,13 +59,27 @@ void pacman_set_init_map(uint8_t** new_map) {
 
 // Reset the pacman game state and start the game timer. Called every time a new game is created
 void pacman_start() {
-	// Copy init_map into game_map
+	// Copy init_map into game_map and find the initial player and ghost coordinates
 	for(int x = 0; x < 8; x++) {
 		for(int y = 0; y < 8; y++) {
 			game_map[x][y] = init_map[x][y];
+			
+			if(game_map[x][y] == MAP_PLAYER) {
+				player_x = x;
+				player_y = y;
+			} else if(game_map[x][y] == MAP_GHOST) {
+				ghost_x = x;
+				ghost_y = y;
+			}
 		}
 	}
+	
+	// Initial direction of the player
+	player_dir = DIR_LEFT;
+	
+	// Set input callback function
 	nunchuk_set_input_callback(&pacman_input);
+	
 	// Start refresh timer
 	pit0_stop();
 	led_display_game();
@@ -86,18 +98,60 @@ void pacman_stop() {
  * Calculates the next state of the game and prepares the game_map that will be transmitted to the LED
  */
 void pacman_next() {
+	int off_x = 0;
+	int off_y = 0;
+	
+	// Player movement:
+	switch(player_dir) {
+	case DIR_LEFT:
+		off_x = -1;
+		break;
+	case DIR_RIGHT:
+		off_x = 1;
+		break;
+	case DIR_UP:
+		off_y = 1;
+		break;
+	case DIR_DOWN:
+		off_y = -1;
+		break;
+	default:
+		break;
+	}
+	
+	// Don't move the player if the next pos is a wall
+	if(game_map[player_x+off_x][player_y+off_y] != MAP_WALL) {
+		// Change the players position and update it on the map
+		game_map[player_x][player_y] = MAP_EMPTY;
+		player_x += off_x;
+		player_y += off_y;
+		game_map[player_x][player_y] = MAP_PLAYER;
+	}
 
 	// Finally, update the LED display pattern
 	led_display_game();
 }
 
-void pacman_input(uint8_t input_cmd){
-	if(input_cmd == NUNCHUK_INPUT_LEFT){
-		game_map[playerx][playery] = MAP_EMPTY;
-		game_map[--playerx][playery] = MAP_PLAYER;
-		printf("Left Bitch");
-	}
-	else if(input_cmd == NUNCHUK_INPUT_RIGHT){
-		printf("Nothing");
+
+/*
+ * Input callback called from nunchuk_read()
+ * Changes the direction of the player when the nunchuk stick changes direction
+ */
+void pacman_input(uint8_t input_cmd) {
+	switch(input_cmd) {
+	case NUNCHUK_INPUT_LEFT:
+		player_dir = DIR_LEFT;
+		break;
+	case NUNCHUK_INPUT_RIGHT:
+		player_dir = DIR_RIGHT;
+		break;
+	case NUNCHUK_INPUT_UP:
+		player_dir = DIR_UP;
+		break;
+	case NUNCHUK_INPUT_DOWN:
+		player_dir = DIR_DOWN;
+		break;
+	default:
+		break;
 	}
 }

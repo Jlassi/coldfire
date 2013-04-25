@@ -2,7 +2,6 @@
 
 /*
  * Initializes I2C0
- * @param freq_khz Frequency of the transfer rate in kHz
  */
 void i2c_init() {
 	// Initialize DMA timer for use in transfer delays
