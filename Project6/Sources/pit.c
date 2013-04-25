@@ -1,7 +1,7 @@
 /*
  * pit.c
  * 
- * Project 5
+ * Project 6
  * Ramsey Kant (rkant@asu.edu), Michael Steptoe (msteptoe@asu.edu)
  * CSE325 Embedded Microprocessor Systems Spring 2013
  */
@@ -63,9 +63,11 @@ __declspec(interrupt) void pit0_isr() {
 	// Disable interrupts
 	MCF_PIT0_PCSR &= ~(MCF_PIT_PCSR_PIE);
 	
-	g_pit0_counter++;
+	// Only make it possible for the game state to progress in PLAY mode
+	if(g_program_mode == MODE_PLAY)
+		g_pit0_counter++;
 	
-	if((g_pit0_counter % 3000) == 0) {
+	if((g_pit0_counter % 30000) == 0) {
 		g_pit0_counter = 0;
 		pacman_next();
 	}

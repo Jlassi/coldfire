@@ -1,7 +1,7 @@
 /*
  * pit.h
  *
- * Project 5
+ * Project 6
  * Ramsey Kant (rkant@asu.edu), Michael Steptoe (msteptoe@asu.edu)
  * CSE325 Embedded Microprocessor Systems Spring 2013
  */
@@ -14,12 +14,16 @@
 #include "exceptions.h"
 #include "support_common.h"
 
+#include "gpt.h"
 #include "led.h"
 #include "pacman.h"
 #include "nunchuk.h"
 
+// Imported globals
 extern uint32 __VECTOR_RAM[];
+extern uint32_t g_program_mode;
 
+// Globals
 extern uint32_t g_pit0_counter;
 
 void pit0_init();

@@ -1,7 +1,7 @@
 /*
  * led.h
  *
- * Project 5
+ * Project 6
  * Ramsey Kant (rkant@asu.edu), Michael Steptoe (msteptoe@asu.edu)
  * CSE325 Embedded Microprocessor Systems Spring 2013
  */
@@ -20,8 +20,10 @@
 #define RED 0x02
 #define ORANGE 0x03
 
+// Imported globals
 extern uint8_t **game_map;
 
+// Globals
 extern uint8_t led_current_pattern[8][8];
 extern uint8_t g_green[8];
 extern uint8_t g_red[8];

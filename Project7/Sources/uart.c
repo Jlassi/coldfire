@@ -1,3 +1,11 @@
+/*
+ * uart.c
+ *
+ * Project 7
+ * Ramsey Kant (rkant@asu.edu), Michael Steptoe (msteptoe@asu.edu)
+ * CSE325 Embedded Microprocessor Systems Spring 2013
+ */
+
 #include "uart.h"
 
 void uart1_init() {
@@ -54,7 +62,7 @@ void uart1_init() {
 	MCF_UART1_UMR2 |= MCF_UART_UMR_SB_STOP_BITS_1;
 	
 	// Configure baud divider. divider = f_sys / (32 * baud_rate)
-	uint64_t divider = 80000000 / (32 * 9600); // ~260
+	//uint64_t divider = 80000000 / (32 * 9600); // ~260
 	MCF_UART1_UBG1 |= MCF_UART_UBG1_Divider_MSB(0x01);
 	MCF_UART1_UBG2 |= MCF_UART_UBG2_Divider_LSB(0x04);
 	

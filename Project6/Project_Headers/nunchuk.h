@@ -1,8 +1,9 @@
 /*
  * nunchuk.h
  *
- *  Created on: Apr 21, 2013
- *      Author: Ramsey
+ * Project 6
+ * Ramsey Kant (rkant@asu.edu), Michael Steptoe (msteptoe@asu.edu)
+ * CSE325 Embedded Microprocessor Systems Spring 2013
  */
 
 #ifndef NUNCHUK_H_

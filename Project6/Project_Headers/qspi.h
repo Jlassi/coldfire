@@ -1,7 +1,7 @@
 /*
  * qspi.h
  *
- * Project 5
+ * Project 6
  * Ramsey Kant (rkant@asu.edu), Michael Steptoe (msteptoe@asu.edu)
  * CSE325 Embedded Microprocessor Systems Spring 2013
  */
@@ -13,8 +13,10 @@
 
 #include "support_common.h"
 
+// Imported globals
 extern uint32 __VECTOR_RAM[];
 
+// Globals
 extern uint16_t g_cmd;
 
 void qspi_init(int baud, int delay);

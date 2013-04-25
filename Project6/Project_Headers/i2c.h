@@ -1,8 +1,9 @@
 /*
  * i2c.h
  *
- *  Created on: Apr 20, 2013
- *      Author: Ramsey
+ * Project 6
+ * Ramsey Kant (rkant@asu.edu), Michael Steptoe (msteptoe@asu.edu)
+ * CSE325 Embedded Microprocessor Systems Spring 2013
  */
 
 #ifndef I2C_H_

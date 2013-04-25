@@ -35,12 +35,18 @@ extern int player_y;
 extern int player_dir;
 extern int ghost_x;
 extern int ghost_y;
+extern int ghost_dir;
+extern int ghost_move_tick;
 
 void pacman_init();
 void pacman_set_init_map(uint8_t** new_map);
 void pacman_start();
 void pacman_stop();
 void pacman_next();
+int pacman_is_game_over();
+int pacman_is_valid_move_loc(int x, int y);
+void pacman_next_player_move();
+void pacman_next_ghost_move();
 void pacman_input(uint8_t input_cmd);
 
 #endif /* PACMAN_H_ */

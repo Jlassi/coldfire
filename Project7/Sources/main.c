@@ -1,7 +1,7 @@
 /*
  * main.c
  *
- * Project 6
+ * Project 7
  * Ramsey Kant (rkant@asu.edu), Michael Steptoe (msteptoe@asu.edu)
  * CSE325 Embedded Microprocessor Systems Spring 2013
  */
@@ -9,11 +9,11 @@
 
 #include "support_common.h" /* include peripheral declarations and more */
 
-#include "led.h"
+/*#include "led.h"
 #include "gpt.h"
 #include "nunchuk.h"
 #include "pacman.h"
-#include "dtim.h"
+#include "dtim.h"*/
 
 #if (CONSOLE_IO_SUPPORT || ENABLE_UART_SUPPORT)
 /* Standard IO is only possible if Console or UART support is enabled. */
@@ -60,18 +60,18 @@ asm __declspec(register_abi) void asm_set_ipl(int)
 }
 
 void init() {
-	asm_set_ipl(0); // Don't mask any levels
+	/*asm_set_ipl(0); // Don't mask any levels
 	gpt_port_ta_init(); // button init
 	pacman_init();
 	nunchuk_init();
-	led_init();
+	led_init();*/
 }
 
 __declspec(noreturn) int main(void)
 {
 	init();
 	
-	pacman_start();
+	//pacman_start();
 	
 	while(1) {
 	}

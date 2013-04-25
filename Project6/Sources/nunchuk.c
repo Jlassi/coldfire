@@ -1,3 +1,11 @@
+/*
+ * nunchuk.c
+ *
+ * Project 6
+ * Ramsey Kant (rkant@asu.edu), Michael Steptoe (msteptoe@asu.edu)
+ * CSE325 Embedded Microprocessor Systems Spring 2013
+ */
+
 #include "nunchuk.h"
 
 // Globals

@@ -13,12 +13,14 @@
 
 #include "support_common.h"
 
-#define MODE_IDLE 0
-#define MODE_GAME 1
+#define MODE_PAUSE 0
+#define MODE_PLAY 1
 
+// Imported globals
 extern uint32 __VECTOR_RAM[];
 
-extern uint32_t program_mode;
+// Globals
+extern uint32_t g_program_mode;
 
 void gpt_port_ta_init();
 __declspec(interrupt) void gpt_isr();
