@@ -36,28 +36,29 @@ void pacman_init() {
 	{ MAP_WALL, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_WALL },
 	{ MAP_WALL, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_PLAYER, MAP_WALL },
 	{ MAP_WALL, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_WALL },
-	{ MAP_WALL, MAP_EMPTY, MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL, MAP_EMPTY, MAP_WALL },
+	{ MAP_WALL, MAP_EMPTY, MAP_WALL, MAP_WALL, MAP_WALL, MAP_EMPTY, MAP_EMPTY, MAP_WALL },
 	{ MAP_WALL, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_WALL },
 	{ MAP_WALL, MAP_GHOST, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_WALL },
 	{ MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL }
 	};
 
-	for(int x = 0; x < 8; x++) {
-		for(int y = 0; y < 8; y++) {
-			init_map[x][y] = default_map[x][y];
+	for(int y = 0; y < 8; y++) {
+		for(int x = 0; x < 8; x++) {
+			init_map[y][x] = default_map[y][x];
 		}
 	}
 	
-	//srand(time(NULL));
+	// Seed the PRNG
+	srand(5);
 }
 
 /*
  * Set the init map. Used when a new map is received over RS232 and
  */
 void pacman_set_init_map(uint8_t** new_map) {
-	for(int x = 0; x < 8; x++) {
-		for(int y = 0; y < 8; y++) {
-			init_map[x][y] = new_map[x][y];
+	for(int y = 0; y < 8; y++) {
+		for(int x = 0; x < 8; x++) {
+			init_map[y][x] = new_map[y][x];
 		}
 	}
 }
@@ -65,14 +66,14 @@ void pacman_set_init_map(uint8_t** new_map) {
 // Reset the pacman game state and start the game timer. Called every time a new game is created
 void pacman_start() {
 	// Copy init_map into game_map and find the initial player and ghost coordinates
-	for(int x = 0; x < 8; x++) {
-		for(int y = 0; y < 8; y++) {
-			game_map[x][y] = init_map[x][y];
+	for(int y = 0; y < 8; y++) {
+		for(int x = 0; x < 8; x++) {
+			game_map[y][x] = init_map[y][x];
 			
-			if(game_map[x][y] == MAP_PLAYER) {
+			if(game_map[y][x] == MAP_PLAYER) {
 				player_x = x;
 				player_y = y;
-			} else if(game_map[x][y] == MAP_GHOST) {
+			} else if(game_map[y][x] == MAP_GHOST) {
 				ghost_x = x;
 				ghost_y = y;
 			}
@@ -140,7 +141,7 @@ int pacman_is_valid_move_loc(int x, int y) {
 	if(x < 0 || x > 7 || y < 0 || y > 7)
 		return 0;
 	
-	if(game_map[x][y] == MAP_WALL)
+	if(game_map[y][x] == MAP_WALL)
 		return 0;
 	
 	return 1;
@@ -172,10 +173,10 @@ void pacman_next_player_move() {
 	// Don't move the player if the next pos is a wall
 	if(pacman_is_valid_move_loc(player_x+player_off_x, player_y+player_off_y)) {
 		// Change the players position and update it on the map
-		game_map[player_x][player_y] = MAP_EMPTY;
+		game_map[player_y][player_x] = MAP_EMPTY;
 		player_x += player_off_x;
 		player_y += player_off_y;
-		game_map[player_x][player_y] = MAP_PLAYER;
+		game_map[player_y][player_x] = MAP_PLAYER;
 	}
 }
 
@@ -204,17 +205,17 @@ void pacman_next_ghost_move() {
 	
 	if((ghost_move_tick < ghost_move_tick_reset) && pacman_is_valid_move_loc(ghost_x+ghost_off_x, ghost_y+ghost_off_y)) {
 		// Move the ghost if the next position isn't a wall AND less than the tick reset have passed
-		game_map[ghost_x][ghost_y] = MAP_EMPTY;
+		game_map[ghost_y][ghost_x] = MAP_EMPTY;
 		ghost_x += ghost_off_x;
 		ghost_y += ghost_off_y;
-		game_map[ghost_x][ghost_y] = MAP_GHOST;
+		game_map[ghost_y][ghost_x] = MAP_GHOST;
 		
 		ghost_move_tick++;
 	} else {
 		// Change the ghosts direction (randomly)
-		ghost_dir = rand() % 4;
+		ghost_dir = rand() % 4; // [0, 3]
 		ghost_move_tick = 0;
-		ghost_move_tick_reset = (rand() % 6 + 2);
+		ghost_move_tick_reset = (rand() % 6) + 1; // [1,6] - can move between 1 and 6 paces in a single direction
 	}
 }
 
@@ -232,10 +233,10 @@ void pacman_input(uint8_t input_cmd) {
 		player_dir = DIR_RIGHT;
 		break;
 	case NUNCHUK_INPUT_UP:
-		player_dir = DIR_UP;
+		player_dir = DIR_DOWN;
 		break;
 	case NUNCHUK_INPUT_DOWN:
-		player_dir = DIR_DOWN;
+		player_dir = DIR_UP;
 		break;
 	default:
 		break;

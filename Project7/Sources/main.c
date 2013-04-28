@@ -12,8 +12,8 @@
 /*#include "led.h"
 #include "gpt.h"
 #include "nunchuk.h"
-#include "pacman.h"
-#include "dtim.h"*/
+#include "pacman.h"*/
+#include "uart.h"
 
 #if (CONSOLE_IO_SUPPORT || ENABLE_UART_SUPPORT)
 /* Standard IO is only possible if Console or UART support is enabled. */
@@ -31,7 +31,7 @@
 
 extern uint32 __VECTOR_RAM[];
 
-void init();
+extern uint8_t g_got_data;
 
 asm __declspec(register_abi) void asm_set_ipl(int)
 {
@@ -59,20 +59,24 @@ asm __declspec(register_abi) void asm_set_ipl(int)
     rts
 }
 
-void init() {
+__declspec(noreturn) int main(void)
+{
+	// Init
 	/*asm_set_ipl(0); // Don't mask any levels
 	gpt_port_ta_init(); // button init
 	pacman_init();
 	nunchuk_init();
 	led_init();*/
-}
-
-__declspec(noreturn) int main(void)
-{
-	init();
 	
+	// Start the game
 	//pacman_start();
 	
+	asm_set_ipl(0);
+	uart1_init();
+	
 	while(1) {
+		//uart1_write(0x03);
+		if(g_got_data == 1)
+			printf("data recv'd\n");
 	}
 }

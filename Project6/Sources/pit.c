@@ -16,7 +16,7 @@ void pit0_init() {
 	MCF_PIT0_PCSR &= ~(MCF_PIT_PCSR_EN);
 	
 	// Write a prescaler of 1 which generates an interrupt every 3ms seconds
-	MCF_PIT0_PCSR |= MCF_PIT_PCSR_PRE(0x02);
+	MCF_PIT0_PCSR |= MCF_PIT_PCSR_PRE(0x05);
 	
 	// Timer will stop when execution is halted by the debugger
 	MCF_PIT0_PCSR |= MCF_PIT_PCSR_DBG;
@@ -36,8 +36,8 @@ void pit0_init() {
 	// Write 0 into PIT Modulus register (which will reset it to 0xFFFF)
 	MCF_PIT0_PMR = MCF_PIT_PMR_PM(0);
 	
-	// Interrupt Controller: PIT0 interrupts as level 2 priority 7 (Source 55)
-	MCF_INTC0_ICR55 |= MCF_INTC_ICR_IL(0x02);
+	// Interrupt Controller: PIT0 interrupts as level 4 priority 7 (Source 55)
+	MCF_INTC0_ICR55 |= MCF_INTC_ICR_IL(0x04);
 	MCF_INTC0_ICR55 |= MCF_INTC_ICR_IP(0x07);
 	
 	// Unmask interrupts from the interrupt source
@@ -53,11 +53,10 @@ void pit0_init() {
 }
 
 void pit0_stop() {
-	//printf("pit stop. g_pit_counter: %u\n", g_pit_counter);
 	MCF_PIT0_PCSR &= ~(MCF_PIT_PCSR_EN);
 }
 
-// Interrupt service routine for the timer
+// Interrupt service routine for timer0
 __declspec(interrupt) void pit0_isr() {
 	// Clear the interrupt request
 	MCF_PIT0_PCSR |= MCF_PIT_PCSR_PIF;
@@ -65,14 +64,17 @@ __declspec(interrupt) void pit0_isr() {
 	// Disable interrupts
 	MCF_PIT0_PCSR &= ~(MCF_PIT_PCSR_PIE);
 	
-	// Only make it possible for the game state to progress in PLAY mode
+	
 	if(g_program_mode == MODE_PLAY) {
 		g_pit0_counter++;
-	}
-	
-	if((g_pit0_counter % 50) == 0) {
-		g_pit0_counter = 0;
-		pacman_next();
+		
+		// Only make it possible for the game state to progress in PLAY mode
+		if((g_pit0_counter % 50) == 0) {
+			g_pit0_counter = 0;
+			pacman_next();
+		}
+	} else if(g_program_mode == MODE_PAUSE) {
+		led_display_blank();
 	}
 	
 	led_refresh();
@@ -106,8 +108,8 @@ void pit1_init() {
 	// Write 0 into PIT Modulus register (which will reset it to 0xFFFF)
 	MCF_PIT1_PMR = MCF_PIT_PMR_PM(0);
 	
-	// Interrupt Controller: PIT1 interrupts as level 4 priority 7 (Source 56)
-	MCF_INTC0_ICR56 |= MCF_INTC_ICR_IL(0x04);
+	// Interrupt Controller: PIT1 interrupts as level 2 priority 7 (Source 56)
+	MCF_INTC0_ICR56 |= MCF_INTC_ICR_IL(0x02);
 	MCF_INTC0_ICR56 |= MCF_INTC_ICR_IP(0x07);
 	
 	// Unmask interrupts from the interrupt source
@@ -132,8 +134,8 @@ __declspec(interrupt) void pit1_isr() {
 	// Disable interrupts
 	MCF_PIT1_PCSR &= ~(MCF_PIT_PCSR_PIE);
 	
-	//printf("timer 1\n");
-	
+	// Note: The display will flicker because this nunchuk_read calls a method which waits on a blocking DTIM
+	// So no matter how fast this timer is, its still bottlenecked by polling DTIM in the other ISR
 	nunchuk_read();
 	
 	// Enable interrupts

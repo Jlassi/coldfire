@@ -28,7 +28,7 @@ public class MapTerm extends JFrame {
 		{ MAP_WALL, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_WALL },
 		{ MAP_WALL, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_PLAYER, MAP_WALL },
 		{ MAP_WALL, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_WALL },
-		{ MAP_WALL, MAP_EMPTY, MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL, MAP_EMPTY, MAP_WALL },
+		{ MAP_WALL, MAP_EMPTY, MAP_WALL, MAP_WALL, MAP_WALL, MAP_EMPTY, MAP_EMPTY, MAP_WALL },
 		{ MAP_WALL, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_WALL },
 		{ MAP_WALL, MAP_GHOST, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_WALL },
 		{ MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL }
@@ -104,6 +104,15 @@ public class MapTerm extends JFrame {
 		btnSave.setBounds(109, 11, 89, 23);
 		controlPanel.add(btnSave);
 		
+		JButton btnReadRs = new JButton("read rs232");
+		btnReadRs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				term.read();
+			}
+		});
+		btnReadRs.setBounds(209, 11, 89, 23);
+		controlPanel.add(btnReadRs);
+		
 		lblStatus = new JLabel("Ready");
 		lblStatus.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblStatus.setBounds(10, 40, 468, 14);
@@ -125,7 +134,7 @@ public class MapTerm extends JFrame {
 					}
 				}
 				
-				if(!term.send(map))
+				if(term.send(map))
 					lblStatus.setText("Send over RS232 succeeded");
 				else
 					lblStatus.setText("Send over RS232 failed");

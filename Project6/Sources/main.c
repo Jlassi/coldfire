@@ -13,7 +13,6 @@
 #include "gpt.h"
 #include "nunchuk.h"
 #include "pacman.h"
-#include "dtim.h"
 
 #if (CONSOLE_IO_SUPPORT || ENABLE_UART_SUPPORT)
 /* Standard IO is only possible if Console or UART support is enabled. */
@@ -23,15 +22,13 @@
 
 /*
  * Interrupt Priorities
- * PIT0 2/7
- * PIT1 4/7
+ * PIT0 4/7
+ * PIT1 2/7
  * GPT 6/6
  * UART 6/7
  */
 
 extern uint32 __VECTOR_RAM[];
-
-void init();
 
 asm __declspec(register_abi) void asm_set_ipl(int)
 {
@@ -59,18 +56,16 @@ asm __declspec(register_abi) void asm_set_ipl(int)
     rts
 }
 
-void init() {
+__declspec(noreturn) int main(void)
+{
+	// Init
 	asm_set_ipl(0); // Don't mask any levels
 	gpt_port_ta_init(); // button init
 	pacman_init();
 	nunchuk_init();
 	led_init();
-}
-
-__declspec(noreturn) int main(void)
-{
-	init();
 	
+	// Start the game
 	pacman_start();
 	
 	while(1) {

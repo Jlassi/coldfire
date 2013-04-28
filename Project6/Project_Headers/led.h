@@ -30,6 +30,7 @@ extern uint8_t g_red[8];
 extern uint8_t g_row;
 
 void led_init();
+void led_display_blank();
 void led_display_game();
 void led_refresh();
 void led_write(uint8_t (*pattern)[8][8]);

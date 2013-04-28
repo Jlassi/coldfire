@@ -48,7 +48,9 @@ import java.io.*;
 //==============================================================================================================
 public class SleazyTerm {
 	
+	private SerialPort serPort;
 	private OutputStream mSerialOut;
+	private InputStream mSerialIn;
 
     //----------------------------------------------------------------------------------------------------------
     // The packet identifier for a Download Map Packet.
@@ -76,25 +78,54 @@ public class SleazyTerm {
     		return false;
     	}
     	
+    	int lensent = 0;
+    	
         try {
         	connect();
         	
         	// Send packet header
         	txPacketHdr(PACKET_ID_DWNLD);
+        	lensent += 1;
         	
-        	// Send the map row by row
+        	
+        	/*// Send the map row by row
         	for(int x = 0; x < 8; x++) {
+        		lensent += 8;
         		mSerialOut.write(map[x]);
-        	}
+        	}*/
             
-            System.out.println("Successfully transferred " + (64 + 1) + " bytes.\n");
-            mSerialOut.close();
+            serPort.close();
+            System.out.println("Sent " + (lensent) + " bytes.\n");
         } catch (Exception e) {
-            System.out.println("Transfer failed :(");
+            System.out.println("Transfer failed. " + e);
             return false;
         }
         
         return true;
+    }
+    
+    public void read() {
+    	try {
+    		connect();
+    		
+    		byte[] inBuf = new byte[255];
+    		int len = 0;
+    		len = mSerialIn.read(inBuf);
+    		
+    		serPort.close();
+    		
+    		if(len > 0) {
+    			for(int i = 0; i < len; i++) {
+    				System.out.print(Integer.toBinaryString(inBuf[i]) + " = " + inBuf[i] + ". ");
+    			}
+    			System.out.println();
+    		} else {
+    			System.out.print("no data");
+    		}
+    		System.out.println();
+    	} catch(Exception e) {
+    		System.out.println("Read failed " + e);
+    	}
     }
 
     //----------------------------------------------------------------------------------------------------------
@@ -109,12 +140,14 @@ public class SleazyTerm {
             System.out.print("Trying to connect on " + sComPort + "...");
             try {
                 CommPortIdentifier commPortId = CommPortIdentifier.getPortIdentifier(sComPort);
-                CommPort commPort = commPortId.open(this.getClass().getName(), 2000);
+                CommPort cp = commPortId.open(this.getClass().getName(), 2000);
                 System.out.println(" Success");
-                if (commPort instanceof SerialPort) {
-                    SerialPort com = (SerialPort)commPort;
+                if (cp instanceof SerialPort) {
+                    SerialPort com = (SerialPort)cp;
                     com.setSerialPortParams(9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
+                    serPort = com;
                     mSerialOut = com.getOutputStream();
+                    mSerialIn = com.getInputStream();
                 }
                 return;
             } catch (NoSuchPortException e) {

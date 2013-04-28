@@ -28,19 +28,30 @@ void led_init() {
 	qspi_init(5000, 0);
 }
 
+// Display a blank output on the LED (useful for modes outside of the game mode)
+void led_display_blank() {
+	for(int y = 0; y < 8; y++) {
+		for(int x = 0; x < 8; x++) {
+			led_current_pattern[y][x] = BLACK;
+		}
+	}
+	
+	led_write(&led_current_pattern);
+}
+
 // Copy the game's map to the LED pattern
 void led_display_game() {
 	// Convert game_map tiles into appropriate colored tiles and set into led_current_pattern
-	for(int x = 0; x < 8; x++) {
-		for(int y = 0; y < 8; y++) {
-			if(game_map[x][y] == MAP_WALL)
-				led_current_pattern[x][y] = GREEN;
-			else if(game_map[x][y] == MAP_PLAYER)
-				led_current_pattern[x][y] = ORANGE;
-			else if(game_map[x][y] == MAP_GHOST)
-				led_current_pattern[x][y] = RED;
+	for(int y = 0; y < 8; y++) {
+		for(int x = 0; x < 8; x++) {
+			if(game_map[y][x] == MAP_WALL)
+				led_current_pattern[y][x] = GREEN;
+			else if(game_map[y][x] == MAP_PLAYER)
+				led_current_pattern[y][x] = ORANGE;
+			else if(game_map[y][x] == MAP_GHOST)
+				led_current_pattern[y][x] = RED;
 			else {
-				led_current_pattern[x][y] = BLACK; // MAP_EMPTY
+				led_current_pattern[y][x] = BLACK; // MAP_EMPTY
 			}
 		}
 	}
@@ -52,7 +63,7 @@ void led_display_game() {
 void led_refresh() {
 	led_write_row(); // writes the next row
 	g_row++;
-	if((g_row % 8) == 0) {
+	if(g_row == 8) {
 		g_row = 0;
 	}
 }
@@ -60,8 +71,6 @@ void led_refresh() {
 // Write a specific 8x8 pattern
 void led_write(uint8_t (*pattern)[8][8]) {
 	for(int row = 0; row <= 7; row++) {
-		g_green[row] = 0;
-		g_red[row] = 0;
 		for(int col = 0; col <= 7; col++) {
 			if((*pattern)[row][col] == RED) {
 				g_red[row] |= (1 << col);
@@ -71,8 +80,10 @@ void led_write(uint8_t (*pattern)[8][8]) {
 				g_red[row] |= (1 << col);
 				g_green[row] |= (1 << col);
 			} else if((*pattern)[row][col] == BLACK) {
+				g_green[row] &= ~(1 << col);
+				g_red[row] &= ~(1 << col);
 			} else {
-				printf("Unknown color in pattern\n");
+				// Unknown color. shouldn't happen
 			}
 		}
 	}

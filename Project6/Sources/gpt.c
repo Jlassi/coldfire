@@ -12,8 +12,7 @@
 uint32_t g_program_mode;
 
 void gpt_port_ta_init() {
-	// !!! change this to MODE_PAUSE
-	g_program_mode = MODE_PLAY;
+	g_program_mode = MODE_PAUSE;
 	
 	// Program Port TA Pin Assignment Register (PTCPAR) so pin 0 is configured for the GPT function.
 	MCF_GPIO_PTAPAR = MCF_GPIO_PTAPAR_PTAPAR0(MCF_GPIO_PTAPAR_ICOC0_ICOC0);
@@ -49,7 +48,7 @@ __declspec(interrupt) void gpt_isr(){
 	//MCF_INTC0_IMRH &= ~(0x01 << 12);
 	
 	// Switch modes
-	/*switch(g_program_mode) {
+	switch(g_program_mode) {
 	case MODE_PAUSE:
 		g_program_mode = MODE_PLAY;
 		break;
@@ -58,7 +57,7 @@ __declspec(interrupt) void gpt_isr(){
 		break;
 	default:
 		break;
-	}*/
+	}
 	
 	// Unmask interrupt
 	//MCF_INTC0_IMRH &= ~(0x01 << 12);
