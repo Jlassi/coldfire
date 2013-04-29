@@ -25,6 +25,7 @@
 #define DIR_RIGHT 1
 #define DIR_UP 2
 #define DIR_DOWN 3
+#define DIR_NONE 4 // Spawn stand still
 
 // Globals
 extern uint8_t **game_map; // Current state of the map during gameplay

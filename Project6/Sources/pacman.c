@@ -81,7 +81,7 @@ void pacman_start() {
 	}
 	
 	// Initial direction of the player and ghost
-	player_dir = DIR_LEFT;
+	player_dir = DIR_NONE;
 	ghost_dir = DIR_RIGHT;
 	ghost_move_tick = 0;
 	ghost_move_tick_reset = 4;

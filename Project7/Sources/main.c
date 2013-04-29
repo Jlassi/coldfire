@@ -31,8 +31,6 @@
 
 extern uint32 __VECTOR_RAM[];
 
-extern uint8_t g_got_data;
-
 asm __declspec(register_abi) void asm_set_ipl(int)
 {
     
@@ -59,6 +57,20 @@ asm __declspec(register_abi) void asm_set_ipl(int)
     rts
 }
 
+void print_bits(uint8_t num) {
+	int i = 0, m = 0;
+
+	for (i = 7; i >= 0; i--) {
+		m = num >> i;
+ 
+		if (m & 1)
+			printf("1");
+		else
+			printf("0");
+	}
+	printf("\n");
+}
+
 __declspec(noreturn) int main(void)
 {
 	// Init
@@ -75,8 +87,6 @@ __declspec(noreturn) int main(void)
 	uart1_init();
 	
 	while(1) {
-		//uart1_write(0x03);
-		if(g_got_data == 1)
-			printf("data recv'd\n");
+		uart1_download();
 	}
 }

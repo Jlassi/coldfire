@@ -17,10 +17,10 @@ import java.awt.event.ActionEvent;
 
 public class MapTerm extends JFrame {
 	// Static tile types understood by the pacman program on the board
-	private static final byte MAP_EMPTY = 0x00;
-	private static final byte MAP_WALL = 0x01;
-	private static final byte MAP_PLAYER = 0x02;
-	private static final byte MAP_GHOST = 0x03;
+	public static final byte MAP_EMPTY = 0x00;
+	public static final byte MAP_WALL = 0x01;
+	public static final byte MAP_PLAYER = 0x02;
+	public static final byte MAP_GHOST = 0x03;
 	
 	// Default map
 	private static final byte[][] DEFAULT_MAP = new byte[][]{
@@ -104,14 +104,16 @@ public class MapTerm extends JFrame {
 		btnSave.setBounds(109, 11, 89, 23);
 		controlPanel.add(btnSave);
 		
-		JButton btnReadRs = new JButton("read rs232");
+		/*JButton btnReadRs = new JButton("read rs232");
 		btnReadRs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				term.connect();
 				term.read();
+				term.disconnect();
 			}
 		});
 		btnReadRs.setBounds(209, 11, 89, 23);
-		controlPanel.add(btnReadRs);
+		controlPanel.add(btnReadRs);*/
 		
 		lblStatus = new JLabel("Ready");
 		lblStatus.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -128,16 +130,20 @@ public class MapTerm extends JFrame {
 					return;
 				
 				byte[][] map = new byte[8][8];
-				for(int x = 0; x < 8; x++) {
-					for(int y = 0; y < 8; y++) {
-						map[x][y] = textToTile(x, y);
+				for(int y = 0; y < 8; y++) {
+					for(int x = 0; x < 8; x++) {
+						map[y][x] = textToTile(x, y);
 					}
 				}
+				
+				term.connect();
 				
 				if(term.send(map))
 					lblStatus.setText("Send over RS232 succeeded");
 				else
 					lblStatus.setText("Send over RS232 failed");
+				
+				term.disconnect();
 			}
 		});
 		btnSend.setBounds(356, 11, 122, 23);
@@ -150,11 +156,11 @@ public class MapTerm extends JFrame {
 		term = new SleazyTerm();
 		
 		tfs = new JTextField[8][8];
-		for(int x = 0; x < 8; x++) {
-			for(int y = 0; y < 8; y++) {
-				tfs[x][y] = new JTextField();
-				mapInputPane.add(tfs[x][y]);
-				tfs[x][y].setColumns(1);
+		for(int y = 0; y < 8; y++) {
+			for(int x = 0; x < 8; x++) {
+				tfs[y][x] = new JTextField();
+				mapInputPane.add(tfs[y][x]);
+				tfs[y][x].setColumns(1);
 			}
 		}
 		
@@ -171,9 +177,9 @@ public class MapTerm extends JFrame {
 	private boolean checkGrid() {
 		String str;
 		int ghostCount = 0, playerCount = 0;
-		for(int x = 0; x < 8; x++) {
-			for(int y = 0; y < 8; y++) {
-				str = tfs[x][y].getText().toUpperCase();
+		for(int y = 0; y < 8; y++) {
+			for(int x = 0; x < 8; x++) {
+				str = tfs[y][x].getText().toUpperCase();
 				
 				if(str.equals("W")) {
 				} else if(str.equals("G")) {
@@ -200,7 +206,7 @@ public class MapTerm extends JFrame {
 	 * Converts a text field on the grid to a byte representation understood by the board's pacman program
 	 */
 	private byte textToTile(int x, int y) {
-		String str = tfs[x][y].getText();
+		String str = tfs[y][x].getText();
 		byte ret = MAP_EMPTY;
 		str = str.toUpperCase();
 		
@@ -239,10 +245,10 @@ public class MapTerm extends JFrame {
 		try {
 			InputStream in = new BufferedInputStream(new FileInputStream(name));
 			byte tile = MAP_EMPTY;
-			for(int x = 0; x < 8; x++) {
-				for(int y = 0; y < 8; y++) {
+			for(int y = 0; y < 8; y++) {
+				for(int x = 0; x < 8; x++) {
 					tile = (byte)in.read();
-					tfs[x][y].setText(tileToText(tile));
+					tfs[y][x].setText(tileToText(tile));
 				}
 			}
 			in.close();
@@ -264,8 +270,8 @@ public class MapTerm extends JFrame {
 		
 		try {
 			OutputStream out = new BufferedOutputStream(new FileOutputStream(name));
-			for(int x = 0; x < 8; x++) {
-				for(int y = 0; y < 8; y++) {
+			for(int y = 0; y < 8; y++) {
+				for(int x = 0; x < 8; x++) {
 					out.write(textToTile(x, y));
 				}
 			}
@@ -283,9 +289,9 @@ public class MapTerm extends JFrame {
 	 * Sets the default map in the text field grid
 	 */
 	private void loadDefaultMap() {
-		for(int x = 0; x < 8; x++) {
-			for(int y = 0; y < 8; y++) {
-				tfs[x][y].setText(tileToText(DEFAULT_MAP[x][y]));
+		for(int y = 0; y < 8; y++) {
+			for(int x = 0; x < 8; x++) {
+				tfs[y][x].setText(tileToText(DEFAULT_MAP[y][x]));
 			}
 		}
 		

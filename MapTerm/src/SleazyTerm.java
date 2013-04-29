@@ -49,13 +49,11 @@ import java.io.*;
 public class SleazyTerm {
 	
 	private SerialPort serPort;
-	private OutputStream mSerialOut;
-	private InputStream mSerialIn;
 
     //----------------------------------------------------------------------------------------------------------
     // The packet identifier for a Download Map Packet.
     //----------------------------------------------------------------------------------------------------------
-    private static final byte PACKET_ID_DWNLD = (byte)0xFF;
+    private static final byte PACKET_ID_DWNLD = (byte)0x05;
 
     //----------------------------------------------------------------------------------------------------------
     // CTOR: SleazyTerm()
@@ -64,6 +62,7 @@ public class SleazyTerm {
     // Does nothing.
     //----------------------------------------------------------------------------------------------------------
     public SleazyTerm() {
+    	serPort = null;
     }
 
     //----------------------------------------------------------------------------------------------------------
@@ -79,22 +78,70 @@ public class SleazyTerm {
     	}
     	
     	int lensent = 0;
+    	int ack_count = 0;
     	
         try {
-        	connect();
-        	
-        	// Send packet header
-        	txPacketHdr(PACKET_ID_DWNLD);
+        	/*// Send packet header
+        	serPort.getOutputStream().write(0x0C);
         	lensent += 1;
         	
-        	
-        	/*// Send the map row by row
-        	for(int x = 0; x < 8; x++) {
-        		lensent += 8;
-        		mSerialOut.write(map[x]);
+        	while(!did_ack()) {
+        		Thread.sleep(100);
+        		ack_count++;
+        		
+        		if(ack_count >= 100)
+        			return false;
         	}*/
-            
-            serPort.close();
+
+        	// Send map byte by byte
+        	byte mbyte = 0x00;
+        	for(int y = 0; y < 8; y++) {
+        		for(int x = 0; x < 8; x++) {
+        			// Convert map byte to mangled byte
+        			/*
+        			 * 240 = 0x00 empty
+        			 * 255 = 0xFF wall
+					 * 244 = 0x60 ghost
+					 * 248-252 = 0x85 player
+        			 */
+        			switch(map[y][x]) {
+        			case MapTerm.MAP_EMPTY:
+        				mbyte = (byte)0x00;
+        				break;
+        			case MapTerm.MAP_WALL:
+        				mbyte = (byte)0xFF;
+        				break;
+        			case MapTerm.MAP_GHOST:
+        				mbyte = (byte)0x60;
+        				break;
+        			case MapTerm.MAP_PLAYER:
+        				mbyte = (byte)0x85;
+        				break;
+        			default:
+        				mbyte = (byte)0x00;
+        				break;
+        			}
+        			
+        			serPort.getOutputStream().write((byte)mbyte);
+        			
+        			ack_count = 0;
+        			while(!did_ack()) {
+        				Thread.sleep(100);
+        				ack_count++;
+
+        				if(ack_count >= 100) {
+        					System.out.println("Incomplete send of " + (lensent) + " bytes. Try again.\n");
+        					return false;
+        				}
+        			}
+        			
+        			lensent++;
+        			
+        			System.out.print(map[y][x]);
+        			if(x == 7)
+        				System.out.print("\n");
+        		}
+        	}
             System.out.println("Sent " + (lensent) + " bytes.\n");
         } catch (Exception e) {
             System.out.println("Transfer failed. " + e);
@@ -104,17 +151,41 @@ public class SleazyTerm {
         return true;
     }
     
-    public void read() {
+    public boolean did_ack() {
     	try {
-    		connect();
-    		
-    		byte[] inBuf = new byte[255];
-    		int len = 0;
-    		len = mSerialIn.read(inBuf);
-    		
-    		serPort.close();
+    		//Thread.sleep(10);
+    		byte[] ack = read();
+    		if(ack != null && ack.length == 1) {
+    			System.out.println("Ack recv'd");
+    		} else {
+    			System.out.println("Ack not recieved");
+    			return false;
+    		}
+    	} catch(Exception e) {
+    		System.out.println(e);
+    		return false;
+    	}
+    	
+    	return true;
+    }
+    
+    public byte[] read() {
+    	byte[] inBuf = new byte[16];
+    	byte[] retBuf = null;
+    	int len = 0;
+    	
+    	try {
+    		len = serPort.getInputStream().read(inBuf);
     		
     		if(len > 0) {
+    			retBuf = new byte[len];
+    			for(int i = 0; i < len; i++) {
+    				retBuf[i] = inBuf[i];
+    				System.out.println("Read: " + Integer.toHexString(retBuf[i]) + ", " + Integer.toBinaryString(retBuf[i]));
+    			}
+    		}
+    		
+    		/*if(len > 0) {
     			for(int i = 0; i < len; i++) {
     				System.out.print(Integer.toBinaryString(inBuf[i]) + " = " + inBuf[i] + ". ");
     			}
@@ -122,10 +193,12 @@ public class SleazyTerm {
     		} else {
     			System.out.print("no data");
     		}
-    		System.out.println();
+    		System.out.println();*/
     	} catch(Exception e) {
     		System.out.println("Read failed " + e);
     	}
+    	
+    	return retBuf;
     }
 
     //----------------------------------------------------------------------------------------------------------
@@ -134,35 +207,38 @@ public class SleazyTerm {
     // DESCRIPTION:
     // Opens a connection on serial port COM1 at 9600 baud 8N1.
     //----------------------------------------------------------------------------------------------------------
-    private void connect() throws Exception {
-        for (int port = 1; port < 5; ++port) {
-            String sComPort = "COM" + port;
-            System.out.print("Trying to connect on " + sComPort + "...");
-            try {
-                CommPortIdentifier commPortId = CommPortIdentifier.getPortIdentifier(sComPort);
-                CommPort cp = commPortId.open(this.getClass().getName(), 2000);
-                System.out.println(" Success");
-                if (cp instanceof SerialPort) {
-                    SerialPort com = (SerialPort)cp;
-                    com.setSerialPortParams(9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
-                    serPort = com;
-                    mSerialOut = com.getOutputStream();
-                    mSerialIn = com.getInputStream();
-                }
-                return;
-            } catch (NoSuchPortException e) {
-                System.out.println(" Failed");
-            }
-        }
+    public void connect() {
+    	try {
+	        for (int port = 1; port < 5; ++port) {
+	            String sComPort = "COM" + port;
+	            try {
+	                CommPortIdentifier commPortId = CommPortIdentifier.getPortIdentifier(sComPort);
+	                System.out.print("Trying to connect on " + sComPort + "...");
+	                CommPort cp = commPortId.open(this.getClass().getName(), 2000);
+	                System.out.println(" Success");
+	                if (cp instanceof SerialPort) {
+	                    SerialPort com = (SerialPort)cp;
+	                    com.setSerialPortParams(9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
+	                    serPort = com;
+	                }
+	                return;
+	            } catch (NoSuchPortException e) {
+	                System.out.println(" Failed");
+	            }
+	        }
+    	} catch(Exception e) {
+    		System.out.println("Connect() exception: " + e);
+    	}
     }
-
-    //----------------------------------------------------------------------------------------------------------
-    // METHOD: txPacketHdr()
-    //
-    // DESCRIPTION:
-    // Transmits the packet header.
-    //----------------------------------------------------------------------------------------------------------
-    private void txPacketHdr(byte pPacketId) throws Exception {
-        mSerialOut.write(pPacketId);
+    
+    public void disconnect() {
+    	try {
+    		if(serPort != null) {
+    			serPort.close();
+    			serPort = null;
+    		}
+    	} catch(Exception e) {
+    		System.out.println("Connect() exception: " + e);
+    	}
     }
 }

@@ -11,13 +11,13 @@
 
 #include "support_common.h"
 
+#include "dtim.h"
+
 // Imported globals
 extern uint32 __VECTOR_RAM[];
 
-// Globals
-extern uint8_t g_got_data;
-
 void uart1_init();
+void uart1_download();
 __declspec(interrupt) void uart1_isr();
 void uart1_write(uint8_t data);
 
