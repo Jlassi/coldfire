@@ -12,7 +12,7 @@
 void
 pll_init(void)
 {
-	MCF_CLOCK_CCHR =0x05; // The PLL pre divider - 48MHz / 6 = 8MHz 
+	MCF_CLOCK_CCHR = 0x05; // The PLL pre divider - 48MHz / 6 = 8MHz 
     /* The PLL pre-divider affects this!!! 
              * Multiply 48Mhz reference crystal /CCHR by 10 to achieve system clock of 80Mhz
              */

@@ -1,7 +1,7 @@
 /*
  * main.c
  *
- * Project 7
+ * Project 6
  * Ramsey Kant (rkant@asu.edu), Michael Steptoe (msteptoe@asu.edu)
  * CSE325 Embedded Microprocessor Systems Spring 2013
  */
@@ -9,11 +9,10 @@
 
 #include "support_common.h" /* include peripheral declarations and more */
 
-/*#include "led.h"
+#include "led.h"
 #include "gpt.h"
 #include "nunchuk.h"
-#include "pacman.h"*/
-#include "uart.h"
+#include "pacman.h"
 
 #if (CONSOLE_IO_SUPPORT || ENABLE_UART_SUPPORT)
 /* Standard IO is only possible if Console or UART support is enabled. */
@@ -23,8 +22,8 @@
 
 /*
  * Interrupt Priorities
- * PIT0 2/7
- * PIT1 4/7
+ * PIT0 4/7
+ * PIT1 2/7
  * GPT 6/6
  * UART 6/7
  */
@@ -57,36 +56,19 @@ asm __declspec(register_abi) void asm_set_ipl(int)
     rts
 }
 
-void print_bits(uint8_t num) {
-	int i = 0, m = 0;
-
-	for (i = 7; i >= 0; i--) {
-		m = num >> i;
- 
-		if (m & 1)
-			printf("1");
-		else
-			printf("0");
-	}
-	printf("\n");
-}
-
 __declspec(noreturn) int main(void)
 {
 	// Init
-	/*asm_set_ipl(0); // Don't mask any levels
+	asm_set_ipl(0); // Don't mask any levels
+	uart1_init();
 	gpt_port_ta_init(); // button init
 	pacman_init();
 	nunchuk_init();
-	led_init();*/
+	led_init();
 	
 	// Start the game
-	//pacman_start();
-	
-	asm_set_ipl(0);
-	uart1_init();
+	pacman_start();
 	
 	while(1) {
-		uart1_download();
 	}
 }

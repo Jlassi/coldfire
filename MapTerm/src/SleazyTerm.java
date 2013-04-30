@@ -53,7 +53,9 @@ public class SleazyTerm {
     //----------------------------------------------------------------------------------------------------------
     // The packet identifier for a Download Map Packet.
     //----------------------------------------------------------------------------------------------------------
-    private static final byte PACKET_ID_DWNLD = (byte)0x05;
+    private static final byte PACKET_ID_DL = (byte)0xFF;
+    private static final byte PACKET_ID_GET = (byte)0xFD;
+    private static final byte PACKET_ID_ACK = (byte)0xFE;
 
     //----------------------------------------------------------------------------------------------------------
     // CTOR: SleazyTerm()
@@ -81,92 +83,46 @@ public class SleazyTerm {
     	int ack_count = 0;
     	
         try {
-        	/*// Send packet header
-        	serPort.getOutputStream().write(0x0C);
+        	// Send packet header
+        	serPort.getOutputStream().write(PACKET_ID_DL);
         	lensent += 1;
         	
-        	while(!did_ack()) {
-        		Thread.sleep(100);
-        		ack_count++;
-        		
-        		if(ack_count >= 100)
-        			return false;
-        	}*/
+        	// Wait for a GET. If it hasn't been received then the board probably isn't active on the other end
+        	Thread.sleep(100);
+        	byte[] get = read();
+            if(get != null && get.length == 1 && get[0] == PACKET_ID_GET) {
+            	System.out.println("Map GET received\n");
+            } else {
+            	System.out.println("Map GET not received\n");
+            	return false;
+            }
 
         	// Send map byte by byte
-        	byte mbyte = 0x00;
         	for(int y = 0; y < 8; y++) {
         		for(int x = 0; x < 8; x++) {
-        			// Convert map byte to mangled byte
-        			/*
-        			 * 240 = 0x00 empty
-        			 * 255 = 0xFF wall
-					 * 244 = 0x60 ghost
-					 * 248-252 = 0x85 player
-        			 */
-        			switch(map[y][x]) {
-        			case MapTerm.MAP_EMPTY:
-        				mbyte = (byte)0x00;
-        				break;
-        			case MapTerm.MAP_WALL:
-        				mbyte = (byte)0xFF;
-        				break;
-        			case MapTerm.MAP_GHOST:
-        				mbyte = (byte)0x60;
-        				break;
-        			case MapTerm.MAP_PLAYER:
-        				mbyte = (byte)0x85;
-        				break;
-        			default:
-        				mbyte = (byte)0x00;
-        				break;
-        			}
-        			
-        			serPort.getOutputStream().write((byte)mbyte);
-        			
-        			ack_count = 0;
-        			while(!did_ack()) {
-        				Thread.sleep(100);
-        				ack_count++;
-
-        				if(ack_count >= 100) {
-        					System.out.println("Incomplete send of " + (lensent) + " bytes. Try again.\n");
-        					return false;
-        				}
-        			}
+        			Thread.sleep(100);
+        			serPort.getOutputStream().write((byte)map[y][x]);
         			
         			lensent++;
-        			
-        			System.out.print(map[y][x]);
-        			if(x == 7)
-        				System.out.print("\n");
         		}
         	}
-            System.out.println("Sent " + (lensent) + " bytes.\n");
+            System.out.println("Wrote " + (lensent) + " bytes.\n");
+            
+            // Check for the map recv'd acknowledge
+            Thread.sleep(100);
+            byte[] ack = read();
+            if(ack != null && ack.length == 1 && ack[0] == PACKET_ID_ACK) {
+            	System.out.println("Map acknowledge received\n");
+            } else {
+            	System.out.println("Map acknowledge not received\n");
+            	return false;
+            }
         } catch (Exception e) {
             System.out.println("Transfer failed. " + e);
             return false;
         }
         
         return true;
-    }
-    
-    public boolean did_ack() {
-    	try {
-    		//Thread.sleep(10);
-    		byte[] ack = read();
-    		if(ack != null && ack.length == 1) {
-    			System.out.println("Ack recv'd");
-    		} else {
-    			System.out.println("Ack not recieved");
-    			return false;
-    		}
-    	} catch(Exception e) {
-    		System.out.println(e);
-    		return false;
-    	}
-    	
-    	return true;
     }
     
     public byte[] read() {
@@ -181,7 +137,7 @@ public class SleazyTerm {
     			retBuf = new byte[len];
     			for(int i = 0; i < len; i++) {
     				retBuf[i] = inBuf[i];
-    				System.out.println("Read: " + Integer.toHexString(retBuf[i]) + ", " + Integer.toBinaryString(retBuf[i]));
+    				//System.out.println("Read: " + Integer.toHexString(retBuf[i]) + ", " + Integer.toBinaryString(retBuf[i]));
     			}
     		}
     		
@@ -208,6 +164,7 @@ public class SleazyTerm {
     // Opens a connection on serial port COM1 at 9600 baud 8N1.
     //----------------------------------------------------------------------------------------------------------
     public void connect() {
+    	serPort = null;
     	try {
 	        for (int port = 1; port < 5; ++port) {
 	            String sComPort = "COM" + port;
@@ -218,7 +175,7 @@ public class SleazyTerm {
 	                System.out.println(" Success");
 	                if (cp instanceof SerialPort) {
 	                    SerialPort com = (SerialPort)cp;
-	                    com.setSerialPortParams(9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
+	                    com.setSerialPortParams(9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_EVEN);
 	                    serPort = com;
 	                }
 	                return;

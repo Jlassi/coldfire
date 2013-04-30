@@ -21,7 +21,7 @@ public class MapTerm extends JFrame {
 	public static final byte MAP_WALL = 0x01;
 	public static final byte MAP_PLAYER = 0x02;
 	public static final byte MAP_GHOST = 0x03;
-	
+
 	// Default map
 	private static final byte[][] DEFAULT_MAP = new byte[][]{
 		{ MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL },
@@ -33,7 +33,7 @@ public class MapTerm extends JFrame {
 		{ MAP_WALL, MAP_GHOST, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_EMPTY, MAP_WALL },
 		{ MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL, MAP_WALL }
 	};
-	
+
 	private SleazyTerm term;
 
 	private JPanel contentPane;
@@ -67,17 +67,17 @@ public class MapTerm extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JPanel mapInputPane = new JPanel();
 		mapInputPane.setBounds(5, 22, 488, 188);
 		contentPane.add(mapInputPane);
 		mapInputPane.setLayout(new GridLayout(8, 8, 5, 5));
-		
+
 		JPanel controlPanel = new JPanel();
 		controlPanel.setBounds(5, 221, 488, 61);
 		contentPane.add(controlPanel);
 		controlPanel.setLayout(null);
-		
+
 		JButton btnLoad = new JButton("Load");
 		btnLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -90,7 +90,7 @@ public class MapTerm extends JFrame {
 		});
 		btnLoad.setBounds(10, 11, 89, 23);
 		controlPanel.add(btnLoad);
-		
+
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -103,7 +103,7 @@ public class MapTerm extends JFrame {
 		});
 		btnSave.setBounds(109, 11, 89, 23);
 		controlPanel.add(btnSave);
-		
+
 		/*JButton btnReadRs = new JButton("read rs232");
 		btnReadRs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -114,12 +114,12 @@ public class MapTerm extends JFrame {
 		});
 		btnReadRs.setBounds(209, 11, 89, 23);
 		controlPanel.add(btnReadRs);*/
-		
+
 		lblStatus = new JLabel("Ready");
 		lblStatus.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblStatus.setBounds(10, 40, 468, 14);
 		controlPanel.add(lblStatus);
-		
+
 		JButton btnSend = new JButton("Send (RS232)");
 		btnSend.addActionListener(new ActionListener() {
 			/*
@@ -128,33 +128,41 @@ public class MapTerm extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if(!checkGrid())
 					return;
+
+				lblStatus.setText("Sending. Please wait...");
 				
-				byte[][] map = new byte[8][8];
-				for(int y = 0; y < 8; y++) {
-					for(int x = 0; x < 8; x++) {
-						map[y][x] = textToTile(x, y);
+				// Execute the send on a different thread
+				EventQueue.invokeLater(new Runnable() { 
+					@Override
+					public void run() {
+						byte[][] map = new byte[8][8];
+						for(int y = 0; y < 8; y++) {
+							for(int x = 0; x < 8; x++) {
+								map[y][x] = textToTile(x, y);
+							}
+						}
+
+						term.connect();
+
+						if(term.send(map))
+							lblStatus.setText("Send over RS232 succeeded");
+						else
+							lblStatus.setText("Send over RS232 failed");
+
+						term.disconnect();
 					}
-				}
-				
-				term.connect();
-				
-				if(term.send(map))
-					lblStatus.setText("Send over RS232 succeeded");
-				else
-					lblStatus.setText("Send over RS232 failed");
-				
-				term.disconnect();
+				});
 			}
 		});
 		btnSend.setBounds(356, 11, 122, 23);
 		controlPanel.add(btnSend);
-		
+
 		JLabel lblKey = new JLabel("W = Wall, P = Pacman, G = Ghost, (Blank) = Free Space");
 		lblKey.setBounds(5, 7, 334, 14);
 		contentPane.add(lblKey);
-		
+
 		term = new SleazyTerm();
-		
+
 		tfs = new JTextField[8][8];
 		for(int y = 0; y < 8; y++) {
 			for(int x = 0; x < 8; x++) {
@@ -163,10 +171,10 @@ public class MapTerm extends JFrame {
 				tfs[y][x].setColumns(1);
 			}
 		}
-		
+
 		loadDefaultMap();
 	}
-	
+
 	/*
 	 * Loop through the text field grid and ensure that there are only valid characters on the map
 	 * and that there is only one ghost and one pacman spawn point
@@ -180,7 +188,7 @@ public class MapTerm extends JFrame {
 		for(int y = 0; y < 8; y++) {
 			for(int x = 0; x < 8; x++) {
 				str = tfs[y][x].getText().toUpperCase();
-				
+
 				if(str.equals("W")) {
 				} else if(str.equals("G")) {
 					ghostCount++;
@@ -193,15 +201,15 @@ public class MapTerm extends JFrame {
 				}
 			}
 		}
-		
+
 		if(playerCount != 1 || ghostCount != 1) {
 			lblStatus.setText("Error: There must be exactly 1 ghost and 1 player spawn point");
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 	/*
 	 * Converts a text field on the grid to a byte representation understood by the board's pacman program
 	 */
@@ -209,7 +217,7 @@ public class MapTerm extends JFrame {
 		String str = tfs[y][x].getText();
 		byte ret = MAP_EMPTY;
 		str = str.toUpperCase();
-		
+
 		if(str.equals("W")) {
 			ret = MAP_WALL;
 		} else if(str.equals("G")) {
@@ -219,10 +227,10 @@ public class MapTerm extends JFrame {
 		} else {
 			ret = MAP_EMPTY;
 		}
-		
+
 		return ret;
 	}
-	
+
 	/*
 	 * Converts a tile byte to a text field string 
 	 */
@@ -237,7 +245,7 @@ public class MapTerm extends JFrame {
 			return "";
 		}
 	}
-	
+
 	/*
 	 * Reads a file containing 64 bytes of map data and displays it into the text field grid
 	 */
@@ -257,17 +265,17 @@ public class MapTerm extends JFrame {
 			System.out.println(ex);
 			return;
 		}
-		
+
 		lblStatus.setText("Loaded file " + name + " successfully");
 	}
-	
+
 	/*
 	 * Converts the text field grid and saves it as a 64 byte file representing the map
 	 */
 	private void saveFile(String name) {
 		if(!checkGrid())
 			return;
-		
+
 		try {
 			OutputStream out = new BufferedOutputStream(new FileOutputStream(name));
 			for(int y = 0; y < 8; y++) {
@@ -281,10 +289,10 @@ public class MapTerm extends JFrame {
 			System.out.println(ex);
 			return;
 		}
-		
+
 		lblStatus.setText("Saved file " + name + " successfully");
 	}
-	
+
 	/*
 	 * Sets the default map in the text field grid
 	 */
@@ -294,7 +302,7 @@ public class MapTerm extends JFrame {
 				tfs[y][x].setText(tileToText(DEFAULT_MAP[y][x]));
 			}
 		}
-		
+
 		lblStatus.setText("Loaded default map");
 		//contentPane.repaint();
 	}
