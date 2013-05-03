@@ -145,9 +145,9 @@ public class MapTerm extends JFrame {
 						term.connect();
 
 						if(term.send(map))
-							lblStatus.setText("Send over RS232 succeeded");
+							lblStatus.setText("Send succeeded. Press PB1 on the board to play!");
 						else
-							lblStatus.setText("Send over RS232 failed");
+							lblStatus.setText("Send failed. Ensure the board is connected and in PAUSE mode (PB1)");
 
 						term.disconnect();
 					}

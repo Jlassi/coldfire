@@ -1,19 +1,14 @@
 /*
  * gpt.c
  * 
- * Project 6
+ * Project 7
  * Ramsey Kant (rkant@asu.edu), Michael Steptoe (msteptoe@asu.edu)
  * CSE325 Embedded Microprocessor Systems Spring 2013
  */
 
 #include "gpt.h"
 
-// Globals
-uint32_t g_program_mode;
-
-void gpt_port_ta_init() {
-	g_program_mode = MODE_PAUSE;
-	
+void gpt_port_ta_init() {	
 	// Program Port TA Pin Assignment Register (PTCPAR) so pin 0 is configured for the GPT function.
 	MCF_GPIO_PTAPAR = MCF_GPIO_PTAPAR_PTAPAR0(MCF_GPIO_PTAPAR_ICOC0_ICOC0);
 	
@@ -48,16 +43,7 @@ __declspec(interrupt) void gpt_isr(){
 	//MCF_INTC0_IMRH &= ~(0x01 << 12);
 	
 	// Switch modes
-	switch(g_program_mode) {
-	case MODE_PAUSE:
-		g_program_mode = MODE_PLAY;
-		break;
-	case MODE_PLAY:
-		g_program_mode = MODE_PAUSE;
-		break;
-	default:
-		break;
-	}
+	switch_prog_mode();
 	
 	// Unmask interrupt
 	//MCF_INTC0_IMRH &= ~(0x01 << 12);

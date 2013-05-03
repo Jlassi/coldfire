@@ -12,6 +12,7 @@
 #include "support_common.h"
 
 #include "dtim.h"
+#include "pacman.h"
 
 // Packet IDs
 #define PACKET_ID_DL 0xFF
@@ -27,6 +28,8 @@ extern uint32_t map_dl_pos_y;
 extern uint8_t **dl_map;
 
 void uart1_init();
+void uart1_enable();
+void uart1_disable();
 __declspec(interrupt) void uart1_isr();
 void uart1_write(uint8_t data);
 

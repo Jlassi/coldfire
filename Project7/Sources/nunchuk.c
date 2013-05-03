@@ -1,7 +1,7 @@
 /*
  * nunchuk.c
  *
- * Project 6
+ * Project 7
  * Ramsey Kant (rkant@asu.edu), Michael Steptoe (msteptoe@asu.edu)
  * CSE325 Embedded Microprocessor Systems Spring 2013
  */
@@ -33,6 +33,11 @@ void nunchuk_set_input_callback(void (*cback)(uint8_t)) {
  * Called every 250ms by PIT1's ISR. Reads input from the controller over I2C and sends to the appropriate handler
  */
 void nunchuk_read() {
+	// Don't do anything if the callback hasnt been set yet
+	if(g_callback_input == NULL) {
+		return;
+	}
+	
 	// Transmit initialization commands for unencrypted mode
 	nunchuk_xmit_cmd(0xF0, 0x55);
 	nunchuk_xmit_cmd(0xFB, 0x00);
@@ -44,9 +49,6 @@ void nunchuk_read() {
 	i2c_rx(NUNCHUK_I2C_ADDR, 6, state, NUNCHUK_I2C_DELAY_US);
 	
 	// Send the individual inputs to the callback function
-	if(g_callback_input == NULL) {
-		return;
-	}
 	
 	// Left / Right joystick movement
 	if(state[0] < 30) {

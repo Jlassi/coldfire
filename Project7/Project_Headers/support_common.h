@@ -35,6 +35,13 @@
 #include <stdlib.h>
 #include <stdint.h>
 
+#define MODE_PAUSE 0
+#define MODE_PLAY 1
+
+// Globals
+extern uint32_t g_program_mode;
+
 asm __declspec(register_abi) void asm_set_ipl(int);
+void switch_prog_mode();
 
 #endif /* _SUPPORT_COMMON_H_ */

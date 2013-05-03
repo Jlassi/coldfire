@@ -1,7 +1,7 @@
 /*
  * main.c
  *
- * Project 6
+ * Project 7
  * Ramsey Kant (rkant@asu.edu), Michael Steptoe (msteptoe@asu.edu)
  * CSE325 Embedded Microprocessor Systems Spring 2013
  */
@@ -13,6 +13,7 @@
 #include "gpt.h"
 #include "nunchuk.h"
 #include "pacman.h"
+#include "uart.h"
 
 #if (CONSOLE_IO_SUPPORT || ENABLE_UART_SUPPORT)
 /* Standard IO is only possible if Console or UART support is enabled. */
@@ -24,11 +25,15 @@
  * Interrupt Priorities
  * PIT0 4/7
  * PIT1 2/7
+ * UART 5/7
  * GPT 6/6
- * UART 6/7
  */
 
+// Imported globals
 extern uint32 __VECTOR_RAM[];
+
+// Globals
+uint32_t g_program_mode;
 
 asm __declspec(register_abi) void asm_set_ipl(int)
 {
@@ -56,6 +61,27 @@ asm __declspec(register_abi) void asm_set_ipl(int)
     rts
 }
 
+// Changes the program mode and all associated state variables across the program
+void switch_prog_mode() {
+	if(g_program_mode == MODE_PAUSE) { // Change to game mode
+		// Disable uart
+		uart1_disable();
+		
+		// Start the game
+		pacman_start();
+		
+		g_program_mode = MODE_PLAY;
+	} else { // Change to download / pause mode
+		// Stop the game
+		pacman_stop();
+		
+		// Enable uart
+		uart1_enable();
+		
+		g_program_mode = MODE_PAUSE;
+	}
+}
+
 __declspec(noreturn) int main(void)
 {
 	// Init
@@ -65,9 +91,7 @@ __declspec(noreturn) int main(void)
 	pacman_init();
 	nunchuk_init();
 	led_init();
-	
-	// Start the game
-	pacman_start();
+	g_program_mode = MODE_PAUSE;
 	
 	while(1) {
 	}

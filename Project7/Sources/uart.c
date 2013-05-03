@@ -42,7 +42,7 @@ void uart1_init() {
 	__VECTOR_RAM[64+14] = (uint32)uart1_isr;
 	
 	// Interrupt Controller: UART1 interrupts as level 6 priority 7 (Source 14)
-	MCF_INTC0_ICR14 |= MCF_INTC_ICR_IL(7);
+	MCF_INTC0_ICR14 |= MCF_INTC_ICR_IL(5);
 	MCF_INTC0_ICR14 |= MCF_INTC_ICR_IP(7);
 	
 	// Clear interrupt source 14 (UART1)
@@ -100,12 +100,6 @@ void uart1_init() {
 	// Set stop bit length control to 0111 for 1 stop bit
 	MCF_UART1_UMR2 |= MCF_UART_UMR_SB_STOP_BITS_1;
 	
-	// Enable recvr by writing 01 to UCR[RC]
-	MCF_UART1_UCR = MCF_UART_UCR_RX_ENABLED;
-	
-	// Enable xmittr by writing 01 to UCR[TC]
-	MCF_UART1_UCR = MCF_UART_UCR_TX_ENABLED;
-	
 	// Map download variables
 	dl_map = (uint8_t**)malloc(8*sizeof(uint8_t*));
 	for(int i = 0; i < 8; i++) {
@@ -113,6 +107,22 @@ void uart1_init() {
 	}
 	map_dl_pos_x = 0;
 	map_dl_pos_y = 0;
+}
+
+void uart1_enable() {
+	// Enable recvr by writing 01 to UCR[RC]
+	MCF_UART1_UCR = MCF_UART_UCR_RX_ENABLED;
+	
+	// Enable xmittr by writing 01 to UCR[TC]
+	MCF_UART1_UCR = MCF_UART_UCR_TX_ENABLED;
+}
+
+void uart1_disable() {
+	// Disable receiver
+	MCF_UART1_UCR = MCF_UART_UCR_RX_DISABLED;
+	
+	// Disable transmitter
+	MCF_UART1_UCR = MCF_UART_UCR_TX_DISABLED;
 }
 
 // Triggered whenever a character is recv'd
@@ -133,9 +143,11 @@ __declspec(interrupt) void uart1_isr() {
 			
 			dl_map[map_dl_pos_y][map_dl_pos_x] = rc;
 			
-			// If we've written the last byte of the map, send an acknowledge
-			if(map_dl_pos_y == 7 && map_dl_pos_x == 7)
+			// If we've written the last byte of the map, send an acknowledge and copy the man into init_map
+			if(map_dl_pos_y == 7 && map_dl_pos_x == 7) {
 				uart1_write(PACKET_ID_ACK);
+				pacman_set_init_map(dl_map);
+			}
 			
 			// Next column
 			map_dl_pos_x++;

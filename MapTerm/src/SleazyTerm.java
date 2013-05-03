@@ -1,15 +1,16 @@
 //**************************************************************************************************************
 // CLASS: SleazyTerm
 //
-// VERSION: Fri 23 Nov 2012 1540
+// VERSION: May 03 2013
 //
 // DESCRIPTION:
-// Implements a very sleazy RS-232 terminal which provides only one function: download a file from the host PC
-// to the TWR-MCF5225X microcontroller board.
+// A modification of Dr. Burger's original SleazyTerm. Communicates with Ramsey & Michael's Project 7 Pacman game
+// to send map data over RS232. Includes reading & writing functionality over RS232
 //
 // AUTHOR:
 // Kevin R. Burger (burgerk@asu.edu)
 // http://kevin.floorsoup.com
+// Ramsey Kant (rkant@asu.edu), Michael Steptoe (msteptoe@asu.edu)
 //
 // REMARKS:
 // Uses the RxTx serial I/O library. See http://rxtx.qbang.org.
@@ -51,7 +52,7 @@ public class SleazyTerm {
 	private SerialPort serPort;
 
     //----------------------------------------------------------------------------------------------------------
-    // The packet identifier for a Download Map Packet.
+    // Packet identifiers
     //----------------------------------------------------------------------------------------------------------
     private static final byte PACKET_ID_DL = (byte)0xFF;
     private static final byte PACKET_ID_GET = (byte)0xFD;
@@ -125,6 +126,9 @@ public class SleazyTerm {
         return true;
     }
     
+    /*
+     * Reads a byte array from the board over RS232
+     */
     public byte[] read() {
     	byte[] inBuf = new byte[16];
     	byte[] retBuf = null;
@@ -188,6 +192,9 @@ public class SleazyTerm {
     	}
     }
     
+    /*
+     * Disconnects the serial port
+     */
     public void disconnect() {
     	try {
     		if(serPort != null) {

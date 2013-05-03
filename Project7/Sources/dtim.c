@@ -1,7 +1,7 @@
 /*
  * dtim.c
  * 
- * Project 6
+ * Project 7
  * Ramsey Kant (rkant@asu.edu), Michael Steptoe (msteptoe@asu.edu)
  * CSE325 Embedded Microprocessor Systems Spring 2013
  */
