@@ -41,7 +41,7 @@ void uart1_init() {
 	// Write UART1 ISR address into the exception vector table (at position 64+14)
 	__VECTOR_RAM[64+14] = (uint32)uart1_isr;
 	
-	// Interrupt Controller: UART1 interrupts as level 6 priority 7 (Source 14)
+	// Interrupt Controller: UART1 interrupts as level 5 priority 7 (Source 14)
 	MCF_INTC0_ICR14 |= MCF_INTC_ICR_IL(5);
 	MCF_INTC0_ICR14 |= MCF_INTC_ICR_IP(7);
 	

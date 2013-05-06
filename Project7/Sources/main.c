@@ -91,7 +91,9 @@ __declspec(noreturn) int main(void)
 	pacman_init();
 	nunchuk_init();
 	led_init();
+	
 	g_program_mode = MODE_PAUSE;
+	uart1_enable();
 	
 	while(1) {
 	}
